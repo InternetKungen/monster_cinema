@@ -8,7 +8,6 @@ const Home: React.FC = () => {
   return (
     <div>
 				<section>
-					<h2>På bio idag</h2>
 					<CurrentShowsSection />
 				</section>
 				<section>

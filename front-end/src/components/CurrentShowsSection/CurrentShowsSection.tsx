@@ -6,9 +6,9 @@ interface Movie {
   _id: string;
   title: string;
   genre: string[];
-  year: number;
+//   year: number;
   poster: string;
-  ageRestriction: number;
+//   ageRestriction: number;
 }
 
 interface Hall {
@@ -28,11 +28,11 @@ const CurrentShowsSection: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
-  // Set today as a reference for date navigation
+  // Ställ in idag som referens för datumnavigation
   const today = new Date();
   today.setHours(0, 0, 0, 0); // Set to midnight
 
-  // Fetch showtimes when `selectedDate` changes
+  // Fetch showtimes när `selectedDate` ändras
   useEffect(() => {
     const fetchShowtimes = async () => {
       setLoading(true);
@@ -56,12 +56,12 @@ const CurrentShowsSection: React.FC = () => {
     fetchShowtimes();
   }, [selectedDate]);
 
-  // Filter unique movies by ID
+  // Filtrera unika filmer på ID
   const uniqueMovies = Array.from(
     new Map(showtimes.map(showtime => [showtime.movie._id, showtime.movie])).values()
   );
 
-  // Handlers for day navigation
+  // Hanterar dagsnavigationen
   const handlePreviousDay = () => {
     setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate() - 1)));
   };
@@ -70,18 +70,18 @@ const CurrentShowsSection: React.FC = () => {
     setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate() + 1)));
   };
 
-  // Check if today or a week from today
+  // Kollar om idag eller en vecka från idag
   const isToday = selectedDate.toDateString() === today.toDateString();
   const isEndOfWeek = selectedDate.toDateString() === new Date(today.setDate(today.getDate() + 7)).toDateString();
 
-  // Get label for the selected day
+  // Hämtar label för utvald dag
   const getDayLabel = (date: Date) => {
-    const dayDiff = (date.getDay() - today.getDay()); // Difference in days
+    const dayDiff = (date.getDay() - today.getDay()); // Skillnad i dagar
 
-    if (dayDiff === 0) return 'Idag'; // Today
-    if (dayDiff === 1) return 'Imorgon'; // Tomorrow
+    if (dayDiff === 0) return 'idag';
+    if (dayDiff === 1) return 'imorgon';
 
-    return date.toLocaleDateString('sv-SE', { weekday: 'long' }); // Other days in Swedish
+    return date.toLocaleDateString('sv-SE', { weekday: 'long' }); // Veckodagar
   };
 
   if (loading) return <div className="loading">Laddar filmer....</div>;
@@ -90,18 +90,18 @@ const CurrentShowsSection: React.FC = () => {
   return (
     <section>
       <section className="current-shows-section">
-        <h2>På bio {getDayLabel(selectedDate)}</h2>
-
-        {/* Day navigation buttons */}
-        <section className="navigation-buttons">
-          <button onClick={handlePreviousDay} disabled={isToday}>
-            Föregående dag
-          </button>
-          <button onClick={handleNextDay} disabled={isEndOfWeek}>
-            Nästa dag
-          </button>
-        </section>
-
+		<section className='titlebar-container'>
+        {/* Dagsnavigationsknappar */}
+		<section className="navigation-buttons">
+  		<button className="arrow-button previous" onClick={handlePreviousDay} disabled={isToday}>
+    		&#8592; {/* Vänster pil*/}
+  			</button>
+  		<h2>På bio {getDayLabel(selectedDate)}</h2>
+  			<button className="arrow-button next" onClick={handleNextDay} disabled={isEndOfWeek}>
+    		&#8594; {/* Höger pil */}
+  			</button>
+		</section>
+		</section>
         <section className="movie-grid">
           {uniqueMovies.length > 0 ? (
             uniqueMovies.map((movie) => (
@@ -109,10 +109,10 @@ const CurrentShowsSection: React.FC = () => {
                 key={movie._id}
                 _id={movie._id}
                 title={movie.title}
-                year={movie.year}
+                // year={movie.year}
                 poster={movie.poster}
                 genre={movie.genre}
-                ageRestriction={movie.ageRestriction}
+                // ageRestriction={movie.ageRestriction}
               />
             ))
           ) : (
