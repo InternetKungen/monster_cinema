@@ -48,7 +48,7 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({ date, movieId }) => {
         const endpoint = movieId
           ? `/api/showtime?movieId=${movieId}&startDate=${formatDate(startDate)}&endDate=${formatDate(endDate)}`
           : `/api/showtime/date-range?startDate=${formatDate(startDate)}&endDate=${formatDate(endDate)}`;
-        
+
         const response = await fetch(endpoint);
         const data = await response.json();
         setShowtimes(data);

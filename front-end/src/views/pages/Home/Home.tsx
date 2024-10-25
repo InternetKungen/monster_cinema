@@ -7,8 +7,6 @@ import ScheduleSection from '../../../components/ScheduleSection/ScheduleSection
 const Home: React.FC = () => {
   return (
     <div>
-        <h1>Welcome to the Cinema Website - Home</h1>
-        <p>This is the home page</p>
 				<section>
 					<h2>På bio idag</h2>
 					<CurrentShowsSection />

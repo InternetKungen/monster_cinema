@@ -1,25 +1,90 @@
 .current-shows-section {
 	padding: 20px;
-	background-color: #f9f9f9;
-	text-align: center;
+	background-color: white;
+	border-radius: 8px;
+	max-width: 100%;
 
 	h2 {
-		font-size: 24px;
+		text-align: center;
+		font-size: 1.8rem;
 		margin-bottom: 20px;
 		color: #333;
 	}
 
+	// Style for navigation buttons container
+	.navigation-buttons {
+		display: flex;
+		justify-content: center;
+		gap: 15px;
+		margin-bottom: 20px;
+
+		button {
+			padding: 10px 20px;
+			font-size: 1rem;
+			background-color: #007bff;
+			color: #fff;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+
+			&:hover {
+				background-color: #0056b3;
+			}
+
+			&:disabled {
+				background-color: #c0c0c0;
+				cursor: not-allowed;
+			}
+		}
+	}
+
+	// Grid for displaying movies
 	.movie-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-		gap: 20px;
+		gap: 15px;
+		padding: 10px;
+
+		.movie-button {
+			background: #fff;
+			padding: 15px;
+			border-radius: 8px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+			&:hover {
+				transform: translateY(-5px);
+				box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+			}
+
+			img {
+				width: 100%;
+				height: auto;
+				border-radius: 5px;
+				margin-bottom: 10px;
+			}
+
+			h2 {
+				font-size: 1.2rem;
+				color: #333;
+				margin-bottom: 5px;
+			}
+
+			p {
+				font-size: 0.9rem;
+				color: #666;
+			}
+		}
 	}
 
+	// Loading, error, and no-movie messages
 	.loading,
 	.error,
 	.no-movies {
-		font-size: 18px;
+		text-align: center;
+		font-size: 1.2rem;
 		color: #666;
-		margin: 20px 0;
+		margin-top: 20px;
 	}
 }
