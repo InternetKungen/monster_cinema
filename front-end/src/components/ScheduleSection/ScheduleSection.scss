@@ -103,8 +103,16 @@
           background: $bg-color-showtime-odd;
         }
         
+        &:nth-child(odd):hover {
+          background: $bg-color-showtime-hover-odd;
+        }
+
         &:nth-child(even) {
           background: $bg-color-showtime-even;
+        }
+
+        &:nth-child(even):hover {
+          background: $bg-color-showtime-hover-even;
         }
 
         .link-no-decoration {
