@@ -49,7 +49,6 @@ const checkTimeConflict = async (hallId, date, time, duration, excludeShowtimeId
   return conflictingShowtime;
 };
 
-
 export const createShowtime = async (req, res) => {
   try {
     const { movieId, hallId, date, time } = req.body;
@@ -134,20 +133,25 @@ export const getShowtimes = async (req, res) => {
       query.hall = hallId;
     }
 
-    // Filtrera på datumintervall
+    // Förbättrad datumhantering
     if (startDate || endDate) {
       query.date = {};
       if (startDate) {
-        query.date.$gte = new Date(startDate);
+        const start = new Date(startDate);
+        start.setHours(0, 0, 0, 0);
+        query.date.$gte = start;
       }
       if (endDate) {
-        query.date.$lte = new Date(endDate);
+        const end = new Date(endDate);
+        end.setHours(23, 59, 59, 999);
+        query.date.$lte = end;
       }
     }
 
-    // Exkludera utgångna visningar om inte specifikt efterfrågade
-    if (!includeExpired) {
+    // Hantera utgångna visningar
+    if (!includeExpired && !startDate) {
       const now = new Date();
+      now.setHours(0, 0, 0, 0); // Sätt till början av dagen
       if (!query.date) query.date = {};
       query.date.$gte = now;
     }
@@ -157,22 +161,16 @@ export const getShowtimes = async (req, res) => {
       .populate('hall')
       .sort({ date: 1, time: 1 });
 
-    // Om både movieId och datumintervall finns, gruppera efter datum
-    if (movieId && startDate && endDate) {
-      const groupedShowtimes = showtimes.reduce((acc, showtime) => {
-        const dateStr = showtime.date.toISOString().split('T')[0];
-        if (!acc[dateStr]) {
-          acc[dateStr] = [];
-        }
-        acc[dateStr].push(showtime);
-        return acc;
-      }, {});
+    const groupedShowtimes = showtimes.reduce((acc, showtime) => {
+      const dateStr = showtime.date.toISOString().split('T')[0];
+      if (!acc[dateStr]) {
+        acc[dateStr] = [];
+      }
+      acc[dateStr].push(showtime);
+      return acc;
+    }, {});
 
-      return res.status(200).json(groupedShowtimes);
-    }
-
-    // Annars returnera som vanlig array
-    res.status(200).json(showtimes);
+    res.status(200).json(groupedShowtimes);
 
   } catch (error) {
     console.error('Error fetching showtimes:', error);

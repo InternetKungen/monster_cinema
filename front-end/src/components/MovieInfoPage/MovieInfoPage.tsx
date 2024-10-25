@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ScheduleSection from '../ScheduleSection/ScheduleSection';
 import "./MovieInfoPage.css";
 interface Movie {
   _id: string;
@@ -85,6 +86,7 @@ const MovieInfoPage: React.FC<MovieInfoPageProps> = ({ movieId }) => {
       </div>
 
       {/* Lägg till ScheduleSection här */}
+      <ScheduleSection movieId={movieId} date={new Date()} />
     </div>
   );
 };
