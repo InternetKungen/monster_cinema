@@ -8,6 +8,7 @@ interface Movie {
   length: number;
   poster: string;
   genre: string[];
+  ageRestriction: number;
 }
 
 interface Hall {
@@ -139,15 +140,19 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({ date, movieId }) => {
                       <div className="schedule-section-showtime-info">
                         <div className="schedule-section-showtime-info__time">
                           <p>{showtime.time} - <br/>{calculateEndTime(showtime.time, showtime.movie.length)}</p>
-                          </div>
-                      <div className="schedule-section-showtime-info-info__text">
-                        <h5>{showtime.movie.title} ({showtime.movie.year})</h5>
-                          <p> {showtime.movie.length} min</p>
-                          <p> {showtime.movie.genre.join(', ')} </p>
+                        </div>
+                        <div className="schedule-section-showtime-info__text">
+                          <h5>{showtime.movie.title} ({showtime.movie.year})</h5>
+                            <p> {showtime.movie.genre.join(', ')} </p>
+                        </div>
+                        <div className="schedule-section-showtime-info__text__age">
+                            <p>Åldersgräns {showtime.movie.ageRestriction} år</p>
+                        </div>
+                        <div className="schedule-section-showtime-info__image">
+                            <img src={showtime.movie.poster} alt={showtime.movie.title} />
+                        </div>
                       </div>
-                      <img src={showtime.movie.poster} alt={showtime.movie.title} />
-                      </div>
-                      </Link>
+                    </Link>
                   </div>
                 ))}
               </div>

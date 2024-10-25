@@ -27,6 +27,8 @@ $bg-gradient-total-amount: linear-gradient(to bottom, $color-secondary, $color-w
 $bg-gradient-hall-title: linear-gradient(to bottom, $color-secondary, $color-error 80%, $color-secondary);
 $bg-color-showtime-odd: linear-gradient(to right, $color-primary-dark, $color-primary-light);
 $bg-color-showtime-even: linear-gradient(to right, $color-primary-light, $color-primary-dark);
+$bg-color-showtime-hover-odd: linear-gradient(to right, $color-highlight,$color-primary-light);
+$bg-color-showtime-hover-even: linear-gradient(to right, $color-highlight, $color-primary-dark);
 
 // Border Image
 $border-image-poster: linear-gradient(to bottom, $color-primary-dark, $color-primary-light) 1;
