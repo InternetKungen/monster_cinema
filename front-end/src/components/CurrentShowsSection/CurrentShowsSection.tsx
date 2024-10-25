@@ -6,9 +6,9 @@ interface Movie {
   _id: string;
   title: string;
   genre: string[];
-  year: number;
+//   year: number;
   poster: string;
-  ageRestriction: number;
+//   ageRestriction: number;
 }
 
 interface Hall {
@@ -22,26 +22,30 @@ interface Showtime {
   time: string;
 }
 
-//Skapar state för att lagra dagens showtimes, loading-status och errormeddelanden
 const CurrentShowsSection: React.FC = () => {
-  const [todayShowtimes, setTodayShowtimes] = useState<Showtime[]>([]);
+  const [showtimes, setShowtimes] = useState<Showtime[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
+  // Ställ in idag som referens för datumnavigation
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Set to midnight
 
-  //Formaterar på dagens datum i YYYY-MM-DD
-  const today = new Date().toISOString().split('T')[0];
-
-  //Hämtar showtimes, endast för idag
+  // Fetch showtimes när `selectedDate` ändras
   useEffect(() => {
-    const fetchTodayShowtimes = async () => {
+    const fetchShowtimes = async () => {
+      setLoading(true);
+      setError(null);
+
+      const formattedDate = selectedDate.toISOString().split('T')[0];
       try {
-        const response = await fetch(`/api/showtime/date-range?startDate=${today}&endDate=${today}`);
+        const response = await fetch(`/api/showtime/date-range?startDate=${formattedDate}&endDate=${formattedDate}`);
         if (!response.ok) {
-          throw new Error('Failed to fetch today’s showtimes');
+          throw new Error('Failed to fetch showtimes');
         }
         const data = await response.json();
-        setTodayShowtimes(data[today] || []);
+        setShowtimes(data[formattedDate] || []);
       } catch (error: any) {
         setError(error.message);
       } finally {
@@ -49,42 +53,75 @@ const CurrentShowsSection: React.FC = () => {
       }
     };
 
-    fetchTodayShowtimes();
-  }, [today]);
+    fetchShowtimes();
+  }, [selectedDate]);
 
-  // Filtrerar på unikt ID så samma film inte upprepas om den har flera showtimes
+  // Filtrera unika filmer på ID
   const uniqueMovies = Array.from(
-    new Map(todayShowtimes.map(showtime => [showtime.movie._id, showtime.movie])).values()
+    new Map(showtimes.map(showtime => [showtime.movie._id, showtime.movie])).values()
   );
 
-  //Visar 'loading, error, eller idag visar vi inga filmer
-  if (loading) return <div className="loading">Laddar...</div>;
+  // Hanterar dagsnavigationen
+  const handlePreviousDay = () => {
+    setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate() - 1)));
+  };
+
+  const handleNextDay = () => {
+    setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate() + 1)));
+  };
+
+  // Kollar om idag eller en vecka från idag
+  const isToday = selectedDate.toDateString() === today.toDateString();
+  const isEndOfWeek = selectedDate.toDateString() === new Date(today.setDate(today.getDate() + 7)).toDateString();
+
+  // Hämtar label för utvald dag
+  const getDayLabel = (date: Date) => {
+    const dayDiff = (date.getDay() - today.getDay()); // Skillnad i dagar
+
+    if (dayDiff === 0) return 'idag';
+    if (dayDiff === 1) return 'imorgon';
+
+    return date.toLocaleDateString('sv-SE', { weekday: 'long' }); // Veckodagar
+  };
+
+  if (loading) return <div className="loading">Laddar filmer....</div>;
   if (error) return <div className="error">Error: {error}</div>;
-  if (uniqueMovies.length === 0) return <p className="no-movies">Idag visar vi inga filmer</p>;
 
   return (
-    <div>
+    <section>
       <section className="current-shows-section">
-        <h2>Movies Playing Today</h2>
-        <div className="movie-grid">
-			{/* renderar varje unik film som en moviecomponent */}
-
-          {uniqueMovies.map((movie) => (
-            <MovieComponent
-              key={movie._id}
-              _id={movie._id}
-              title={movie.title}
-              year={movie.year}
-              poster={movie.poster}
-              genre={movie.genre}
-              ageRestriction={movie.ageRestriction}
-            />
-          ))}
-        </div>
+		<section className='titlebar-container'>
+        {/* Dagsnavigationsknappar */}
+		<section className="navigation-buttons">
+  		<button className="arrow-button previous" onClick={handlePreviousDay} disabled={isToday}>
+    		&#8592; {/* Vänster pil*/}
+  			</button>
+  		<h2>På bio {getDayLabel(selectedDate)}</h2>
+  			<button className="arrow-button next" onClick={handleNextDay} disabled={isEndOfWeek}>
+    		&#8594; {/* Höger pil */}
+  			</button>
+		</section>
+		</section>
+        <section className="movie-grid">
+          {uniqueMovies.length > 0 ? (
+            uniqueMovies.map((movie) => (
+              <MovieComponent
+                key={movie._id}
+                _id={movie._id}
+                title={movie.title}
+                // year={movie.year}
+                poster={movie.poster}
+                genre={movie.genre}
+                // ageRestriction={movie.ageRestriction}
+              />
+            ))
+          ) : (
+            <p className="no-movies">Idag visar vi inga filmer, prova en annan dag</p>
+          )}
+        </section>
       </section>
-    </div>
+    </section>
   );
 };
 
 export default CurrentShowsSection;
-
