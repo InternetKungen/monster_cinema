@@ -33,12 +33,16 @@ const Header: React.FC = () => {
           </div>
 
           <div className="col d-flex justify-content-end">
-            <Link to="/">
-              <img src={SearchIcon} alt="Search" className="icon" />
-            </Link>
-            <Link to="/">
-              <img src={LoginIcon} alt="Login" className="icon" />
-            </Link>
+            <div className="icon">
+              <Link to="/">
+                <img src={SearchIcon} alt="Search" className="SearchIcon" />
+              </Link>
+            </div>
+            <div className="icon">
+              <Link to="/">
+                <img src={LoginIcon} alt="Login" className="LoginIcon" />
+              </Link>
+            </div>
           </div>
         </div>
       </div>
