@@ -96,7 +96,7 @@ const CurrentShowsSection: React.FC = () => {
   		<button className="arrow-button previous" onClick={handlePreviousDay} disabled={isToday}>
     		&#8592; {/* Vänster pil*/}
   			</button>
-  		<h2>På bio {getDayLabel(selectedDate)}</h2>
+  		<h2 className='titlebar-text'>På bio {getDayLabel(selectedDate)}</h2>
   			<button className="arrow-button next" onClick={handleNextDay} disabled={isEndOfWeek}>
     		&#8594; {/* Höger pil */}
   			</button>
