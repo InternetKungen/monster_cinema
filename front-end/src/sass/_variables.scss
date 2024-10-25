@@ -2,7 +2,7 @@
 $color-primary-dark: #000F26;
 $color-primary-light: #045685;
 $color-secondary: #FCAF00;
-$color-success: #2cdf8c;
+$color-select: #2cdf8c;
 $color-highlight: #028ed9;
 $color-error: #FC3824;
 $color-white: #ffffff;
@@ -22,8 +22,11 @@ $color-modal-bg: linear-gradient(to right, $color-primary-dark, $color-primary-l
 $bg-gradient-info: linear-gradient(to bottom, $color-primary-light, $color-primary-dark 20%);
 $bg-gradient-ticket-counts: linear-gradient(to right, $color-primary-dark, $color-primary-light, $color-primary-dark);
 $bg-gradient-contact-info: linear-gradient(to right, $color-primary-dark, $color-primary-light, $color-primary-dark);
-$bg-gradient-modal: $color-modal-bg;
+$bg-gradient-modal: linear-gradient(to right, $color-primary-dark, $color-primary-light, $color-primary-dark);
 $bg-gradient-total-amount: linear-gradient(to bottom, $color-secondary, $color-white);
+$bg-gradient-hall-title: linear-gradient(to bottom, $color-secondary, $color-error 80%, $color-secondary);
+$bg-color-showtime-odd: linear-gradient(to right, $color-primary-dark, $color-primary-light);
+$bg-color-showtime-even: linear-gradient(to right, $color-primary-light, $color-primary-dark);
 
 // Border Image
 $border-image-poster: linear-gradient(to bottom, $color-primary-dark, $color-primary-light) 1;
