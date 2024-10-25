@@ -1,5 +1,6 @@
 import React from 'react';
 import './Home.css';
+import CurrentShowsSection from '../../../components/CurrentShowsSection/CurrentShowsSection';
 import MovieCollectionSection  from '../../..//components/MovieCollectionSection/MovieCollectionSection';
 import ScheduleSection from '../../../components/ScheduleSection/ScheduleSection';
 
@@ -10,6 +11,7 @@ const Home: React.FC = () => {
         <p>This is the home page</p>
 				<section>
 					<h2>På bio idag</h2>
+					<CurrentShowsSection />
 				</section>
 				<section>
 					<h2>Våra filmer</h2>
