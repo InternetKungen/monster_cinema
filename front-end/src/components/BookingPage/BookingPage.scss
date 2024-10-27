@@ -304,8 +304,19 @@
 
 .total-amount-aside {
 	position: relative;
-	width: 50%;
 	height: fit-content;
+	z-index: 3;
+	@media (max-width: 991.98px) {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		z-index: 1050;
+		background-color: #f8f9fa;
+		/* Valfri bakgrundsfärg */
+		padding: 1rem;
+		text-align: center;
+	}
 }
 
 .total-amount {

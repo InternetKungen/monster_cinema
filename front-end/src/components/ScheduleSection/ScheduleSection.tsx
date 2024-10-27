@@ -121,7 +121,7 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({ date, movieId }) => {
 
 
   return (
-    <section className="schedule-section">
+    <section className="schedule-section col-12">
       <div className="schedule-section-title">
         <h2>{selectedDate ? new Date(selectedDate).toLocaleDateString() : 'Välj ett datum'}</h2>
       </div>
