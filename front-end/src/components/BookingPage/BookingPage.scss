@@ -10,6 +10,9 @@
 .booking-information {
 	margin-bottom: 20px;
 	border-radius: 10px;
+	@media (max-width: 991.98px) {
+		margin-bottom: 260px;
+	}
 }
 
 .booking-information-header {
@@ -40,14 +43,13 @@
 
 		&:nth-child(2) {
 			font-size: 13px;
-			margin-bottom: 10px;
+			margin-bottom: 5px
 		}
 
 		&:nth-child(3) {
 			font-size: 13px;
-			position: absolute;
-			top: 48px;
-			right: 250px;
+			padding: 0;
+			margin: 0;
 		}
 	}
 }
@@ -84,6 +86,24 @@
 		width: 38px;
 		height: 38px;
 		margin-right: 20px;
+	}
+
+	@media (max-width: 576px) {
+		padding-top: 10px;
+		text-overflow: nowrap;
+		img {
+			width: 30px;
+			height: 30px;
+			margin-right: 10px;
+			margin-bottom: 0px;
+			margin-top: 0px;
+			padding: 0px;
+		}
+		p {
+			font-size: 0.9rem;
+			text-overflow: nowrap;
+			margin-bottom: 0px;
+		}
 	}
 }
 
@@ -347,4 +367,8 @@
 		justify-content: flex-end;
 		font-size: 25px;
 	}
+}
+
+footer {
+	display: none;
 }
