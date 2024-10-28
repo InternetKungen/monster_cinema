@@ -4,6 +4,7 @@ import './BookingPage.scss';
 import dateIcon from '../../assets/icons/calendar_today_35dp_FCAF00_FILL0_wght400_GRAD0_opsz40.png';
 import timeIcon from '../../assets/icons/schedule_35dp_FCAF00_FILL0_wght400_GRAD0_opsz40.png';
 import hallIcon from '../../assets/icons/icon-cinema-fatter.png';
+import { Container, Row } from 'react-bootstrap';
 
 interface Seat {
   seat: {
@@ -252,28 +253,29 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
   }
 
   return (
-    <div className="container">
-      <div className="row">
-      <div className="booking-information col-sm-12 col-lg-8">
+    <Container className="g-0 p-0">
+      <Row className="w-100 g-0">
+      <div className="booking-information col-md-12 col-lg-8 g-0">
 
-        {/* Section 1: Showtime Info */}
-        <div className="booking-information-header">
-          <div className="booking-information-header__poster">
+          {/* Section 1: Showtime Info */}
+        <div className="booking-information-header col-12">
+          <div className="booking-information-header__poster col-4">
             <img src={movie?.poster} alt={movie?.title} />
-          </div>
-          <div className="booking-information-header__top">
-          <h1>{movie?.title}</h1>
-            <p>Tal: {movie?.language}, Undertexter: {movie?.subtitles}</p>
-            <p>Genre: {movie?.genre.join(', ')}</p>
-            <p>Speltid: {movie?.length} minuter</p>
-          </div>
-          <div className="booking-information-header__bottom">
-            <p><img src={dateIcon} alt="date" />Datum: {showtime && new Date(showtime.date).toLocaleDateString()}</p>
-            <p><img src={timeIcon} alt="time" />kl {showtime?.time}</p>
-            <p><img src={hallIcon} alt="hall" />Salong: {showtime?.hall.hallName}</p>
+            </div>
+          <div className="booking-information-header-container col-8">
+            <div className="booking-information-header__top">
+            <h1>{movie?.title}</h1>
+              <p>Tal: {movie?.language}, Undertexter: {movie?.subtitles}</p>
+              <p>Genre: {movie?.genre.join(', ')}</p>
+              <p>Speltid: {movie?.length} minuter</p>
+            </div>
+            <div className="booking-information-header__bottom">
+              <p><img src={dateIcon} alt="date" />Datum: {showtime && new Date(showtime.date).toLocaleDateString()}</p>
+              <p><img src={timeIcon} alt="time" />kl {showtime?.time}</p>
+              <p><img src={hallIcon} alt="hall" />Salong: {showtime?.hall.hallName}</p>
+            </div>
           </div>
         </div>
-
         {/* Section 2: Ticket Selection */}
         <div className="ticket-counts">
           {/* <h3>Välj biljetter</h3> */}
@@ -292,11 +294,11 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
         </div>
 
         {/* Section 3: Seat Selection */}
-        <div className="booking-information-content">
+        <div className="booking-information-content col-12">
         <h3>Välj platser</h3>
-        <div className="seat-grid">
+        <div className="seat-grid col-12">
           {Object.entries(groupSeatsByRow(seats)).map(([rowNumber, rowSeats]) => (
-            <div className="seat-row" key={rowNumber}>
+            <div className="seat-row col-12" key={rowNumber}>
               {rowSeats
                 .sort((a, b) => b.seat.seatNumber - a.seat.seatNumber) // Sort seats in descending order
                 .map((seat) => (
@@ -375,8 +377,9 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
         </div>
       )}
       {/* Section 6: Total Amount - Aside */}
-      <div className="total-amount-aside col-sm-12 col-lg-4">
-        <div className="total-amount">
+        <div className="total-amount-aside col-12 col-lg-4 p-0">
+          {/* <Row className="w-100 g-0"> */}
+        <div className="total-amount col-12 col-lg-4">
           {ticketTypes.map((ticketType) => (
             <h3 key={ticketType._id}>
               {ticketType.type}: {ticketCounts[ticketType.type] || 0} st {(ticketCounts[ticketType.type] || 0) * ticketType.price} kr
@@ -404,10 +407,11 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
             kr
           </h3>
           <h2>Att betala: {totalAmount} SEK</h2>
+            </div>
+            {/* </Row> */}
           </div>
-          </div>
-      </div>
-    </div>
+      </Row>
+    </Container>
   );
 };
 

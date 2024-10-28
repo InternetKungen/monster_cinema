@@ -9,13 +9,19 @@ import Main from './layout/Main/Main'
 const App: React.FC = () => {
 
   return (
-    <div className="app container p-0">
-      <div className="row">
+    <div className="app container g-0 p-0">
+      <div className="row w-100 g-0">
       {/* <Background /> */}
-      <Router>
-        <Header />
-        <Main />
-        <Footer />
+        <Router>
+          <div className="col-12 sticky-top">
+            <Header />
+          </div>
+          <div className="col-12 g-0">
+            <Main />
+          </div>
+          <div className="col-12">
+            <Footer />
+          </div>
       </Router>
       </div>
     </div>

@@ -17,21 +17,20 @@ const Header: React.FC = () => {
   }, []);
   
   return (
-    // <div className="container">
-    <header className="col-12 sticky-top margin-top-0">
-      <div className="row col-12">
-        <div className="schedule-button-container col-4 p-0">
+    <header className="container-fluid sticky-top p-0">
+      <div className="row w-100">
+        <div className="schedule-button-container col-4">
           <Link to="/" className="schedule-button-container__button col-4">Idag</Link>
           <Link to="/" className="schedule-button-container__button col-4">Imorgon</Link>
           <Link to="/" className="schedule-button-container__button col-4">Senare</Link>
         </div>
 
-          <div className="logo-container col-4">
-            <div className="logo-img-wrapper">
-          <Link to="/">
-              <img src={isSmallScreen ? LogoSmall : Logo} className="logo-img" alt="Logo" />
-              </Link>
-            </div>
+        <div className="logo-container col-4 text-center">
+          <div className="logo-img-wrapper col-12">
+            <Link to="/">
+            <img src={isSmallScreen ? LogoSmall : Logo} className="logo-img" alt="Logo" />
+            </Link>
+          </div>
         </div>
 
         <div className="search-login-container col-4 p-0">
@@ -47,8 +46,7 @@ const Header: React.FC = () => {
             </div>
           </div>
       </div>
-      </header>
-    // </div>
+    </header>
   );
 };
 
