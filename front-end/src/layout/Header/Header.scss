@@ -68,6 +68,17 @@ header {
             height: 40px;
             width: auto;
         }
+        &:hover {
+          background: $color-secondary;
+          transition: background 0.3s ease;
+          & img {
+            filter:brightness(1.2) invert(1) saturate(0.1);
+            transition: filter 0.3s ease;
+          }
+        }
+        &:last-child {
+          padding-right: 0px;
+        }
       }
   }
 }

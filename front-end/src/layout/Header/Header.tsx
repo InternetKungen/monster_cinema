@@ -34,13 +34,13 @@ const Header: React.FC = () => {
             </div>
         </div>
 
-        <div className="search-login-container col-4">
+        <div className="search-login-container col-4 p-0">
             <div className="search-login-container__icon col-6">
               <Link to="/">
                 <img src={SearchIcon} alt="Search" className="SearchIcon" />
               </Link>
             </div>
-            <div className="search-login-container__icon col-sm-6">
+            <div className="search-login-container__icon col-6">
               <Link to="/">
                 <img src={LoginIcon} alt="Login" className="LoginIcon" />
               </Link>
