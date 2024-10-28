@@ -121,15 +121,15 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({ date, movieId }) => {
 
 
   return (
-    <section className="schedule-section">
-      <div className="schedule-section-title">
+    <section className="schedule-section col-12 p-0 g-0">
+      <div className="schedule-section-title g-0">
         <h2>{selectedDate ? new Date(selectedDate).toLocaleDateString() : 'Välj ett datum'}</h2>
       </div>
 
-      <div className="schedule-section-buttons">{dateRangeTwoWeeks()}</div>
+      <div className="schedule-section-buttons g-0">{dateRangeTwoWeeks()}</div>
 
       {selectedDate && showtimes[selectedDate] ? (
-          <div className="schedule-columns container row">
+          <div className="schedule-columns col-12">
           {Object.entries(groupShowtimesByHall(showtimes[selectedDate])).map(
             ([hallName, hallShowtimes]) => (
               <div key={hallName} className="schedule-column col-sm-12 col-md-12 col-lg-6">
