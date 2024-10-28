@@ -50,6 +50,11 @@
       height: 100%;
       max-width: none;
     }
+    button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+    }
   }
 }
 
