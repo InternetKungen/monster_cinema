@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import SearchIcon from '../../assets/icons/search_35dp_FCAF00_FILL0_wght400_GRAD0_opsz40.png';
 import LoginIcon from '../../assets/icons/person_35dp_FCAF00_FILL0_wght400_GRAD0_opsz40.png';
-
+import ProfileIcon from "../../assets/icons/clarify_35dp_FCAF00_FILL0_wght400_GRAD0_opsz40.png"
+import { UserContext } from '../../UserContext';
 import './Header.scss';
 import Logo from '../../assets/img/logo-text-side.png';
+import LoginModal from '../../views/modals/LoginModal';
 
 const Header: React.FC = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState('login');
+  const handleShow = () => setShowModal(true);
+  const handleClose = () => setShowModal(false);
+  const { user } = useContext(UserContext);
+  console.log(user);
   return (
     <header
       className="header position-fixed"
@@ -39,13 +47,21 @@ const Header: React.FC = () => {
               </Link>
             </div>
             <div className="icon">
-              <Link to="/">
+              {user ? (
+                <Link to="/profile">
+                  <img src={ProfileIcon} alt="Login" className="LoginIcon" />
+                </Link>
+              ) : (
+                <button onClick={handleShow}>
                 <img src={LoginIcon} alt="Login" className="LoginIcon" />
-              </Link>
+              </button>
+              )}
+              
             </div>
           </div>
         </div>
       </div>
+      <LoginModal show={showModal} setModalType={setModalType} type={modalType} handleClose={handleClose} />
     </header>
   );
 };
