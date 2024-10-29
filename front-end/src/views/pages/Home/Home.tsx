@@ -11,11 +11,9 @@ const Home: React.FC = () => {
 					<CurrentShowsSection />
 				</section>
 				<section>
-					<h2>Våra filmer</h2>
 					<MovieCollectionSection />
 			</section>
 			<section>
-				<h2>Program</h2>
 				<ScheduleSection date={new Date()} />
 				</section>
     </div>
