@@ -5,7 +5,7 @@ const AboutCinemas: React.FC = () => {
   return (
    <section> <section className='about-cinemas-container'>
       <h1 className='about-cinemas-title'>Våra biografer</h1>
-      <p className='about-cinemas-text'>Monster Bio har två salonger där båda har laserprojektorer,
+      <p className='about-cinemas-text'>Monsterbio har två salonger där båda har laserprojektorer,
 		vägg-till-vägg-biodukar och omslutande ljud från Dolby Atmos. Båda salongerna har lyxigt bekväma
 		och ställbara reclinerfåtöljer på samtliga rader. Våra specialdesignade säten är ergonomiska
 		och klädda i högkvalitativt material, vilket garanterar att du är bekväm under hela filmen
