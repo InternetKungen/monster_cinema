@@ -220,6 +220,33 @@
 	background: #2d2d2d;
 	color: $color-white;
 	padding: 20px;
+	.age-confirmation-inner-box {
+		border: 1px solid $color-age-box-border;
+		border-radius: 4px;
+		padding: 10px;
+		position: relative;
+		.checkbox-container	{
+			width: 25%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+		}
+		input[type="checkbox"] {
+			// margin: 20px;
+			transform: scale(1.6);
+			text-align: left;
+			accent-color: $color-select;
+		}
+
+		label {
+			text-align: left;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
+		}
+	}
 }
 
 .ticket-counts__tickets {
@@ -271,25 +298,6 @@
 	}
 }
 
-.age-confirmation-inner-box {
-	border: 1px solid $color-age-box-border;
-	border-radius: 4px;
-	padding: 10px;
-
-	input {
-		margin: 20px;
-		transform: scale(1.5);
-		text-align: left;
-	}
-
-	label {
-		text-align: left;
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: space-between;
-	}
-}
 
 .booking-modal {
 	position: fixed;

@@ -350,9 +350,6 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
                 <h1>Köp biljett!</h1>
               </button>
           </div>
-
-
-
         </div>
       </div>
 
