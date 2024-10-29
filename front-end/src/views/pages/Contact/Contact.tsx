@@ -95,7 +95,7 @@ const Form: React.FC = () => {
       ) : (
         <article className="contact-form-info">
           <p>Hej, {Name}! <br/>
-		  Tack för att du kontaktar oss på Monsterbio.<br/>
+		  Tack för att du kontaktar oss på Monsterbio<br/>
 		  Vi återkommer till dig så fort vi kan</p>
         </article>
       )}
