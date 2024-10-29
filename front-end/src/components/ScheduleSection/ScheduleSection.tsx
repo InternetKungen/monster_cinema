@@ -129,7 +129,7 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({ date, movieId }) => {
       <div className="schedule-section-buttons g-0">{dateRangeTwoWeeks()}</div>
 
       {selectedDate && showtimes[selectedDate] ? (
-          <div className="schedule-columns col-12">
+          <div className="schedule-columns row col-12">
           {Object.entries(groupShowtimesByHall(showtimes[selectedDate])).map(
             ([hallName, hallShowtimes]) => (
               <div key={hallName} className="schedule-column col-sm-12 col-md-12 col-lg-6">
