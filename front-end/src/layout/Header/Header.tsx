@@ -53,9 +53,9 @@ const Header: React.FC = () => {
                   <img src={ProfileIcon} alt="Login" className="LoginIcon" />
                 </Link>
               ) : (
-                <button onClick={handleShow}>
+                <div onClick={handleShow}>
                 <img src={LoginIcon} alt="Login" className="LoginIcon" />
-              </button>
+              </div>
               )}
               
             </div>
