@@ -11,8 +11,8 @@ import UserProvider from './UserContext.tsx';
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <UserProvider>
-    <Background />
-    <App />
+      <Background />
+      <App />
     </UserProvider>
   </StrictMode>
 );
