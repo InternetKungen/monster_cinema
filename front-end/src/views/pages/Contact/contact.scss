@@ -1,0 +1,114 @@
+// contact.scss
+
+.contact-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	height: 60vh;
+	max-width: 100%;
+}
+
+.contact-title {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 6rem;
+	width: 75rem;
+	margin-top: 2rem;
+	background: linear-gradient(to left, #000F26, #045685, #000F26);
+	border: 0.2rem solid #000F26;
+	border-radius: 0.5rem;
+	font-size: 2rem;
+	color: #FCAF00;
+}
+
+.contact-text {
+	margin-top: 0.5rem;
+	max-width: 60rem;
+	text-align: center;
+	font-size: 1.2rem;
+	color: #FCAF00;
+}
+
+/* Form Styling */
+
+.form-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	margin-top: -17rem;
+	margin-bottom: 0.2rem;
+}
+
+.contact-form {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+
+
+	.contact-input-field,
+	.contact-input-message {
+		display: flex;
+		flex-direction: column;
+		font-size: 1rem;
+		color: black;
+		height: 8vh;
+		width: 30vw;
+		label {
+			margin-bottom: 0.1rem;
+			font-size: 1.2rem;
+			color: #FCAF00;
+		}
+
+		input,
+		textarea {
+			height: 5rem;
+			width: 100%;
+			font-size: inherit;
+			padding: 0.5rem;
+			border: 0.2rem solid #000F26;
+			border-radius: 0.5rem;
+			box-sizing: border-box;
+		}
+
+		textarea {
+			height: 10rem;
+		}
+	}
+
+	.contact-send-button {
+		background-color: #FCAF00;
+		margin-top: 0.9rem;
+		font-size: 1.25rem;
+		font-weight: 500;
+		width: 14vw;
+		height: 2.5vw;
+		align-self: center;
+		transition-duration: 0.2s;
+		border: 0.2rem solid #000F26;
+		border-radius: 0.5rem;
+
+		&:hover {
+			color: white;
+			transform: translateY(-5px);
+			box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+		}
+	}
+}
+
+.contact-form-info {
+	margin-top: 5vh;
+	font-size: 1.875rem;
+	font-weight: 500;
+	text-align: center;
+}
+
+.contact-text-a {
+	color: #FCAF00;
+}
+
+.contact-text-a:hover {
+	color: white;
+}
