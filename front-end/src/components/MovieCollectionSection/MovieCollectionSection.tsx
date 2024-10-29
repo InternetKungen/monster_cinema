@@ -87,7 +87,7 @@ const MovieCollectionSection: React.FC = () => {
           <Button className="btn btn-secondary mx-2" text="Barn & Familj" onClick={() => handleNumericFilter('ageRestriction', 15)} />
           <Button className="btn btn-secondary mx-2" text="Senaste" onClick={() => handleFilter('year', '2024')} />
 		  <Button className="btn btn-secondary mx-2" text="Populära" onClick={() => handleNumericFilter('imdbRating', 7.5, true)} />
-          <Button className="btn btn-secondary mx-2" text="Klassiker" onClick={() => handleFilter('genre', 'Klassiker')} />
+          <Button className="btn btn-secondary mx-2" text="Klassiker" onClick={() => handleNumericFilter('year', 1995)} />
         </div>
 
 
