@@ -13,13 +13,15 @@ interface MovieButtonProps {
 
 const MovieComponent: React.FC<MovieButtonProps> = ({ _id, title, year, poster, genre, ageRestriction }) => {
 	return (
-		<Link to={`/movie-info/${_id}`}>
+		<Link to={`/movie-info/${_id}`} className="movie-button-container">
 			<article className="movie-button">
-				<img src={poster} alt={title} />
+				<div className="movie-button__poster">
+					<img src={poster} alt={title} />
+				</div>
 				<h2>{title}</h2>
-				<p>{year}</p>
-				<p>{genre.join(', ')}</p>
-				<p>{ageRestriction}</p>
+				<p className="year">{year}</p>
+				<p className="genre">{genre.join(', ')}</p>
+				<p className="age-restriction">Åldersgräns {ageRestriction} år</p>
 			</article>
 		</Link>
 	);

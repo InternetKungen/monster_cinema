@@ -10,7 +10,7 @@ import './Main.scss';
 
 const Main: React.FC = () => {
   return (
-    <main>
+    <main className="container-fluid g-0">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/booking" element={<Booking />} />
