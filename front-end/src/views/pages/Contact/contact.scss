@@ -31,6 +31,15 @@
 	color: #FCAF00;
 }
 
+.contact-text-a {
+	color: #FCAF00;
+}
+
+.contact-text-a:hover {
+	color: white;
+	transition-delay: 0.2s;
+}
+
 /* Form Styling */
 
 .form-container {
@@ -100,17 +109,14 @@
 }
 
 .contact-form-info {
-	margin-top: 5vh;
-	font-size: 1.875rem;
+	margin-top: 6vh;
+	padding: 2rem;
+	font-size: 1.2rem;
 	font-weight: 500;
 	text-align: center;
-}
-
-.contact-text-a {
-	color: #FCAF00;
-}
-
-.contact-text-a:hover {
+	text-decoration: none;
 	color: white;
-	transition-delay: 0.2s;
+	background: linear-gradient(to bottom, #045685 80%, #000F26);
+	border: 0.2rem solid #000F26;
+	border-radius: 0.5rem;
 }
