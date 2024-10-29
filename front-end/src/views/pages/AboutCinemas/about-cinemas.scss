@@ -1,0 +1,78 @@
+.about-cinemas-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	height: 60vh;
+	max-width: 100%;
+}
+
+
+.about-cinemas-title {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 6rem;
+	width: 75rem;
+	margin-top: 2rem;
+	background: linear-gradient(to left, #000F26, #045685, #000F26);
+	border: 2px solid #000F26;
+	border-radius: 5px;
+	font-size: 2rem;
+	@include text-stroke($color-primary-dark);
+	color: #FCAF00;
+}
+
+.about-cinemas-text {
+	margin-top: 1.8rem;
+	max-width: 60rem;
+	text-align: center;
+	font-size: 1.2rem;
+	color: #FCAF00;
+
+}
+
+.about-cinemas-title-two {
+	margin-top: 2rem;
+	font-size: 1.6rem;
+	@include text-stroke($color-primary-dark);
+	color: #FCAF00;
+
+}
+
+.about-cinemas-cinemas {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	gap: 3rem;
+	margin-top: -5rem;
+	padding-bottom: 2rem;
+}
+
+.about-cinemas-links {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 3.5rem;
+	width: 12rem;
+	background: linear-gradient(to bottom, #045685 80%, #000F26);
+	border: 2px solid #000F26;
+	border-radius: 5px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+	font-size: 1.2rem;
+
+				&:hover {
+						transform: translateY(-5px);
+						box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+					}
+}
+
+a {
+	color: white;
+	text-decoration: none;
+}
+
+a:hover {
+	color:#FCAF00;
+}
