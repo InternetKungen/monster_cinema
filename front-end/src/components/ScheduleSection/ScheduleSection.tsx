@@ -60,6 +60,12 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({ date, movieId }) => {
     fetchShowtimes();
   }, [date, movieId]);
 
+  useEffect(() => {
+    if (date) {
+      setSelectedDate(date.toISOString().split('T')[0]);
+    }
+  }, [date]);
+  
    // Funktion för att beräkna sluttiden baserat på starttid och längd
   const calculateEndTime = (startTime: string, length: number) => {
     const [hours, minutes] = startTime.split(':').map(Number);

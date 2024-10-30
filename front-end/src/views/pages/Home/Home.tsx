@@ -1,21 +1,26 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import './Home.css';
 import CurrentShowsSection from '../../../components/CurrentShowsSection/CurrentShowsSection';
 import MovieCollectionSection  from '../../..//components/MovieCollectionSection/MovieCollectionSection';
 import ScheduleSection from '../../../components/ScheduleSection/ScheduleSection';
 
-const Home: React.FC = () => {
+interface HomeProps {
+  scheduleRef: React.RefObject<HTMLElement>;
+  selectedDate: Date;
+}
+
+const Home: React.FC<HomeProps> = ({ scheduleRef, selectedDate }) => {
   return (
-    <div>
-				<section>
-					<CurrentShowsSection />
-				</section>
-				<section>
-					<MovieCollectionSection />
+		<div>
+			<section>
+				<CurrentShowsSection />
 			</section>
 			<section>
-				<ScheduleSection date={new Date()} />
-				</section>
+				<MovieCollectionSection />
+			</section>
+			<section ref={scheduleRef}>
+				<ScheduleSection date={selectedDate} />
+			</section>
     </div>
   );
 };
