@@ -9,7 +9,7 @@ import Logo from '../../assets/img/logo-text-side.png';
 import LogoSmall from '../../assets/img/logo-no-text.png';
 import LoginModal from '../../views/modals/LoginModal';
 
-const Header: React.FC = () => {
+const Header: React.FC<{ onSelectDate: (daysAhead: number) => void }> = ({ onSelectDate }) => {
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState('login');
   const handleShow = () => setShowModal(true);
@@ -27,11 +27,11 @@ const Header: React.FC = () => {
   return (
     <header className="container-fluid sticky-top p-0">
       <div className="row w-100">
-        <div className="schedule-button-container col-4">
-          <Link to="/" className="schedule-button-container__button col-4">Idag</Link>
-          <Link to="/" className="schedule-button-container__button col-4">Imorgon</Link>
-          <Link to="/" className="schedule-button-container__button col-4">Senare</Link>
-        </div>
+        <nav className="schedule-button-container col-4">
+          <button onClick={() => onSelectDate(0)} className="schedule-button-container__button col-4">Idag</button>
+          <button onClick={() => onSelectDate(1)} className="schedule-button-container__button col-4">Imorgon</button>
+          <button onClick={() => onSelectDate(2)} className="schedule-button-container__button col-4">Senare</button>
+        </nav>
 
         <div className="logo-container col-4 text-center">
           <div className="logo-img-wrapper col-12">
