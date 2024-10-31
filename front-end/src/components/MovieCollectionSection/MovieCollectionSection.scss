@@ -5,3 +5,23 @@
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
+
+.btn-secondary {
+	background-color: $color-secondary !important;
+	border-color: $color-secondary !important;
+
+	&:hover {
+	background-color: $color-select !important;
+	border-color: $color-select !important;
+	}
+}
+
+.btn-primary {
+	background-color: $color-secondary !important;
+	border-color: $color-secondary !important;
+
+	&:hover {
+	background-color: $color-select !important;
+	border-color: $color-select !important;
+	}
+}
