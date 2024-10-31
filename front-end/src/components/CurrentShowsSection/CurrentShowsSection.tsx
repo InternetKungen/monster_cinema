@@ -126,21 +126,21 @@ const CurrentShowsSection: React.FC = () => {
   if (error) return <div className="error">Error: {error}</div>;
 
   return (
-    <section>
-      <section className="current-shows-section">
-      <section className='titlebar-container'>
+    <section className="container">
+      <section className="current-shows-section col-12 g-0 p-0">
+        <section className='titlebar-container'>
           {/* Dagsnavigationsknappar */}
-      <section className="navigation-buttons">
-        <button className="arrow-button previous" onClick={handlePreviousDay} disabled={isToday}>
-          &#8592; {/* Vänster pil*/}
-        </button>
-        <h2 className='titlebar-text'>På bio {getDayLabel(selectedDate)}</h2>
-        <button className="arrow-button next" onClick={handleNextDay} disabled={isEndOfWeek}>
-          &#8594; {/* Höger pil */}
-        </button>
-      </section>
-		</section>
-        <section className="movie-grid">
+          <section className="navigation-buttons">
+            <button className="arrow-button previous" onClick={handlePreviousDay} disabled={isToday}>
+              &#8592; {/* Vänster pil*/}
+            </button>
+            <h2 className='titlebar-text'>På bio {getDayLabel(selectedDate)}</h2>
+            <button className="arrow-button next" onClick={handleNextDay} disabled={isEndOfWeek}>
+              &#8594; {/* Höger pil */}
+            </button>
+          </section>
+        </section>
+        <section className="movie-grid col-12">
           {uniqueMovies.length > 0 ? (
             uniqueMovies.map((movie) => (
               <MovieComponent
