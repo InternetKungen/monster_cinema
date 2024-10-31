@@ -5,7 +5,7 @@
 	align-items: center;
 	justify-content: center;
 	padding: 0;
-	// width: 40vw;
+
 	.movie-button {
 		flex-grow: 1;
 		padding: 10px;
@@ -25,36 +25,6 @@
 		position: relative;
 		overflow: hidden;
 		width: 100%;
-
-		// Media query för mobila enheter
-		// @media screen and (max-width: 600px) {
-		// 	max-width: 150px;
-		// 	height: 280px;
-		// 	padding: 5px;
-		// 	font-size: 10px;
-
-		// 	.movie-button__poster {
-		// 		height: 200px;
-		// 	}
-
-		// 	h2 {
-		// 		font-size: 1rem;
-		// 	}
-
-		// 	p {
-		// 		font-size: 0.7rem;
-		// 	}
-
-		// 	.genre {
-		// 		font-size: 0.6rem;
-		// 	}
-
-		// 	.age-restriction {
-		// 		font-size: 0.6rem;
-		// 		padding-left: 0.3vw;
-		// 		padding-right: 0.3vw;
-		// 	}
-		// }
 
 		// Media query för mycket små enheter
 		@media screen and (max-width: 430px) {
@@ -133,9 +103,9 @@
 		.movie-button__poster{
 			display: inline-block;
 			position: relative;
-			border-radius: 5px; // Samma som bilden för att matcha hörnen
+			border-radius: 5px; 
 			background: linear-gradient(to bottom, $color-primary-dark, $color-primary-light);
-			padding: 1px; // Justera efter behov för att skapa avstånd mellan bilden och gradienten
+			padding: 1px;
 			height: 266px;
 			width: 100%;
 			img {
