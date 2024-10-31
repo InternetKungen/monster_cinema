@@ -79,15 +79,15 @@ const MovieCollectionSection: React.FC = () => {
 	console.log("Filetered: " + JSON.stringify(filteredMovies))
   return (
     <div className="container col-12 py-5">
-      <section className="movie-collection-section col-12">
+      <section className="movie-collection-section col-12 g-0">
 
 
-        <div className="sorting-button-container text-center mb-4">
-          <Button className="btn btn-primary mx-2" text="Alla Filmer" onClick={() => handleFilter(null, null)} />
-          <Button className="btn btn-secondary mx-2" text="Barn & Familj" onClick={() => handleNumericFilter('ageRestriction', 15)} />
-          <Button className="btn btn-secondary mx-2" text="Senaste" onClick={() => handleFilter('year', '2024')} />
-		      <Button className="btn btn-secondary mx-2" text="Populära" onClick={() => handleNumericFilter('imdbRating', 7.5, true)} />
-          <Button className="btn btn-secondary mx-2" text="Klassiker" onClick={() => handleNumericFilter('year', 1995)} />
+        <div className="sorting-button-container text-center col-md-12 col-lg-6 g-0">
+          <Button className="filter-button" text="Alla Filmer" onClick={() => handleFilter(null, null)} />
+          <Button className="filter-button" text="Barn & Familj" onClick={() => handleNumericFilter('ageRestriction', 15)} />
+          <Button className="filter-button" text="Senaste" onClick={() => handleFilter('year', '2024')} />
+          <Button className="filter-button" text="Populära" onClick={() => handleNumericFilter('imdbRating', 7.5, true)} />
+          <Button className="filter-button" text="Klassiker" onClick={() => handleNumericFilter('year', 1995)} />
         </div>
 
         {/* <div className="row g-0"> */}

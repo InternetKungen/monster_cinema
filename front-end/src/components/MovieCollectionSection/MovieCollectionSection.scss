@@ -20,37 +20,58 @@
 }
 
 
-.btn-secondary {
-	background-color: $color-secondary !important;
-	border-color: $color-secondary !important;
-	color:$color-primary-dark !important;
-	font-family: "Cinzel", serif !important;
-    font-weight: bold !important;
-    font-size: 16px !important;
+// .btn-secondary {
+// 	background-color: $color-secondary !important;
+// 	border-color: $color-secondary !important;
+// 	color:$color-primary-dark !important;
+// 	font-family: "Cinzel", serif !important;
+//     font-weight: bold !important;
+//     font-size: 16px !important;
 
-	&:hover,
-	&:active,
-	&:focus {
-	background-color: $color-select !important;
-	border-color: $color-select !important;
-	color:$color-primary-dark !important;
+// 	&:hover,
+// 	&:active,
+// 	&:focus {
+// 	background-color: $color-select !important;
+// 	border-color: $color-select !important;
+// 	color:$color-primary-dark !important;
 	
+// 	}
+// }
+.sorting-button-container {
+	display: flex;
+	// border-bottom: 1px solid $color-primary-dark;
+	// border-radius: 5px 5px 0 0;
+	overflow: hidden;
+	button {
+		border: none;
 	}
-}
+	.filter-button {
+		flex-grow: 1;
+		background-color: $color-secondary;
+		// border-color: $color-secondary;
+		color:$color-primary-dark;
+		font-family: "Roboto", sans-serif;
+		font-weight: 500;
+		font-size: 1rem;
+		// font-style: normal;
+		border-right: 1px solid $color-primary-dark;
+		border-left: 1px solid $color-primary-dark;
+		border-top: 1px solid $color-primary-dark;
+		border-bottom: 0px solid $color-primary-dark;
+		padding: 5px;
+		border-radius: 5px 5px 0 0;
 
-.btn-primary {
-	background-color: $color-secondary !important;
-	border-color: $color-secondary !important;
-	color:$color-primary-dark !important;
-	font-family: "Cinzel", serif !important;
-    font-weight: bold !important;
-    font-size: 16px !important;
+		@media screen and (max-width: 430px) {
+			font-size: 0.8rem;
+		}
 
-	&:hover,
-	&:active,
-	&:focus {
-	background-color: $color-select !important;
-	border-color: $color-select !important;
-	
+		&:hover,
+		&:active,
+		&:focus {
+		color: $color-primary-dark;
+		background-color: $color-select;
+		border-color: $color-select;
+		transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+		}
 	}
 }
