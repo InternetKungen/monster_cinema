@@ -66,12 +66,12 @@ const MovieCollectionSection: React.FC = () => {
           return isMinThreshold ? fieldValue >= filterValue : fieldValue < filterValue;
         }
 
-         if (typeof filterValue === "string") {
-        	return Array.isArray(fieldValue)
-			? fieldValue.includes(filterValue)
-			: fieldValue === filterValue;
-      }
-	   return false;
+        if (typeof filterValue === "string") {
+          return Array.isArray(fieldValue)
+          ? fieldValue.includes(filterValue)
+          : fieldValue === filterValue;
+        }
+    return false;
 	})
     : movies;
 
@@ -79,21 +79,21 @@ const MovieCollectionSection: React.FC = () => {
 	console.log("Filetered: " + JSON.stringify(filteredMovies))
   return (
     <div className="container py-5">
-      <section className="movie-collection-section">
+      <section className="movie-collection-section col-12">
 
 
         <div className="sorting-button-container text-center mb-4">
           <Button className="btn btn-primary mx-2" text="Alla Filmer" onClick={() => handleFilter(null, null)} />
           <Button className="btn btn-secondary mx-2" text="Barn & Familj" onClick={() => handleNumericFilter('ageRestriction', 15)} />
           <Button className="btn btn-secondary mx-2" text="Senaste" onClick={() => handleFilter('year', '2024')} />
-		  <Button className="btn btn-secondary mx-2" text="Populära" onClick={() => handleNumericFilter('imdbRating', 7.5, true)} />
+		      <Button className="btn btn-secondary mx-2" text="Populära" onClick={() => handleNumericFilter('imdbRating', 7.5, true)} />
           <Button className="btn btn-secondary mx-2" text="Klassiker" onClick={() => handleNumericFilter('year', 1995)} />
         </div>
 
-
-        <div className="row">
+        <div className="row g-0">
+          <div className="movie-grid col-12">
           {filteredMovies.map((movie) => (
-            <div key={movie._id} className="col-sm-6 col-md-4 col-lg-2 mb-4">
+            <div key={movie._id} className="g-0">
               <MovieComponent
                 _id={movie._id}
                 title={movie.title}
@@ -104,7 +104,8 @@ const MovieCollectionSection: React.FC = () => {
               />
             </div>
           ))}
-        </div>
+          </div>
+          </div>
       </section>
     </div>
   );
