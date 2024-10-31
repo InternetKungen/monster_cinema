@@ -78,7 +78,7 @@ const MovieCollectionSection: React.FC = () => {
 
 	console.log("Filetered: " + JSON.stringify(filteredMovies))
   return (
-    <div className="container py-5">
+    <div className="container col-12 py-5">
       <section className="movie-collection-section col-12">
 
 
@@ -90,10 +90,10 @@ const MovieCollectionSection: React.FC = () => {
           <Button className="btn btn-secondary mx-2" text="Klassiker" onClick={() => handleNumericFilter('year', 1995)} />
         </div>
 
-        <div className="row g-0">
+        {/* <div className="row g-0"> */}
           <div className="movie-grid col-12">
           {filteredMovies.map((movie) => (
-            <div key={movie._id} className="g-0">
+            <div key={movie._id} className="movie-item">
               <MovieComponent
                 _id={movie._id}
                 title={movie.title}
@@ -105,7 +105,7 @@ const MovieCollectionSection: React.FC = () => {
             </div>
           ))}
           </div>
-          </div>
+          {/* </div> */}
       </section>
     </div>
   );
