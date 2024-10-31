@@ -10,12 +10,17 @@
 .btn-secondary {
 	background-color: $color-secondary !important;
 	border-color: $color-secondary !important;
+	color:$color-primary-dark !important;
+	font-family: "Cinzel", serif !important;
+    font-weight: bold !important;
+    font-size: 16px !important;
 
 	&:hover,
 	&:active,
 	&:focus {
 	background-color: $color-select !important;
 	border-color: $color-select !important;
+	color:$color-primary-dark !important;
 	
 	}
 }
@@ -23,6 +28,10 @@
 .btn-primary {
 	background-color: $color-secondary !important;
 	border-color: $color-secondary !important;
+	color:$color-primary-dark !important;
+	font-family: "Cinzel", serif !important;
+    font-weight: bold !important;
+    font-size: 16px !important;
 
 	&:hover,
 	&:active,
