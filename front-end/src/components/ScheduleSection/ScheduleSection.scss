@@ -7,12 +7,25 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
   .schedule-section-title {
-    margin-bottom: 0;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $color-modal-bg;
+    height: 5rem;
+    border-radius: 5px;
 
     h2 {
+      @include text-stroke($color-primary-dark);
+      font-family: "Cinzel", serif;
+      font-weight: bold;
       font-size: 24px;
       color: $color-secondary;
       margin: 0;
+      &::first-letter {
+          text-transform: uppercase;
+        }
     }
   }
 
