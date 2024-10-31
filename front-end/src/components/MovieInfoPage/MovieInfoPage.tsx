@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ScheduleSection from '../ScheduleSection/ScheduleSection';
-import "./MovieInfoPage.css";
+import "./MovieInfoPage.scss";
 interface Movie {
   _id: string;
   title: string;
@@ -42,33 +42,32 @@ const MovieInfoPage: React.FC<MovieInfoPageProps> = ({ movieId }) => {
   }
   return (
     <div className="content">
-      <div className="trailer-container">
+      <div className="trailer-container col-12">
         <div className="youtube">
           <iframe
-            width="100%"
-            height="600"
+            // width="100%"
+            // height="600"
             src={"https://www.youtube.com/embed/" + movie.trailer}
             title={movie.title}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
-            style={{ marginInline: "auto" }}
           ></iframe>
         </div>
       </div>
 
-      <div className="movie-info-container my-4 d-flex justify-content-between p-2  align-items-center">
+      <div className="movie-info-container d-flex justify-content-between p-2  align-items-center">
         <div className="movie-info">
           <h2>{movie.title}</h2>
-          <div className="d-flex gap-4">
-          <p className="age-restriction">
-            Åldersgräns: {movie.ageRestriction}+
-          </p>
-          <p className="genre">Genre: {movie.genre.join(", ")}</p>
-          <p className="duration">Längd: {movie.length} min</p>
+          <div className="row col-lg-12 align-items-center">
+            <p className="age-restriction col-lg-4">
+              Åldersgräns: {movie.ageRestriction}+
+            </p>
+            <p className="genre col-lg-4">Genre: {movie.genre.join(", ")}</p>
+            <p className="duration col-lg-4">Längd: {movie.length} min</p>
 
           </div>
           <p className="description">{movie.description}</p>
-
+          <div className="wrapper-movie-info__details">
           <div className="movie-info__details">
             <p>Regissör: {movie.director}</p>
             <p>Skådespelare: {movie.actors.join(", ")}</p>
@@ -77,6 +76,7 @@ const MovieInfoPage: React.FC<MovieInfoPageProps> = ({ movieId }) => {
             <p>År: {movie.year}</p>
             <p>Produktionsländer: {movie.productionCountries.join(", ")}</p>
             <p>Distributör: {movie.distributor}</p>
+            </div>
           </div>
         </div>
 
