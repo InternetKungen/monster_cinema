@@ -6,13 +6,17 @@
 	margin-bottom: 5px;
 }
 
+
 .btn-secondary {
 	background-color: $color-secondary !important;
 	border-color: $color-secondary !important;
 
-	&:hover {
+	&:hover,
+	&:active,
+	&:focus {
 	background-color: $color-select !important;
 	border-color: $color-select !important;
+	
 	}
 }
 
@@ -20,8 +24,11 @@
 	background-color: $color-secondary !important;
 	border-color: $color-secondary !important;
 
-	&:hover {
+	&:hover,
+	&:active,
+	&:focus {
 	background-color: $color-select !important;
 	border-color: $color-select !important;
+	
 	}
 }
