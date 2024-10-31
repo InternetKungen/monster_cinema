@@ -30,6 +30,7 @@ interface ScheduleSectionProps {
 const ScheduleSection: React.FC<ScheduleSectionProps> = ({ date, movieId }) => {
   const [showtimes, setShowtimes] = useState<{ [key: string]: Showtime[] }>({});
 
+  const tomorrow = new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split('T')[0];
   const today = new Date().toISOString().split('T')[0];
   const [selectedDate, setSelectedDate] = useState<string>(today);
 
@@ -128,12 +129,18 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({ date, movieId }) => {
 
   return (
     <section className="schedule-section col-12 p-0 g-0">
-      <div className="schedule-section-title g-0">
-        <h2>{selectedDate ? new Date(selectedDate).toLocaleDateString() : 'Välj ett datum'}</h2>
-      </div>
-
       <div className="schedule-section-buttons g-0">{dateRangeTwoWeeks()}</div>
 
+      <div className="schedule-section-title col-12 g-0">
+        <h2>
+          {getDayLabel(new Date(selectedDate), selectedDate === today ? 0 : selectedDate === tomorrow ? 1 : -1)}{" "}
+          {new Date(selectedDate).toLocaleDateString("sv-SE", {
+            day: "2-digit",
+            month: "2-digit",
+          })}
+        </h2>
+      </div>
+      
       {selectedDate && showtimes[selectedDate] ? (
           <div className="schedule-columns row col-12">
           {Object.entries(groupShowtimesByHall(showtimes[selectedDate])).map(
