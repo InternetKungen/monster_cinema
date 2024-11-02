@@ -374,40 +374,42 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
         </div>
       )}
       {/* Section 6: Total Amount - Aside */}
-        <div className="total-amount-aside col-12 col-lg-4 p-0">
-          {/* <Row className="w-100 g-0"> */}
-        <div className="total-amount col-12 col-lg-4">
-          {ticketTypes.map((ticketType) => (
-            <h3 key={ticketType._id}>
-              {ticketType.type}: {ticketCounts[ticketType.type] || 0} st {(ticketCounts[ticketType.type] || 0) * ticketType.price} kr
-            </h3>
-          ))}
-          {/* <h3>Ordinarie pris {ticketTypes.reduce((sum, ticketType) => sum + ((ticketCounts[ticketType.type] || 0) * ticketType.price), 0)} kr</h3> */}
-          {/* Beräkna det totala ordinarie priset baserat på antal biljetter */}
-          <h3>
-            Ordinarie pris:{" "}
-            {Object.values(ticketCounts).reduce(
-              (sum, count) => sum + (count || 0) * ORDINARY_PRICE,
-              0
-            )}{" "}
-            kr
+      <div className="total-amount-aside col-12 col-lg-4 p-0">
+      <div className="total-amount col-12 col-lg-4">
+        {ticketTypes.map((ticketType) => (
+          <h3 key={ticketType._id}>
+            <span>{ticketType.type}: {ticketCounts[ticketType.type] || 0} st</span>
+            <span>{(ticketCounts[ticketType.type] || 0) * ticketType.price} kr</span>
           </h3>
-          
-          {/* <h3>Totalt prisavdrag {ticketTypes.reduce((sum, ticketType) => sum + ((ticketCounts[ticketType.type] || 0) * ticketType.price), 0) - totalAmount} kr</h3> */}
-          {/* Beräkna prisavdraget: ordinarie pris minus det nuvarande totalbeloppet */}
-          <h3>
-            Totalt prisavdrag:{" "}
-            {Object.values(ticketCounts).reduce(
-              (sum, count) => sum + (count || 0) * ORDINARY_PRICE,
-              0
-            ) - totalAmount}{" "}
-            kr
-          </h3>
-          <h2>Att betala: {totalAmount} SEK</h2>
-            </div>
-            {/* </Row> */}
-          </div>
-      </Row>
+    ))}
+
+      <h3>
+        <span>Ordinarie pris:</span>
+        <span>
+          {Object.values(ticketCounts).reduce(
+          (sum, count) => sum + (count || 0) * ORDINARY_PRICE,
+          0
+        )} kr
+        </span>
+      </h3>
+
+      <h3>
+        <span>Totalt prisavdrag:</span>
+        <span>
+          {Object.values(ticketCounts).reduce(
+          (sum, count) => sum + (count || 0) * ORDINARY_PRICE,
+          0
+        ) - totalAmount} kr
+        </span>
+      </h3>
+
+      <h2>
+        <span>Att betala:</span>
+        <span>{totalAmount} SEK</span>
+      </h2>
+      </div>
+    </div>
+    </Row>
     </Container>
   );
 };
