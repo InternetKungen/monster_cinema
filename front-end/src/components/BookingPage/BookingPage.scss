@@ -387,7 +387,9 @@
 	.book-button h1 {
 		font-size: 25px; 
 	}
-
-// footer {
-// 	display: none;
-// }
+	
+	body.hide-footer {
+		footer {
+		display: none;
+		}
+	}
