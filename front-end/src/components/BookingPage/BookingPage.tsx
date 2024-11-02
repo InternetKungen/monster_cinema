@@ -80,6 +80,13 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
   const ORDINARY_PRICE = 140;
 
   useEffect(() => {
+    document.body.classList.add('hide-footer');
+    return () => {
+    document.body.classList.remove('hide-footer');
+    };
+  }, []);
+
+  useEffect(() => {
     if (showtimeId) {
       fetchShowtimeDetails();
       fetchAvailableSeats();
