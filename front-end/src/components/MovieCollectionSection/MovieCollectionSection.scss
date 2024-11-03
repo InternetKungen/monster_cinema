@@ -80,3 +80,25 @@
 		}
 	}
 }
+
+.hidden-button {
+	background-color: $color-secondary;
+	height: 2.5rem;
+	color: $color-text-dark;
+	border: 2px solid $color-primary-dark;
+	cursor: pointer;
+	font-family: "Roboto", sans-serif;
+	font-weight: 500;
+	font-size: 1.4rem;
+	width: 50%;
+	border-radius: 20px;
+	margin-bottom: -3rem;
+
+		&:disabled {
+			background-color: $color-border-light;
+		}
+
+		&:hover {
+			background: $color-select;
+		}
+}

@@ -205,7 +205,7 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
       type: ticketType.type,
       quantity: ticketCounts[ticketType.type] || 0
     }));
-    
+
     // Filter out only the selected seats
     const selectedSeatObjects = seats.filter(seat => selectedSeats.includes(seat._id));
 
@@ -302,7 +302,6 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
 
         {/* Section 3: Seat Selection */}
         <div className="booking-information-content col-12">
-        <h3>Välj platser</h3>
         <div className="seat-grid col-12">
           {Object.entries(groupSeatsByRow(seats)).map(([rowNumber, rowSeats]) => (
             <div className="seat-row col-12" key={rowNumber}>

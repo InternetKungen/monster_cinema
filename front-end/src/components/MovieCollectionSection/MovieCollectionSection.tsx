@@ -22,6 +22,7 @@ const MovieCollectionSection: React.FC = () => {
   const [filterField, setFilterField] = useState<string | null>(null);
   const [filterValue, setFilterValue] = useState<string | number |  null>(null);
   const [isMinThreshold, setIsMinThreshold] = useState<boolean>(false);
+   const [showMore, setShowMore] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -76,6 +77,8 @@ const MovieCollectionSection: React.FC = () => {
 	})
     : movies;
 
+	const displayedMovies = showMore ? filteredMovies : filteredMovies.slice(0, 5);
+
 
 	console.log("Filetered: " + JSON.stringify(filteredMovies))
   return (
@@ -92,7 +95,7 @@ const MovieCollectionSection: React.FC = () => {
 
         {/* <div className="row g-0"> */}
           <div className="movie-grid col-12">
-          {filteredMovies.map((movie) => (
+          {displayedMovies.map((movie) => (
             <div key={movie._id} className="movie-item">
               <MovieComponent
                 _id={movie._id}
@@ -105,6 +108,13 @@ const MovieCollectionSection: React.FC = () => {
             </div>
           ))}
           </div>
+		   <div className="text-center mt-3">
+          <Button
+            className="hidden-button"
+            text={showMore ? "Visa färre filmer" : "Visa fler filmer"}
+            onClick={() => setShowMore(!showMore)}
+          />
+        </div>
           {/* </div> */}
       </section>
     </div>
