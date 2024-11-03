@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import MovieComponent from '../MovieComponent/MovieComponent';
 import Button from '../FrontPageButton/FrontPageButton';
+import TitleBarComponent from '../TitleBarComponent/TitleBarComponent';
 import './MovieCollectionSection.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -80,8 +81,7 @@ const MovieCollectionSection: React.FC = () => {
   return (
     <div className="container col-12 py-5">
       <section className="movie-collection-section col-12 g-0">
-
-
+		<TitleBarComponent className="titlebar-component" title='Våra filmer' />
         <div className="sorting-button-container text-center col-md-12 col-lg-6 g-0">
           <Button className="filter-button" text="Alla Filmer" onClick={() => handleFilter(null, null)} />
           <Button className="filter-button" text="Barn & Familj" onClick={() => handleNumericFilter('ageRestriction', 15)} />
