@@ -23,7 +23,11 @@ const Header: React.FC<{ onSelectDate: (daysAhead: number) => void }> = ({ onSel
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-  
+
+    const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <header className="container-fluid sticky-top p-0">
       <div className="row w-100">
@@ -35,7 +39,7 @@ const Header: React.FC<{ onSelectDate: (daysAhead: number) => void }> = ({ onSel
 
         <div className="logo-container col-4 text-center">
           <div className="logo-img-wrapper col-12">
-            <Link to="/">
+            <Link to="/" onClick={scrollToTop}>
             <img src={isSmallScreen ? LogoSmall : Logo} className="logo-img" alt="Logo" />
             </Link>
           </div>
@@ -57,7 +61,7 @@ const Header: React.FC<{ onSelectDate: (daysAhead: number) => void }> = ({ onSel
                 <img src={LoginIcon} alt="Login" className="LoginIcon" />
               </div>
               )}
-              
+
             </div>
           </div>
       </div>
