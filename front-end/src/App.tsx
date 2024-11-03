@@ -9,6 +9,10 @@ const App: React.FC = () => {
   const scheduleRef = useRef<HTMLElement | null>(null);
   const [selectedDate, setSelectedDate] = useState(new Date());
 
+const lock = document.createElement('meta');
+  lock.name = 'darkreader-lock';
+  document.head.appendChild(lock);
+
   const handleSelectDate = (daysAhead: number) => {
     const newDate = new Date();
     newDate.setDate(newDate.getDate() + daysAhead);
