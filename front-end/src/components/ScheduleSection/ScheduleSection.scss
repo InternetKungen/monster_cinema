@@ -7,7 +7,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
   .schedule-section-title {
-    margin-top: 5px;
+    margin-top: 1px;
     margin-bottom: 5px;
     display: flex;
     align-items: center;
@@ -60,6 +60,10 @@
         border: 1px solid $color-primary-dark;
       }
 
+      &.no-showtime {
+        background-color: $color-unavailable-seat;
+        cursor: not-allowed;
+      }
       p {
         margin: 0;
         text-align: center;
@@ -105,7 +109,7 @@
         &:nth-child(odd) {
           background: $bg-color-showtime-odd;
         }
-        
+
         &:nth-child(odd):hover {
           background: $bg-color-showtime-hover-odd;
         }
@@ -172,7 +176,7 @@
               text-align: left;
               font-size: 14px;
             }
-            
+
           }
           .schedule-section-showtime-info__text__age {
             position: absolute;

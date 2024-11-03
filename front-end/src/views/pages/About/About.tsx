@@ -1,10 +1,13 @@
 import React from 'react';
+import TitleBarComponent from '../../../components/TitleBarComponent/TitleBarComponent';
 import './about.scss';
 
 const About: React.FC = () => {
   return (
     <section className='about-container'>
-      <h1 className='about-title'>Om biografen</h1>
+		<section>
+			<TitleBarComponent title="Om Biografen" />
+		</section>
       <p className='about-text'>Välkommen till oss på Monsterbio, där varje filmvisning är en resa in i det okända!
 		Sedan 1989 är vi Uppsalas mest passionerade skräckentusiaster som tror på kraften i gemenskapen och vill
 		skapa en plats där skräckfans kan samlas, diskutera sina favoritfilmer och dela sina mest skrämmande

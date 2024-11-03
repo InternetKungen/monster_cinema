@@ -120,12 +120,12 @@
 }
 
 .book-button {
-	padding: 10px 20px;
+	padding: -20px 20px;
 	background-color: $color-secondary;
 	color: $color-text-dark;
 	border: 2px solid $color-primary-dark;
 	cursor: pointer;
-	width: 80%;
+	width: 50%;
 	border-radius: 10px;
 
 	&:disabled {
@@ -213,6 +213,34 @@
 	color: $color-secondary;
 	border: 2px solid $color-secondary;
 	padding: 20px;
+}
+
+.screen-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 1rem;
+}
+
+.screen {
+	width: 30rem;
+	height: 1.5rem;
+	background-color: white;
+	color: black; // Text color
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+		clip-path: polygon(0% 0%,
+			10% 100%,
+			90% 100%,
+			100% 0%);
+		/* Create a triangle shape */
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+		/* Optional shadow for a 3D effect */
+		z-index: 1;
+		/* Make sure it stays on top */
+	font-size: 1.2rem;
 }
 
 .age-confirmation {
@@ -360,23 +388,36 @@
 	position: fixed;
 	width: 25%;
 
-	h3 {
+	h3, h2 {
 		margin-top: 10px;
-		text-align: right;
 		display: flex;
-		justify-content: flex-end;
+		justify-content: space-between;
+		text-align: left;
 		font-size: 20px;
-	}
 
-	h2 {
-		margin-top: 10px;
+
+		&:last-child {
+		font-size: 25px;
+		font-weight: bold;
+		}
+
+		span:first-child {
+		flex-grow: 1;
+		text-align: left;
+		}
+
+		span:last-child {
 		text-align: right;
-		display: flex;
-		justify-content: flex-end;
+		white-space: nowrap;
+		}
+	}
+	}
+	.book-button h1 {
 		font-size: 25px;
 	}
-}
 
-// footer {
-// 	display: none;
-// }
+	body.hide-footer {
+		footer {
+		display: none;
+		}
+	}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import MovieComponent from '../MovieComponent/MovieComponent';
 import Button from '../FrontPageButton/FrontPageButton';
+import TitleBarComponent from '../TitleBarComponent/TitleBarComponent';
 import './MovieCollectionSection.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -21,6 +22,7 @@ const MovieCollectionSection: React.FC = () => {
   const [filterField, setFilterField] = useState<string | null>(null);
   const [filterValue, setFilterValue] = useState<string | number |  null>(null);
   const [isMinThreshold, setIsMinThreshold] = useState<boolean>(false);
+   const [showMore, setShowMore] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -75,13 +77,14 @@ const MovieCollectionSection: React.FC = () => {
 	})
     : movies;
 
+	const displayedMovies = showMore ? filteredMovies : filteredMovies.slice(0, 5);
+
 
 	console.log("Filetered: " + JSON.stringify(filteredMovies))
   return (
     <div className="container col-12 py-5">
       <section className="movie-collection-section col-12 g-0">
-
-
+		<TitleBarComponent className="titlebar-component" title='Våra filmer' />
         <div className="sorting-button-container text-center col-md-12 col-lg-6 g-0">
           <Button className="filter-button" text="Alla Filmer" onClick={() => handleFilter(null, null)} />
           <Button className="filter-button" text="Barn & Familj" onClick={() => handleNumericFilter('ageRestriction', 15)} />
@@ -92,7 +95,7 @@ const MovieCollectionSection: React.FC = () => {
 
         {/* <div className="row g-0"> */}
           <div className="movie-grid col-12">
-          {filteredMovies.map((movie) => (
+          {displayedMovies.map((movie) => (
             <div key={movie._id} className="movie-item">
               <MovieComponent
                 _id={movie._id}
@@ -105,6 +108,13 @@ const MovieCollectionSection: React.FC = () => {
             </div>
           ))}
           </div>
+		   <div className="text-center mt-3">
+          <Button
+            className="hidden-button"
+            text={showMore ? "Visa färre filmer" : "Visa fler filmer"}
+            onClick={() => setShowMore(!showMore)}
+          />
+        </div>
           {/* </div> */}
       </section>
     </div>

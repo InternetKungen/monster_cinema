@@ -19,7 +19,12 @@
 	}
 }
 
+.titlebar-component {
+	width: 100%;
+	margin-top: -4rem;
 
+
+}
 // .btn-secondary {
 // 	background-color: $color-secondary !important;
 // 	border-color: $color-secondary !important;
@@ -34,7 +39,7 @@
 // 	background-color: $color-select !important;
 // 	border-color: $color-select !important;
 // 	color:$color-primary-dark !important;
-	
+
 // 	}
 // }
 .sorting-button-container {
@@ -74,4 +79,26 @@
 		transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
 		}
 	}
+}
+
+.hidden-button {
+	background-color: $color-secondary;
+	height: 2.5rem;
+	color: $color-text-dark;
+	border: 2px solid $color-primary-dark;
+	cursor: pointer;
+	font-family: "Roboto", sans-serif;
+	font-weight: 500;
+	font-size: 1.4rem;
+	width: 50%;
+	border-radius: 20px;
+	margin-bottom: -3rem;
+
+		&:disabled {
+			background-color: $color-border-light;
+		}
+
+		&:hover {
+			background: $color-select;
+		}
 }
