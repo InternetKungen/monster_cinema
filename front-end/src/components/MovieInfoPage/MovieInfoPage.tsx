@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import ScheduleSection from '../ScheduleSection/ScheduleSection';
-import Header from '../../layout/Header/Header';
 import './MovieInfoPage.scss';
 
 interface Movie {
@@ -24,12 +23,12 @@ interface Movie {
 
 interface MovieInfoPageProps {
   movieId: string | undefined;
+  scheduleRef: React.RefObject<HTMLElement>;
+  selectedDate: Date;
 }
 
-const MovieInfoPage: React.FC<MovieInfoPageProps> = ({ movieId }) => {
+const MovieInfoPage: React.FC<MovieInfoPageProps> = ({ movieId, scheduleRef, selectedDate }) => {
   const [movie, setMovie] = useState<Movie | null>(null);
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const scheduleRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (movieId) {
@@ -40,23 +39,12 @@ const MovieInfoPage: React.FC<MovieInfoPageProps> = ({ movieId }) => {
     }
   }, [movieId]);
 
-  const scrollToSchedule = (daysOffset: number) => {
-    const targetDate = new Date();
-    targetDate.setDate(targetDate.getDate() + daysOffset);
-    setSelectedDate(targetDate);
-    if (scheduleRef.current) {
-      scheduleRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   if (!movie) {
     return <div>Loading...</div>;
   }
 
   return (
     <div className="content">
-      <Header onSelectDate={scrollToSchedule} />
-
       <div className="trailer-container col-12">
         <div className="youtube">
           <iframe
@@ -95,9 +83,9 @@ const MovieInfoPage: React.FC<MovieInfoPageProps> = ({ movieId }) => {
         </div>
       </div>
 
-      <div ref={scheduleRef}>
-        <ScheduleSection movieId={movieId} date={selectedDate} isMovieInfoPage={true} />
-      </div>
+      <section ref={scheduleRef}>
+        <ScheduleSection movieId={movieId} date={selectedDate} />
+        </section>
     </div>
   );
 };

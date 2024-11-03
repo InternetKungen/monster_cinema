@@ -25,10 +25,9 @@ interface Showtime {
 interface ScheduleSectionProps {
   date: Date | null;
   movieId?: string;
-  isMovieInfoPage?: boolean; // New prop to indicate if it's the MovieInfoPage
 }
 
-const ScheduleSection: React.FC<ScheduleSectionProps> = ({ date, movieId, isMovieInfoPage }) => {
+const ScheduleSection: React.FC<ScheduleSectionProps> = ({ date, movieId }) => {
   const [showtimes, setShowtimes] = useState<{ [key: string]: Showtime[] }>({});
   const tomorrow = new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split('T')[0];
   const today = new Date().toISOString().split('T')[0];
@@ -93,9 +92,8 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({ date, movieId, isMovi
       buttons.push(
         <button
           key={i}
-          className={`${selectedDate === currentDateKey ? 'selected' : ''} ${isMovieInfoPage && !hasShowtimes ? 'no-showtime' : ''}`}
+          className={`${selectedDate === currentDateKey ? 'selected' : ''} ${!hasShowtimes ? 'no-showtime' : ''}`}
           onClick={() => handleDateClick(currentDate)}
-          style={{ backgroundColor: isMovieInfoPage && !hasShowtimes ? 'gray' : '' }}
         >
           <p>{getDayLabel(currentDate, i)}</p>
           <p>{currentDate.toLocaleDateString('sv-SE', { day: 'numeric', month: 'numeric' })}</p>

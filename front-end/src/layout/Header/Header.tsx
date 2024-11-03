@@ -34,13 +34,13 @@ const Header: React.FC<{ onSelectDate: (daysAhead: number) => void }> = ({ onSel
     <header className="container-fluid sticky-top p-0">
       <div className="row w-100">
         <nav className="schedule-button-container col-4">
-			 {!isBookingPage && (
+			    {!isBookingPage && (
             <>
-          <button onClick={() => onSelectDate(0)} className="schedule-button-container__button col-4">Idag</button>
-          <button onClick={() => onSelectDate(1)} className="schedule-button-container__button col-4">Imorgon</button>
-          <button onClick={() => onSelectDate(2)} className="schedule-button-container__button col-4">Senare</button>
-		  </>
-		  )}
+              <button onClick={() => onSelectDate(0)} className="schedule-button-container__button col-4">Idag</button>
+              <button onClick={() => onSelectDate(1)} className="schedule-button-container__button col-4">Imorgon</button>
+              <button onClick={() => onSelectDate(2)} className="schedule-button-container__button col-4">Senare</button>
+            </>
+          )}
         </nav>
 
         <div className="logo-container col-4 text-center">

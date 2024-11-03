@@ -20,8 +20,8 @@ const Main: React.FC<MainProps> = ({ scheduleRef, selectedDate }) => {
         <Route path="/" element={<Home scheduleRef={scheduleRef} selectedDate={selectedDate} />} />
         <Route path="/booking" element={<Booking />} />
         <Route path="/booking/:showtimeId" element={<Booking />} />
-        <Route path="/movie-info" element={<MovieInfo />} />
-        <Route path="/movie-info/:id" element={<MovieInfo />} />
+        <Route path="/movie-info" element={<MovieInfo scheduleRef={scheduleRef} selectedDate={selectedDate} />} />
+        <Route path="/movie-info/:id" element={<MovieInfo scheduleRef={scheduleRef} selectedDate={selectedDate} />} />
         <Route path="/about-us" element={<About />} />
         <Route path="/about-cinemas" element={<AboutCinemas />} />
         <Route path="/contact-us" element={<Contact />} />
