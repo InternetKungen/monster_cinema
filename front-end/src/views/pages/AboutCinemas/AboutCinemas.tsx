@@ -1,10 +1,11 @@
 import React from 'react';
+import TitleBarComponent from '../../../components/TitleBarComponent/TitleBarComponent';
 import './about-cinemas.scss';
 
 const AboutCinemas: React.FC = () => {
   return (
    <section> <section className='about-cinemas-container'>
-      <h1 className='about-cinemas-title'>Våra biografer</h1>
+      <TitleBarComponent title='Våra Biografer'/>
       <p className='about-cinemas-text'>Monsterbio har två salonger där båda har laserprojektorer,
 		vägg-till-vägg-biodukar och omslutande ljud från Dolby Atmos. Båda salongerna har lyxigt bekväma
 		och ställbara reclinerfåtöljer på samtliga rader. Våra specialdesignade säten är ergonomiska

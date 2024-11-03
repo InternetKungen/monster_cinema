@@ -7,22 +7,6 @@
 	max-width: 100%;
 }
 
-.about-cinemas-title {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 6rem;
-	width: 75rem;
-	margin-top: 2rem;
-	background: linear-gradient(to left, #000F26, #045685, #000F26);
-	border: 0.125rem solid #000F26;
-	/* Converted from 2px */
-	border-radius: 0.3125rem;
-	/* Converted from 5px */
-	font-size: 2rem;
-	@include text-stroke($color-primary-dark);
-	color: #FCAF00;
-}
 
 .about-cinemas-text {
 	margin-top: 1.8rem;
@@ -60,6 +44,9 @@
 	box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
 	transition: transform 0.2s ease, box-shadow 0.2s ease;
 	font-size: 1.2rem;
+	font-family: "Cinzel", serif;
+	font-weight: bold;
+	@include text-stroke($color-primary-dark);
 
 	&:hover {
 		transform: translateY(-0.3125rem);
@@ -73,5 +60,5 @@ a {
 }
 
 a:hover {
-	color: #FCAF00;
+	color: $color-secondary;
 }
