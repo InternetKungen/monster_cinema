@@ -22,9 +22,11 @@ interface Movie {
 
 interface MovieInfoPageProps {
   movieId: string | undefined;
+  scheduleRef: React.RefObject<HTMLElement>;
+  selectedDate: Date;
 }
 
-const MovieInfoPage: React.FC<MovieInfoPageProps> = ({ movieId }) => {
+const MovieInfoPage: React.FC<MovieInfoPageProps> = ({ movieId, scheduleRef, selectedDate }) => {
   const [movie, setMovie] = useState<Movie | null>(null);
 
   useEffect(() => {
@@ -86,7 +88,9 @@ const MovieInfoPage: React.FC<MovieInfoPageProps> = ({ movieId }) => {
       </div>
 
       {/* Lägg till ScheduleSection här */}
-      <ScheduleSection movieId={movieId} date={new Date()} />
+      <section ref={scheduleRef}>
+        <ScheduleSection movieId={movieId} date={selectedDate} />
+        </section>
     </div>
   );
 };

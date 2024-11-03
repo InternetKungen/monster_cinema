@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import './Home.css';
 import CurrentShowsSection from '../../../components/CurrentShowsSection/CurrentShowsSection';
 import MovieCollectionSection  from '../../..//components/MovieCollectionSection/MovieCollectionSection';
