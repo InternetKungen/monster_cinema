@@ -28,7 +28,7 @@ interface MovieInfoPageProps {
 
 const MovieInfoPage: React.FC<MovieInfoPageProps> = ({ movieId }) => {
   const [movie, setMovie] = useState<Movie | null>(null);
-  const [selectedDate, setSelectedDate] = useState(new Date()); // State to manage the selected date
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const scheduleRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -42,8 +42,8 @@ const MovieInfoPage: React.FC<MovieInfoPageProps> = ({ movieId }) => {
 
   const scrollToSchedule = (daysOffset: number) => {
     const targetDate = new Date();
-    targetDate.setDate(targetDate.getDate() + daysOffset); // Adjust the date based on button clicked
-    setSelectedDate(targetDate); // Update the selected date state
+    targetDate.setDate(targetDate.getDate() + daysOffset);
+    setSelectedDate(targetDate);
     if (scheduleRef.current) {
       scheduleRef.current.scrollIntoView({ behavior: 'smooth' });
     }
@@ -94,12 +94,9 @@ const MovieInfoPage: React.FC<MovieInfoPageProps> = ({ movieId }) => {
           <img src={movie.poster} alt={movie.title} width={300} />
         </div>
       </div>
-	  <div>
-	        <ScheduleSection movieId={movieId} date={new Date()} />
-    </div>
 
       <div ref={scheduleRef}>
-        <ScheduleSection movieId={movieId} date={selectedDate} />
+        <ScheduleSection movieId={movieId} date={selectedDate} isMovieInfoPage={true} />
       </div>
     </div>
   );

@@ -25,27 +25,24 @@ interface Showtime {
 interface ScheduleSectionProps {
   date: Date | null;
   movieId?: string;
+  isMovieInfoPage?: boolean; // New prop to indicate if it's the MovieInfoPage
 }
 
-const ScheduleSection: React.FC<ScheduleSectionProps> = ({ date, movieId }) => {
+const ScheduleSection: React.FC<ScheduleSectionProps> = ({ date, movieId, isMovieInfoPage }) => {
   const [showtimes, setShowtimes] = useState<{ [key: string]: Showtime[] }>({});
-
   const tomorrow = new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split('T')[0];
   const today = new Date().toISOString().split('T')[0];
   const [selectedDate, setSelectedDate] = useState<string>(today);
 
   useEffect(() => {
-    // Räknar ut start- och slutdatum (dagens datum och två veckor framåt)
     const startDate = new Date();
     const endDate = new Date();
     endDate.setDate(startDate.getDate() + 14);
 
-    // Formaterar datum till "YYYY-MM-DD" format för API-förfrågan
     const formatDate = (date: Date) => date.toISOString().split('T')[0];
 
     const fetchShowtimes = async () => {
       try {
-        // Kontrollera om movieId finns, och välj endpoint därefter
         const endpoint = movieId
           ? `/api/showtime?movieId=${movieId}&startDate=${formatDate(startDate)}&endDate=${formatDate(endDate)}`
           : `/api/showtime/date-range?startDate=${formatDate(startDate)}&endDate=${formatDate(endDate)}`;
@@ -66,24 +63,20 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({ date, movieId }) => {
       setSelectedDate(date.toISOString().split('T')[0]);
     }
   }, [date]);
-  
-   // Funktion för att beräkna sluttiden baserat på starttid och längd
+
   const calculateEndTime = (startTime: string, length: number) => {
     const [hours, minutes] = startTime.split(':').map(Number);
     const startDate = new Date();
     startDate.setHours(hours, minutes);
-    const endDate = new Date(startDate.getTime() + length * 60000); // Längd i minuter till millisekunder
+    const endDate = new Date(startDate.getTime() + length * 60000);
     return endDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
   };
 
-  // Funktion som genererar knappar för två veckor framåt
   const getDayLabel = (date: Date, index: number) => {
     const options: Intl.DateTimeFormatOptions = { weekday: 'long' };
 
-    if (index === 0) return 'Idag'; // Första datumet är alltid "Idag"
-    if (index === 1) return 'Imorgon'; // Andra datumet är alltid "Imorgon"
-
-    // Annars returnera veckodag och datum (ex: "Söndag 20/10")
+    if (index === 0) return 'Idag';
+    if (index === 1) return 'Imorgon';
     return date.toLocaleDateString('sv-SE', options);
   };
 
@@ -94,12 +87,15 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({ date, movieId }) => {
     for (let i = 0; i < 14; i++) {
       const currentDate = new Date(today);
       currentDate.setDate(today.getDate() + i);
+      const currentDateKey = currentDate.toISOString().split('T')[0];
+      const hasShowtimes = showtimes[currentDateKey] && showtimes[currentDateKey].length > 0;
 
       buttons.push(
         <button
           key={i}
-          className={selectedDate === currentDate.toISOString().split('T')[0] ? 'selected' : ''}
+          className={`${selectedDate === currentDateKey ? 'selected' : ''} ${isMovieInfoPage && !hasShowtimes ? 'no-showtime' : ''}`}
           onClick={() => handleDateClick(currentDate)}
+          style={{ backgroundColor: isMovieInfoPage && !hasShowtimes ? 'gray' : '' }}
         >
           <p>{getDayLabel(currentDate, i)}</p>
           <p>{currentDate.toLocaleDateString('sv-SE', { day: 'numeric', month: 'numeric' })}</p>
@@ -111,7 +107,6 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({ date, movieId }) => {
   };
 
   const handleDateClick = (selectedDate: Date) => {
-    // Spara det valda datumet i state
     setSelectedDate(selectedDate.toISOString().split('T')[0]);
   };
 
@@ -126,7 +121,6 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({ date, movieId }) => {
     return grouped;
   };
 
-
   return (
     <section className="schedule-section col-12 p-0 g-0">
       <div className="schedule-section-buttons g-0">{dateRangeTwoWeeks()}</div>
@@ -140,7 +134,7 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({ date, movieId }) => {
           })}
         </h2>
       </div>
-      
+
       {selectedDate && showtimes[selectedDate] ? (
           <div className="schedule-columns row col-12">
           {Object.entries(groupShowtimesByHall(showtimes[selectedDate])).map(
@@ -156,13 +150,13 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({ date, movieId }) => {
                         </div>
                         <div className="schedule-section-showtime-info__text">
                           <h5>{showtime.movie.title} ({showtime.movie.year})</h5>
-                            <p> {showtime.movie.genre.join(', ')} </p>
+                          <p> {showtime.movie.genre.join(', ')} </p>
                         </div>
                         <div className="schedule-section-showtime-info__text__age">
-                            <p>Åldersgräns {showtime.movie.ageRestriction} år</p>
+                          <p>Åldersgräns {showtime.movie.ageRestriction} år</p>
                         </div>
                         <div className="schedule-section-showtime-info__image">
-                            <img src={showtime.movie.poster} alt={showtime.movie.title} />
+                          <img src={showtime.movie.poster} alt={showtime.movie.title} />
                         </div>
                       </div>
                     </Link>
