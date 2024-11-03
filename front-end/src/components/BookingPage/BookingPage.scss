@@ -215,6 +215,34 @@
 	padding: 20px;
 }
 
+.screen-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 1rem;
+}
+
+.screen {
+	width: 30rem;
+	height: 1.5rem;
+	background-color: white;
+	color: black; // Text color
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+		clip-path: polygon(0% 0%,
+			10% 100%,
+			90% 100%,
+			100% 0%);
+		/* Create a triangle shape */
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+		/* Optional shadow for a 3D effect */
+		z-index: 1;
+		/* Make sure it stays on top */
+	font-size: 1.2rem;
+}
+
 .age-confirmation {
 	margin: 0;
 	background: #2d2d2d;
@@ -363,31 +391,31 @@
 	h3, h2 {
 		margin-top: 10px;
 		display: flex;
-		justify-content: space-between; 
-		text-align: left; 
+		justify-content: space-between;
+		text-align: left;
 		font-size: 20px;
-	
-		
+
+
 		&:last-child {
 		font-size: 25px;
-		font-weight: bold; 
+		font-weight: bold;
 		}
-	
+
 		span:first-child {
-		flex-grow: 1; 
+		flex-grow: 1;
 		text-align: left;
 		}
-	
+
 		span:last-child {
 		text-align: right;
-		white-space: nowrap; 
+		white-space: nowrap;
 		}
 	}
 	}
 	.book-button h1 {
-		font-size: 25px; 
+		font-size: 25px;
 	}
-	
+
 	body.hide-footer {
 		footer {
 		display: none;

@@ -302,6 +302,9 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
 
         {/* Section 3: Seat Selection */}
         <div className="booking-information-content col-12">
+			<section className="screen-container">
+    			<article className="screen">Bioduk</article>
+  			</section>
         <div className="seat-grid col-12">
           {Object.entries(groupSeatsByRow(seats)).map(([rowNumber, rowSeats]) => (
             <div className="seat-row col-12" key={rowNumber}>
