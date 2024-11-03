@@ -93,7 +93,7 @@ const CurrentShowsSection: React.FC = () => {
   const endOfWeek = new Date(today);  // Kopia av today för slutdatum
   endOfWeek.setDate(today.getDate() + 7);
   const isEndOfWeek = selectedDate.toDateString() === endOfWeek.toDateString();
-  
+
   // Filtrera unika filmer på ID
   const uniqueMovies = Array.from(
     new Map(showtimes.map(showtime => [showtime.movie._id, showtime.movie])).values()
@@ -108,9 +108,6 @@ const CurrentShowsSection: React.FC = () => {
     setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate() + 1)));
   };
 
-  // Kollar om idag eller en vecka från idag
-  // const isToday = selectedDate.toDateString() === today.toDateString();
-  // const isEndOfWeek = selectedDate.toDateString() === new Date(today.setDate(today.getDate() + 7)).toDateString();
 
   // Hämtar label för utvald dag
   const getDayLabel = (date: Date) => {
