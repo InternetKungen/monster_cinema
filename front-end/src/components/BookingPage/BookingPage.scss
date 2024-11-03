@@ -224,23 +224,20 @@
 
 .screen {
 	width: 30rem;
-	height: 1.5rem;
-	background-color: white;
+	height: 4rem;
+	background: linear-gradient(to bottom, #2CDF8C, #045685,);
 	color: black; // Text color
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	position: relative;
 		clip-path: polygon(0% 0%,
-			10% 100%,
+            10% 100%,
 			90% 100%,
 			100% 0%);
-		/* Create a triangle shape */
 		box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-		/* Optional shadow for a 3D effect */
 		z-index: 1;
-		/* Make sure it stays on top */
-	font-size: 1.2rem;
+	font-size: 1.5rem;
 }
 
 .age-confirmation {
