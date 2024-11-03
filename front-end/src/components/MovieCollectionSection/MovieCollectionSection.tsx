@@ -22,7 +22,7 @@ const MovieCollectionSection: React.FC = () => {
   const [filterField, setFilterField] = useState<string | null>(null);
   const [filterValue, setFilterValue] = useState<string | number |  null>(null);
   const [isMinThreshold, setIsMinThreshold] = useState<boolean>(false);
-   const [showMore, setShowMore] = useState<boolean>(false);
+  const [showMore, setShowMore] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -60,6 +60,8 @@ const MovieCollectionSection: React.FC = () => {
     setIsMinThreshold(minThreshold);
   };
 
+  const itemsPerRow = 3;
+  const initialMoviesToShow = 5;
   const filteredMovies = filterField && filterValue
     ? movies.filter((movie) => {
         const fieldValue = movie[filterField as keyof Movie];
@@ -77,7 +79,9 @@ const MovieCollectionSection: React.FC = () => {
 	})
     : movies;
 
-	const displayedMovies = showMore ? filteredMovies : filteredMovies.slice(0, 5);
+	const displayedMovies = showMore
+	? filteredMovies
+	: filteredMovies.slice(0, Math.ceil(initialMoviesToShow / itemsPerRow) * itemsPerRow);
 
 
 	console.log("Filetered: " + JSON.stringify(filteredMovies))
