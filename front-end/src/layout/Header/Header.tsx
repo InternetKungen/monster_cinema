@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import SearchIcon from '../../assets/icons/search_35dp_FCAF00_FILL0_wght400_GRAD0_opsz40.png';
 import LoginIcon from '../../assets/icons/person_35dp_FCAF00_FILL0_wght400_GRAD0_opsz40.png';
 import ProfileIcon from "../../assets/icons/clarify_35dp_FCAF00_FILL0_wght400_GRAD0_opsz40.png"
@@ -15,6 +15,8 @@ const Header: React.FC<{ onSelectDate: (daysAhead: number) => void }> = ({ onSel
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
   const { user } = useContext(UserContext);
+  const location = useLocation();
+  const isBookingPage = location.pathname.startsWith('/booking/');
   console.log(user);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 576);
 
@@ -32,9 +34,13 @@ const Header: React.FC<{ onSelectDate: (daysAhead: number) => void }> = ({ onSel
     <header className="container-fluid sticky-top p-0">
       <div className="row w-100">
         <nav className="schedule-button-container col-4">
+			 {!isBookingPage && (
+            <>
           <button onClick={() => onSelectDate(0)} className="schedule-button-container__button col-4">Idag</button>
           <button onClick={() => onSelectDate(1)} className="schedule-button-container__button col-4">Imorgon</button>
           <button onClick={() => onSelectDate(2)} className="schedule-button-container__button col-4">Senare</button>
+		  </>
+		  )}
         </nav>
 
         <div className="logo-container col-4 text-center">
