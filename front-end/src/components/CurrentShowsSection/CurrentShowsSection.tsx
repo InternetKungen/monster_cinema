@@ -33,29 +33,6 @@ const CurrentShowsSection: React.FC = () => {
   const today = new Date();
   today.setHours(0, 0, 0, 0); // Set to midnight
 
-  // Fetch showtimes när `selectedDate` ändras -- CHANGED: Ändrar denna till att hämta en hel vecka istället
-  // useEffect(() => {
-  //   const fetchShowtimes = async () => {
-  //     setLoading(true);
-  //     setError(null);
-
-  //     const formattedDate = selectedDate.toISOString().split('T')[0];
-  //     try {
-  //       const response = await fetch(`/api/showtime/date-range?startDate=${formattedDate}&endDate=${formattedDate}`);
-  //       if (!response.ok) {
-  //         throw new Error('Failed to fetch showtimes');
-  //       }
-  //       const data = await response.json();
-  //       setShowtimes(data[formattedDate] || []);
-  //     } catch (error: any) {
-  //       setError(error.message);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchShowtimes();
-  // }, [selectedDate]);
 
   useEffect(() => {
     const fetchWeeklyShowtimes = async () => {
