@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ScheduleSection from '../ScheduleSection/ScheduleSection';
-import "./MovieInfoPage.scss";
+import Header from '../../layout/Header/Header';
+import './MovieInfoPage.scss';
+
 interface Movie {
   _id: string;
   title: string;
@@ -26,10 +28,11 @@ interface MovieInfoPageProps {
 
 const MovieInfoPage: React.FC<MovieInfoPageProps> = ({ movieId }) => {
   const [movie, setMovie] = useState<Movie | null>(null);
+  const [selectedDate, setSelectedDate] = useState(new Date()); // State to manage the selected date
+  const scheduleRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (movieId) {
-      // Här gör du en API-förfrågan för att hämta filmen baserat på movieId
       fetch(`/api/movie/${movieId}`)
         .then((response) => response.json())
         .then((data) => setMovie(data))
@@ -37,16 +40,26 @@ const MovieInfoPage: React.FC<MovieInfoPageProps> = ({ movieId }) => {
     }
   }, [movieId]);
 
+  const scrollToSchedule = (daysOffset: number) => {
+    const targetDate = new Date();
+    targetDate.setDate(targetDate.getDate() + daysOffset); // Adjust the date based on button clicked
+    setSelectedDate(targetDate); // Update the selected date state
+    if (scheduleRef.current) {
+      scheduleRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   if (!movie) {
     return <div>Loading...</div>;
   }
+
   return (
     <div className="content">
+      <Header onSelectDate={scrollToSchedule} />
+
       <div className="trailer-container col-12">
         <div className="youtube">
           <iframe
-            // width="100%"
-            // height="600"
             src={"https://www.youtube.com/embed/" + movie.trailer}
             title={movie.title}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -55,27 +68,24 @@ const MovieInfoPage: React.FC<MovieInfoPageProps> = ({ movieId }) => {
         </div>
       </div>
 
-      <div className="movie-info-container d-flex justify-content-between p-2  align-items-center">
+      <div className="movie-info-container d-flex justify-content-between p-2 align-items-center">
         <div className="movie-info">
           <h2>{movie.title}</h2>
           <div className="row col-lg-12 align-items-center">
-            <p className="age-restriction col-lg-4">
-              Åldersgräns: {movie.ageRestriction}+
-            </p>
+            <p className="age-restriction col-lg-4">Åldersgräns: {movie.ageRestriction}+</p>
             <p className="genre col-lg-4">Genre: {movie.genre.join(", ")}</p>
             <p className="duration col-lg-4">Längd: {movie.length} min</p>
-
           </div>
           <p className="description">{movie.description}</p>
           <div className="wrapper-movie-info__details">
-          <div className="movie-info__details">
-            <p>Regissör: {movie.director}</p>
-            <p>Skådespelare: {movie.actors.join(", ")}</p>
-            <p>Originaltitel: {movie.title}</p>
-            <p>Språk: {movie.language}</p>
-            <p>År: {movie.year}</p>
-            <p>Produktionsländer: {movie.productionCountries.join(", ")}</p>
-            <p>Distributör: {movie.distributor}</p>
+            <div className="movie-info__details">
+              <p>Regissör: {movie.director}</p>
+              <p>Skådespelare: {movie.actors.join(", ")}</p>
+              <p>Originaltitel: {movie.title}</p>
+              <p>Språk: {movie.language}</p>
+              <p>År: {movie.year}</p>
+              <p>Produktionsländer: {movie.productionCountries.join(", ")}</p>
+              <p>Distributör: {movie.distributor}</p>
             </div>
           </div>
         </div>
@@ -84,9 +94,13 @@ const MovieInfoPage: React.FC<MovieInfoPageProps> = ({ movieId }) => {
           <img src={movie.poster} alt={movie.title} width={300} />
         </div>
       </div>
+	  <div>
+	        <ScheduleSection movieId={movieId} date={new Date()} />
+    </div>
 
-      {/* Lägg till ScheduleSection här */}
-      <ScheduleSection movieId={movieId} date={new Date()} />
+      <div ref={scheduleRef}>
+        <ScheduleSection movieId={movieId} date={selectedDate} />
+      </div>
     </div>
   );
 };
