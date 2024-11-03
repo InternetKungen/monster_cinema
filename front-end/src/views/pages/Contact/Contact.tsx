@@ -1,4 +1,5 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
+import TitleBarComponent from '../../../components/TitleBarComponent/TitleBarComponent';
 import './contact.scss';
 
 // Definerar strukturen för input values
@@ -108,7 +109,7 @@ const Contact: React.FC = () => {
   return (
     <section>
       <article className='contact-container'>
-        <h1 className='contact-title'>Kontakta oss</h1>
+		<TitleBarComponent title='Kontakta oss' />
         <p className='contact-text'>
           Vår toppmoderna biograf finns i Gränbystadens Galleria precis intill E4:an. <br/>
           Alltid 4 timmars fri parkering och utanför biografen stannar både lokal- och regionalbussar.<br/>
