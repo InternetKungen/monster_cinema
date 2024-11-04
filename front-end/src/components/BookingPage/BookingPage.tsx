@@ -312,7 +312,9 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
                     <button 
                       onClick={() => handleTicketCountChange(ticketType.type, false)}
                     >-</button>
-                    <span>{ticketCounts[ticketType.type] || 0}</span>
+                    <span className={(ticketCounts[ticketType.type] || 0) === 0 ? 'ticket-count-zero' : 'ticket-count-nonzero'}>
+                      {ticketCounts[ticketType.type] || 0}
+                    </span>
                     <button 
                       onClick={() => handleTicketCountChange(ticketType.type, true)}
                     >+</button>
