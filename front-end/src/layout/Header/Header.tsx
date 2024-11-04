@@ -8,6 +8,7 @@ import './Header.scss';
 import Logo from '../../assets/img/logo-text-side.png';
 import LogoSmall from '../../assets/img/logo-no-text.png';
 import LoginModal from '../../views/modals/LoginModal';
+import SearchBar from '../../components/SearchBar/SearchBar';
 
 const Header: React.FC<{ onSelectDate: (daysAhead: number) => void }> = ({ onSelectDate }) => {
   const [showModal, setShowModal] = useState(false);
@@ -19,6 +20,7 @@ const Header: React.FC<{ onSelectDate: (daysAhead: number) => void }> = ({ onSel
   const isBookingPage = location.pathname.startsWith('/booking/');
   console.log(user);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 576);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => setIsSmallScreen(window.innerWidth < 576);
@@ -52,26 +54,26 @@ const Header: React.FC<{ onSelectDate: (daysAhead: number) => void }> = ({ onSel
         </div>
 
         <div className="search-login-container col-4 p-0">
-            <div className="search-login-container__icon col-6">
-              <Link to="/">
-                <img src={SearchIcon} alt="Search" className="SearchIcon" />
-              </Link>
-            </div>
-            <div className="search-login-container__icon col-6">
-              {user ? (
-                <Link to="/profile">
-                  <img src={ProfileIcon} alt="Login" className="LoginIcon" />
-                </Link>
-              ) : (
-                <div onClick={handleShow}>
-                <img src={LoginIcon} alt="Login" className="LoginIcon" />
-              </div>
-              )}
-
+          <div className="search-login-container__icon col-6">
+            <div onClick={() => setIsSearchOpen(true)}>
+              <img src={SearchIcon} alt="Search" className="SearchIcon" />
             </div>
           </div>
+          <div className="search-login-container__icon col-6">
+            {user ? (
+              <Link to="/profile">
+                <img src={ProfileIcon} alt="Login" className="LoginIcon" />
+              </Link>
+            ) : (
+              <div onClick={handleShow}>
+                <img src={LoginIcon} alt="Login" className="LoginIcon" />
+              </div>
+            )}
+          </div>
+        </div>
       </div>
       <LoginModal show={showModal} setModalType={setModalType} type={modalType} handleClose={handleClose} />
+      <SearchBar isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </header>
   );
 };
