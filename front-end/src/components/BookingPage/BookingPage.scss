@@ -287,6 +287,7 @@
 	justify-content: space-between;
 
 	label {
+		@include text-stroke($color-primary-dark);
 		font-size: 28px;
 	}
 }
@@ -297,10 +298,25 @@
 	align-items: center;
 	gap: 10px;
 
+	span {
+		@include text-stroke($color-primary-dark);
+		font-size: 1.4rem;
+		min-width: 30px;
+		text-align: center;
+		transition: color 0.3s ease-in-out;
+		color: $color-select;
+		&.ticket-count-zero {
+				color: $color-secondary;
+		}
+		&.ticket-count-nonzero {
+			color: $color-select;
+		}
+	}
 	button {
-		display: flex;
-		justify-content: center;
-		align-items: center;
+		// display: flex;
+		// justify-content: center;
+		// align-items: center;
+		text-align:center;
 		background: $color-secondary;
 		border: 2px solid $color-primary-dark;
 		width: 40px;
@@ -308,8 +324,9 @@
 		border-radius: 50%;
 		transition: background 0.5s ease-in-out;
 		cursor: pointer;
-		font-weight: bold;
-		padding-bottom: 2px;
+		font-weight: bolder;
+		font-size: 18px;
+		// padding-top: 0.15rem;
 		&:hover {
 			transition: border 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
 			border: 2px solid $color-select;
@@ -408,13 +425,13 @@
 		white-space: nowrap;
 		}
 	}
-	}
-	.book-button h1 {
-		font-size: 25px;
-	}
+}
+.book-button h1 {
+	font-size: 25px;
+}
 
-	body.hide-footer {
-		footer {
-		display: none;
-		}
+body.hide-footer {
+	footer {
+	display: none;
 	}
+}
