@@ -291,7 +291,7 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
 
   return (
     <Container className="g-0 p-0">
-      <Row className="w-100 g-0">
+      <Row className="w-100 g-0 p-3">
         <div className="booking-information col-md-12 col-lg-8 g-0">
           {/* Section 1: Showtime Info */}
           <div className="booking-information-header col-12">
