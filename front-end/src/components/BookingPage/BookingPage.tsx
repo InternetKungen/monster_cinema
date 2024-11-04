@@ -487,7 +487,7 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
               </span>
             </div>
             <div className="ticket-row">
-              <h3>Summa:</h3>
+              <h3>Att betala:</h3>
               <span>{totalAmount} kr</span>
             </div>
           </div>
