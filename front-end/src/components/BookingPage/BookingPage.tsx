@@ -4,6 +4,7 @@ import './BookingPage.scss';
 import dateIcon from '../../assets/icons/calendar_today_35dp_FCAF00_FILL0_wght400_GRAD0_opsz40.png';
 import timeIcon from '../../assets/icons/schedule_35dp_FCAF00_FILL0_wght400_GRAD0_opsz40.png';
 import hallIcon from '../../assets/icons/icon-cinema-fatter.png';
+import { Container, Row } from 'react-bootstrap';
 
 interface Seat {
   seat: {
@@ -77,6 +78,13 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
   const [ticketCounts, setTicketCounts] = useState<Record<string, number>>({});
 
   const ORDINARY_PRICE = 140;
+
+  useEffect(() => {
+    document.body.classList.add('hide-footer');
+    return () => {
+    document.body.classList.remove('hide-footer');
+    };
+  }, []);
 
   useEffect(() => {
     if (showtimeId) {
@@ -186,6 +194,24 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
     }
   };
 
+  const handleTicketCountChange = (ticketType: string, increment: boolean) => {
+    setTicketCounts(prev => {
+      const currentCount = prev[ticketType] || 0;
+      const newCount = increment ? currentCount + 1 : Math.max(0, currentCount - 1);
+      const updatedCounts = { ...prev, [ticketType]: newCount };
+      
+      // Beräkna totala antalet biljetter efter ändringen
+      const totalNewTickets = Object.values(updatedCounts).reduce((sum, count) => sum + count, 0);
+      
+      // Om vi minskar antalet biljetter, ta bort det senast valda sätet
+      if (!increment && totalNewTickets < selectedSeats.length) {
+        setSelectedSeats(prev => prev.slice(0, -1)); // Ta bort det sista elementet i arrayen
+      }
+      
+      return updatedCounts;
+    });
+  };
+
   const handleBooking = async () => {
   if (!email || selectedSeats.length === 0 || !ageConfirmation) {
     setError('Please select seats, enter your email, and confirm age');
@@ -197,7 +223,7 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
       type: ticketType.type,
       quantity: ticketCounts[ticketType.type] || 0
     }));
-    
+
     // Filter out only the selected seats
     const selectedSeatObjects = seats.filter(seat => selectedSeats.includes(seat._id));
 
@@ -252,65 +278,77 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
   }
 
   return (
-    <div className="container">
-      <div className="booking-information">
+    <Container className="g-0 p-0">
+      <Row className="w-100 g-0">
+        <div className="booking-information col-md-12 col-lg-8 g-0">
 
-        {/* Section 1: Showtime Info */}
-        <div className="booking-information-header">
-          <div className="booking-information-header__poster">
-            <img src={movie?.poster} alt={movie?.title} />
-          </div>
-          <div className="booking-information-header__top">
-          <h1>{movie?.title}</h1>
-            <p>Tal: {movie?.language}, Undertexter: {movie?.subtitles}</p>
-            <p>Genre: {movie?.genre.join(', ')}</p>
-            <p>Speltid: {movie?.length} minuter</p>
-          </div>
-          <div className="booking-information-header__bottom">
-            <p><img src={dateIcon} alt="date" />Datum: {showtime && new Date(showtime.date).toLocaleDateString()}</p>
-            <p><img src={timeIcon} alt="time" />kl {showtime?.time}</p>
-            <p><img src={hallIcon} alt="hall" />Salong: {showtime?.hall.hallName}</p>
-          </div>
-        </div>
-
-        {/* Section 2: Ticket Selection */}
-        <div className="ticket-counts">
-          {/* <h3>Välj biljetter</h3> */}
-          <div className="ticket-counts__tickets">
-            {ticketTypes.map((ticketType) => (
-              <div key={ticketType._id} className="ticket-counts__tickets__ticket">
-                <label>{ticketType.type} </label>
-                <div className="ticket-counts__tickets__ticket__button-container">
-                  <button onClick={() => setTicketCounts((prev) => ({ ...prev, [ticketType.type]: Math.max(0, (prev[ticketType.type] || 0) - 1) }))}>-</button>
-                  <span>{ticketCounts[ticketType.type] || 0}</span>
-                  <button onClick={() => setTicketCounts((prev) => ({ ...prev, [ticketType.type]: (prev[ticketType.type] || 0) + 1 }))}>+</button>
+          {/* Section 1: Showtime Info */}
+          <div className="booking-information-header col-12">
+            <div className="booking-information-header__poster col-4">
+              <div className="booking-information-header__poster-image">
+                <img src={movie?.poster} alt={movie?.title} />
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Section 3: Seat Selection */}
-        <div className="booking-information-content">
-        <h3>Välj platser</h3>
-        <div className="seat-grid">
-          {Object.entries(groupSeatsByRow(seats)).map(([rowNumber, rowSeats]) => (
-            <div className="seat-row" key={rowNumber}>
-              {rowSeats
-                .sort((a, b) => b.seat.seatNumber - a.seat.seatNumber) // Sort seats in descending order
-                .map((seat) => (
-                  <button
-                    key={seat._id}
-                    onClick={() => !seat.isBooked && handleSeatClick(seat._id)}
-                    className={`seat-button ${seat.isBooked ? 'unavailable' : (selectedSeats.includes(seat._id) ? 'selected' : '')}`}
-                    disabled={seat.isBooked}
-                  >
-                    {seat.seat.seatNumber}
-                  </button>
-                ))}
+            <div className="booking-information-header-container col-8">
+              <div className="booking-information-header__top">
+              <h1>{movie?.title}</h1>
+                <p>Tal: {movie?.language}, Undertexter: {movie?.subtitles}</p>
+                <p>Genre: {movie?.genre.join(', ')}</p>
+                <p>Speltid: {movie?.length} minuter</p>
+              </div>
+              <div className="booking-information-header__bottom">
+                <p><img src={dateIcon} alt="date" />Datum: {showtime && new Date(showtime.date).toLocaleDateString()}</p>
+                <p><img src={timeIcon} alt="time" />kl {showtime?.time}</p>
+                <p><img src={hallIcon} alt="hall" />Salong: {showtime?.hall.hallName}</p>
+              </div>
             </div>
-          ))}
-        </div>
+          </div>
+
+          {/* Section 2: Ticket Selection */}
+          <div className="ticket-counts">
+            <div className="ticket-counts__tickets">
+              {ticketTypes.map((ticketType) => (
+                <div key={ticketType._id} className="ticket-counts__tickets__ticket">
+                  <label>{ticketType.type} </label>
+                  <div className="ticket-counts__tickets__ticket__button-container">
+                    <button 
+                      onClick={() => handleTicketCountChange(ticketType.type, false)}
+                    >-</button>
+                    <span className={(ticketCounts[ticketType.type] || 0) === 0 ? 'ticket-count-zero' : 'ticket-count-nonzero'}>
+                      {ticketCounts[ticketType.type] || 0}
+                    </span>
+                    <button 
+                      onClick={() => handleTicketCountChange(ticketType.type, true)}
+                    >+</button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Section 3: Seat Selection */}
+          <div className="booking-information-content col-12">
+            <section className="screen-container">
+                <article className="screen">Bioduk</article>
+            </section>
+            <div className="seat-grid col-12">
+              {Object.entries(groupSeatsByRow(seats)).map(([rowNumber, rowSeats]) => (
+                <div className="seat-row col-12" key={rowNumber}>
+                  {rowSeats
+                    .sort((a, b) => b.seat.seatNumber - a.seat.seatNumber) // Sort seats in descending order
+                    .map((seat) => (
+                      <button
+                        key={seat._id}
+                        onClick={() => !seat.isBooked && handleSeatClick(seat._id)}
+                        className={`seat-button ${seat.isBooked ? 'unavailable' : (selectedSeats.includes(seat._id) ? 'selected' : '')}`}
+                        disabled={seat.isBooked}
+                      >
+                        {seat.seat.seatNumber}
+                      </button>
+                    ))}
+                </div>
+              ))}
+          </div>
 
           {/* Section 4: Contact Information */}
           <div className="contact-info">
@@ -343,13 +381,10 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
             </div>
           </div>
           <div className="book-button-container">
-              <button className="book-button" onClick={handleBooking}>
-                <h1>Köp biljett!</h1>
-              </button>
+            <button className="book-button" onClick={handleBooking}>
+              <h1>Köp biljett!</h1>
+            </button>
           </div>
-
-
-
         </div>
       </div>
 
@@ -367,45 +402,51 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
             ) : (
               <>
                 <p>{bookingStatus?.message}</p>
-                <button onClick={closeModal}>Stäng</button>
+                <button onClick={closeModal} type="button">Stäng</button>
               </>
             )}
           </div>
         </div>
-      )}
+        )}
+        
       {/* Section 6: Total Amount - Aside */}
-      <div className="total-amount-aside">
-        <div className="total-amount">
+      <div className="total-amount-aside col-12 col-lg-4 p-0">
+        <div className="total-amount col-12 col-lg-4">
           {ticketTypes.map((ticketType) => (
             <h3 key={ticketType._id}>
-              {ticketType.type}: {ticketCounts[ticketType.type] || 0} st {(ticketCounts[ticketType.type] || 0) * ticketType.price} kr
+              <span>{ticketType.type}: {ticketCounts[ticketType.type] || 0} st</span>
+              <span>{(ticketCounts[ticketType.type] || 0) * ticketType.price} kr</span>
             </h3>
           ))}
-          {/* <h3>Ordinarie pris {ticketTypes.reduce((sum, ticketType) => sum + ((ticketCounts[ticketType.type] || 0) * ticketType.price), 0)} kr</h3> */}
-          {/* Beräkna det totala ordinarie priset baserat på antal biljetter */}
-          <h3>
-            Ordinarie pris:{" "}
-            {Object.values(ticketCounts).reduce(
-              (sum, count) => sum + (count || 0) * ORDINARY_PRICE,
-              0
-            )}{" "}
-            kr
-          </h3>
-          
-          {/* <h3>Totalt prisavdrag {ticketTypes.reduce((sum, ticketType) => sum + ((ticketCounts[ticketType.type] || 0) * ticketType.price), 0) - totalAmount} kr</h3> */}
-          {/* Beräkna prisavdraget: ordinarie pris minus det nuvarande totalbeloppet */}
-          <h3>
-            Totalt prisavdrag:{" "}
-            {Object.values(ticketCounts).reduce(
-              (sum, count) => sum + (count || 0) * ORDINARY_PRICE,
-              0
-            ) - totalAmount}{" "}
-            kr
-          </h3>
-          <h2>Att betala: {totalAmount} SEK</h2>
+
+            <h3>
+              <span>Ordinarie pris:</span>
+              <span>
+                {Object.values(ticketCounts).reduce(
+                (sum, count) => sum + (count || 0) * ORDINARY_PRICE,
+                0
+              )} kr
+              </span>
+            </h3>
+
+            <h3>
+              <span>Totalt prisavdrag:</span>
+              <span>
+                {Object.values(ticketCounts).reduce(
+                (sum, count) => sum + (count || 0) * ORDINARY_PRICE,
+                0
+              ) - totalAmount} kr
+              </span>
+            </h3>
+
+            <h2>
+              <span>Att betala:</span>
+              <span>{totalAmount} SEK</span>
+            </h2>
+          </div>
         </div>
-      </div>
-    </div>
+      </Row>
+    </Container>
   );
 };
 

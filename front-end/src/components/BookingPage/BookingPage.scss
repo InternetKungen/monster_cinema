@@ -10,6 +10,9 @@
 .booking-information {
 	margin-bottom: 20px;
 	border-radius: 10px;
+	@media (max-width: 991.98px) {
+		margin-bottom: 260px;
+	}
 }
 
 .booking-information-header {
@@ -40,14 +43,13 @@
 
 		&:nth-child(2) {
 			font-size: 13px;
-			margin-bottom: 10px;
+			margin-bottom: 5px
 		}
 
 		&:nth-child(3) {
 			font-size: 13px;
-			position: absolute;
-			top: 48px;
-			right: 250px;
+			padding: 0;
+			margin: 0;
 		}
 	}
 }
@@ -59,13 +61,23 @@
 	border-radius: 5px;
 	width: fit-content;
 	height: fit-content;
+	display: flex;
+	justify-content: end;
+	
+	.booking-information-header__poster-image {
+		background: $border-image-poster;
+		padding: 3px;
+		border-radius: 5px;
+		width: fit-content;
+		height: fit-content;
 
-	img {
-		width: 200px;
-		height: 300px;
-		object-fit: cover;
-		border: 3px solid;
-		border-image: $border-image-poster;
+		img {
+			width: 100%;
+			height: 100%;
+			max-width: 200px;
+			object-fit: cover;
+			border-radius: 5px;
+		}
 	}
 }
 
@@ -84,6 +96,24 @@
 		height: 38px;
 		margin-right: 20px;
 	}
+
+	@media (max-width: 576px) {
+		padding-top: 10px;
+		text-overflow: nowrap;
+		img {
+			width: 30px;
+			height: 30px;
+			margin-right: 10px;
+			margin-bottom: 0px;
+			margin-top: 0px;
+			padding: 0px;
+		}
+		p {
+			font-size: 0.9rem;
+			text-overflow: nowrap;
+			margin-bottom: 0px;
+		}
+	}
 }
 
 .booking-information-content {
@@ -99,12 +129,12 @@
 }
 
 .book-button {
-	padding: 10px 20px;
+	padding: -20px 20px;
 	background-color: $color-secondary;
 	color: $color-text-dark;
 	border: 2px solid $color-primary-dark;
 	cursor: pointer;
-	width: 80%;
+	width: 50%;
 	border-radius: 10px;
 
 	&:disabled {
@@ -143,16 +173,16 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 10px;
-	margin: 20px 0;
+	gap: 5px;
+	margin: 10px 0;
 }
 
 .seat-button {
-	padding: 10px;
+	padding: 2px;
 	background: $color-secondary;
 	border: 2px solid $color-primary-dark;
 	cursor: pointer;
-	margin: 5px;
+	margin: 2px;
 	font-size: 12px;
 	color: $color-text-dark;
 	width: 40px;
@@ -194,11 +224,63 @@
 	padding: 20px;
 }
 
+.screen-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 1rem;
+}
+
+.screen {
+	width: 25rem;
+	height: 4rem;
+	background: linear-gradient(to bottom, #2CDF8C, #045685,);
+	color: black; // Text color
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+		clip-path: polygon(0% 0%,
+            10% 100%,
+			90% 100%,
+			100% 0%);
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+		z-index: 1;
+	font-size: 1.5rem;
+}
+
 .age-confirmation {
 	margin: 0;
 	background: #2d2d2d;
 	color: $color-white;
 	padding: 20px;
+	.age-confirmation-inner-box {
+		border: 1px solid $color-age-box-border;
+		border-radius: 4px;
+		padding: 10px;
+		position: relative;
+		.checkbox-container	{
+			width: 25%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+		}
+		input[type="checkbox"] {
+			// margin: 20px;
+			transform: scale(1.6);
+			text-align: left;
+			accent-color: $color-select;
+		}
+
+		label {
+			text-align: left;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
+		}
+	}
 }
 
 .ticket-counts__tickets {
@@ -214,6 +296,7 @@
 	justify-content: space-between;
 
 	label {
+		@include text-stroke($color-primary-dark);
 		font-size: 28px;
 	}
 }
@@ -224,10 +307,25 @@
 	align-items: center;
 	gap: 10px;
 
+	span {
+		@include text-stroke($color-primary-dark);
+		font-size: 1.4rem;
+		min-width: 30px;
+		text-align: center;
+		transition: color 0.3s ease-in-out;
+		color: $color-select;
+		&.ticket-count-zero {
+				color: $color-secondary;
+		}
+		&.ticket-count-nonzero {
+			color: $color-select;
+		}
+	}
 	button {
-		display: flex;
-		justify-content: center;
-		align-items: center;
+		// display: flex;
+		// justify-content: center;
+		// align-items: center;
+		text-align:center;
 		background: $color-secondary;
 		border: 2px solid $color-primary-dark;
 		width: 40px;
@@ -235,8 +333,9 @@
 		border-radius: 50%;
 		transition: background 0.5s ease-in-out;
 		cursor: pointer;
-		font-weight: bold;
-		padding-bottom: 2px;
+		font-weight: bolder;
+		font-size: 18px;
+		// padding-top: 0.15rem;
 		&:hover {
 			transition: border 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
 			border: 2px solid $color-select;
@@ -250,25 +349,6 @@
 	}
 }
 
-.age-confirmation-inner-box {
-	border: 1px solid $color-age-box-border;
-	border-radius: 4px;
-	padding: 10px;
-
-	input {
-		margin: 20px;
-		transform: scale(1.5);
-		text-align: left;
-	}
-
-	label {
-		text-align: left;
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: space-between;
-	}
-}
 
 .booking-modal {
 	position: fixed;
@@ -304,8 +384,21 @@
 
 .total-amount-aside {
 	position: relative;
-	width: 50%;
 	height: fit-content;
+	z-index: 3;
+	@media (max-width: 991.98px) {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		z-index: 1050;
+		padding: 1rem;
+		text-align: center;
+		background: transparent;
+		.total-amount {
+			position: sticky;
+			// margin-left: 12px;
+		}
+	}
 }
 
 .total-amount {
@@ -318,19 +411,36 @@
 	position: fixed;
 	width: 25%;
 
-	h3 {
+	h3, h2 {
 		margin-top: 10px;
-		text-align: right;
 		display: flex;
-		justify-content: flex-end;
+		justify-content: space-between;
+		text-align: left;
 		font-size: 20px;
-	}
 
-	h2 {
-		margin-top: 10px;
-		text-align: right;
-		display: flex;
-		justify-content: flex-end;
+
+		&:last-child {
 		font-size: 25px;
+		font-weight: bold;
+		}
+
+		span:first-child {
+		flex-grow: 1;
+		text-align: left;
+		}
+
+		span:last-child {
+		text-align: right;
+		white-space: nowrap;
+		}
+	}
+}
+.book-button h1 {
+	font-size: 25px;
+}
+
+body.hide-footer {
+	footer {
+	display: none;
 	}
 }

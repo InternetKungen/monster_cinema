@@ -8,19 +8,24 @@ import AboutCinemas from '../../views/pages/AboutCinemas/AboutCinemas';
 import Contact from '../../views/pages/Contact/Contact';
 import './Main.scss';
 
-const Main: React.FC = () => {
+interface MainProps {
+  scheduleRef: React.RefObject<HTMLElement>;
+  selectedDate: Date;
+}
+
+const Main: React.FC<MainProps> = ({ scheduleRef, selectedDate }) => {
   return (
-    <main>
+    <main className="container-fluid g-0">
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/booking" element={<Booking />} />
+        <Route path="/" element={<Home scheduleRef={scheduleRef} selectedDate={selectedDate} />} />
+        {/* <Route path="/booking" element={<Booking />} /> */}
         <Route path="/booking/:showtimeId" element={<Booking />} />
-        <Route path="/movie-info" element={<MovieInfo />} />
-        <Route path="/movie-info/:id" element={<MovieInfo />} />
+        {/* <Route path="/movie-info" element={<MovieInfo scheduleRef={scheduleRef} selectedDate={selectedDate} />} /> */}
+        <Route path="/movie-info/:id" element={<MovieInfo scheduleRef={scheduleRef} selectedDate={selectedDate} />} />
         <Route path="/about-us" element={<About />} />
         <Route path="/about-cinemas" element={<AboutCinemas />} />
         <Route path="/contact-us" element={<Contact />} />
-        <Route path="*" element={<Home />} />
+        <Route path="*" element={<Home scheduleRef={scheduleRef} selectedDate={selectedDate} />} />
       </Routes>
     </main>
   );

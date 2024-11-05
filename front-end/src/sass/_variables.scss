@@ -29,6 +29,8 @@ $bg-color-showtime-odd: linear-gradient(to right, $color-primary-dark, $color-pr
 $bg-color-showtime-even: linear-gradient(to right, $color-primary-light, $color-primary-dark);
 $bg-color-showtime-hover-odd: linear-gradient(to right, $color-highlight,$color-primary-light);
 $bg-color-showtime-hover-even: linear-gradient(to right, $color-highlight, $color-primary-dark);
+$bg-gradient-movie-button: linear-gradient(to bottom, $color-primary-light 80%, $color-primary-dark);
+$bg-gradient-movie-button-highlight: linear-gradient(to bottom, $color-highlight 80%, $color-primary-dark);
 
 // Border Image
-$border-image-poster: linear-gradient(to bottom, $color-primary-dark, $color-primary-light) 1;
+$border-image-poster: linear-gradient(to bottom, $color-primary-dark, $color-primary-light);

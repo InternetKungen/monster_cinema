@@ -1,14 +1,17 @@
-import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState, useContext } from "react";
+import { Link, useLocation } from "react-router-dom";
+import SearchIcon from '../../assets/icons/search_35dp_FCAF00_FILL0_wght400_GRAD0_opsz40.png';
 import LoginIcon from "../../assets/icons/person_35dp_FCAF00_FILL0_wght400_GRAD0_opsz40.png";
 import ProfileIcon from "../../assets/icons/clarify_35dp_FCAF00_FILL0_wght400_GRAD0_opsz40.png";
 import { UserContext } from "../../UserContext";
 import "./Header.scss";
 import Logo from "../../assets/img/logo-text-side.png";
+import LogoSmall from '../../assets/img/logo-no-text.png';
 import LoginModal from "../../views/modals/LoginModal";
 import LogoutIcon from "../../assets/icons/logout_35dp_FCAF00_FILL0_wght400_GRAD0_opsz40.png";
+import SearchBar from '../../components/SearchBar/SearchBar';
 
-const Header: React.FC = () => {
+const Header: React.FC<{ onSelectDate: (daysAhead: number) => void }> = ({ onSelectDate }) => {
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState("login");
   const handleShow = () => {
@@ -18,54 +21,73 @@ const Header: React.FC = () => {
 
   const handleClose = () => setShowModal(false);
   const { user } = useContext(UserContext);
-  if (!user) {
-    console.log("No user");
-  }
+  const location = useLocation();
+  const isBookingPage = location.pathname.startsWith('/booking/');
+  console.log(user);
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 576);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsSmallScreen(window.innerWidth < 576);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+    const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <header
-      className="header position-fixed"
-      style={{ width: "80%", margin: "0 auto" }}
-    >
-      <div className="container-fluid">
-        <div className="row align-items-center">
-          <div className="col d-flex justify-content-start">
-            <Link to="/" className="nav-link">
-              Idag
-            </Link>
-            <Link to="/" className="nav-link">
-              Imorgon
-            </Link>
-            <Link to="/" className="nav-link">
-              Senare
+    <header className="container-fluid sticky-top p-0">
+      <div className="row w-100">
+        <nav className="schedule-button-container col-4">
+			    {!isBookingPage && (
+            <>
+              <button onClick={() => onSelectDate(0)} className="schedule-button-container__button col-4">Idag</button>
+              <button onClick={() => onSelectDate(1)} className="schedule-button-container__button col-4">Imorgon</button>
+              <button onClick={() => onSelectDate(2)} className="schedule-button-container__button col-4">Senare</button>
+            </>
+          )}
+        </nav>
+
+        <div className="logo-container col-4 text-center">
+          <div className="logo-img-wrapper col-12">
+            <Link to="/" onClick={scrollToTop}>
+            <img src={isSmallScreen ? LogoSmall : Logo} className="logo-img" alt="Logo" />
             </Link>
           </div>
+        </div>
 
-          <div className="col text-center">
-            <Link to="/">
-              <img src={Logo} className="logo-img" alt="Logo" />
-            </Link>
+        <div className="search-login-container col-4 p-0">
+          {/* SearchIcon visas alltid */}
+          <div className="search-login-container__icon col-4">
+            <button onClick={() => setIsSearchOpen(true)} type="button">
+              <img src={SearchIcon} alt="Search" className="SearchIcon" />
+            </button>
           </div>
 
-          <div className="col d-flex justify-content-end">
-            {user && (
-              <div className="icon">
+          {/* Om användaren är inloggad, visa ProfileIcon och LogoutIcon */}
+          {user ? (
+            <>
+              <div className="search-login-container__icon col-4">
                 <Link to="/profile">
-                  <img src={ProfileIcon} alt="Profile" className="SearchIcon" />
+                  <img src={ProfileIcon} alt="Profile" className="ProfileIcon" />
                 </Link>
               </div>
-            )}
-            <div className="icon">
-              {user ? (
+              <div className="search-login-container__icon col-4">
                 <Link to="/">
-                  <img src={LogoutIcon} alt="Login" className="LoginIcon" />
+                  <img src={LogoutIcon} alt="Logout" className="LogoutIcon" />
                 </Link>
-              ) : (
-                <button onClick={handleShow}>
-                  <img src={LoginIcon} alt="Login" className="LoginIcon" />
-                </button>
-              )}
+              </div>
+            </>
+          ) : (
+            // Om användaren inte är inloggad, visa bara LoginIcon
+            <div className="search-login-container__icon col-4">
+              <button onClick={handleShow} type="button">
+                <img src={LoginIcon} alt="Login" className="LoginIcon" />
+              </button>
             </div>
-          </div>
+          )}
         </div>
       </div>
       <LoginModal
@@ -74,6 +96,7 @@ const Header: React.FC = () => {
         type={modalType}
         handleClose={handleClose}
       />
+      <SearchBar isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </header>
   );
 };

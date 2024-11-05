@@ -1,14 +1,17 @@
 
+.modal-background {
+  background: rgba(0, 0, 0, 0.5);
+}
 .modal-content {
-    background-color: #000F26;
     background: $color-modal-bg;
     padding: 20px;
     border-radius: 8px;
     width: 500px;
-    color: #FCAF00;
+    color: $color-secondary;
     max-width: 90%;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
     position: relative;
+    @include text-stroke($color-primary-dark);
   }
   .modal-open {
     overflow: hidden;
@@ -43,8 +46,8 @@
   }
   
   .submit-button {
-    background-color: #FCAF00;
-    color: #000F26;
+    background-color: $color-secondary;
+    color: $color-primary-dark;
     font-size: 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
     padding: 10px 40px;

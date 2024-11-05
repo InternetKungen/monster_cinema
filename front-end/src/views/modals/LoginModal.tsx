@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
-import "./LoginModal.scss"; // Ensure this import is correct
+import "./LoginModal.scss";
 import { UserContext } from "../../UserContext";
 
 type Props = {
@@ -119,7 +119,7 @@ const LoginModal: React.FC<Props> = ({
   };
   return (
     <div
-      className="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center bg-dark bg-opacity-50"
+      className="modal-background position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
       style={{ zIndex: 1000 }}
     >
       {type === "login" && (

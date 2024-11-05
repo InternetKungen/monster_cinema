@@ -6,9 +6,9 @@ interface Movie {
   _id: string;
   title: string;
   genre: string[];
-//   year: number;
+  year: number;
   poster: string;
-//   ageRestriction: number;
+  ageRestriction: number;
 }
 
 interface Hall {
@@ -23,7 +23,8 @@ interface Showtime {
 }
 
 const CurrentShowsSection: React.FC = () => {
-  const [showtimes, setShowtimes] = useState<Showtime[]>([]);
+  // const [showtimes, setShowtimes] = useState<Showtime[]>([]);
+  const [allShowtimes, setAllShowtimes] = useState<{ [date: string]: Showtime[] }>({});
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
@@ -32,20 +33,25 @@ const CurrentShowsSection: React.FC = () => {
   const today = new Date();
   today.setHours(0, 0, 0, 0); // Set to midnight
 
-  // Fetch showtimes när `selectedDate` ändras
+
   useEffect(() => {
-    const fetchShowtimes = async () => {
+    const fetchWeeklyShowtimes = async () => {
       setLoading(true);
       setError(null);
 
-      const formattedDate = selectedDate.toISOString().split('T')[0];
+      const startDate = today.toISOString().split('T')[0];
+      const endDate = new Date(today);  // Skapar kopia av today
+      endDate.setDate(today.getDate() + 7);
+      const formattedEndDate = endDate.toISOString().split('T')[0];
+
       try {
-        const response = await fetch(`/api/showtime/date-range?startDate=${formattedDate}&endDate=${formattedDate}`);
+        const response = await fetch(`/api/showtime/date-range?startDate=${startDate}&endDate=${formattedEndDate}`);
         if (!response.ok) {
           throw new Error('Failed to fetch showtimes');
         }
         const data = await response.json();
-        setShowtimes(data[formattedDate] || []);
+        console.log(data); // Kontrollera om data ser ut som förväntat
+        setAllShowtimes(data);
       } catch (error: any) {
         setError(error.message);
       } finally {
@@ -53,8 +59,17 @@ const CurrentShowsSection: React.FC = () => {
       }
     };
 
-    fetchShowtimes();
-  }, [selectedDate]);
+    fetchWeeklyShowtimes();
+  }, []);
+
+  const formattedSelectedDate = selectedDate.toISOString().split('T')[0];
+  const showtimes = allShowtimes[formattedSelectedDate] || [];  // Hämta showtimes för det valda datumet
+
+  // Kontrollera om det är idag eller en vecka framåt
+  const isToday = selectedDate.toDateString() === new Date().toDateString();
+  const endOfWeek = new Date(today);  // Kopia av today för slutdatum
+  endOfWeek.setDate(today.getDate() + 7);
+  const isEndOfWeek = selectedDate.toDateString() === endOfWeek.toDateString();
 
   // Filtrera unika filmer på ID
   const uniqueMovies = Array.from(
@@ -70,9 +85,6 @@ const CurrentShowsSection: React.FC = () => {
     setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate() + 1)));
   };
 
-  // Kollar om idag eller en vecka från idag
-  const isToday = selectedDate.toDateString() === today.toDateString();
-  const isEndOfWeek = selectedDate.toDateString() === new Date(today.setDate(today.getDate() + 7)).toDateString();
 
   // Hämtar label för utvald dag
   const getDayLabel = (date: Date) => {
@@ -88,31 +100,31 @@ const CurrentShowsSection: React.FC = () => {
   if (error) return <div className="error">Error: {error}</div>;
 
   return (
-    <section>
-      <section className="current-shows-section">
-		<section className='titlebar-container'>
-        {/* Dagsnavigationsknappar */}
-		<section className="navigation-buttons">
-  		<button className="arrow-button previous" onClick={handlePreviousDay} disabled={isToday}>
-    		&#8592; {/* Vänster pil*/}
-  			</button>
-  		<h2 className='titlebar-text'>På bio {getDayLabel(selectedDate)}</h2>
-  			<button className="arrow-button next" onClick={handleNextDay} disabled={isEndOfWeek}>
-    		&#8594; {/* Höger pil */}
-  			</button>
-		</section>
-		</section>
-        <section className="movie-grid">
+    <section className="container">
+      <section className="current-shows-section col-12 g-0 p-0">
+        <section className='titlebar-container'>
+          {/* Dagsnavigationsknappar */}
+          <section className="navigation-buttons">
+            <button className="arrow-button previous" onClick={handlePreviousDay} disabled={isToday}>
+              &#8592; {/* Vänster pil*/}
+            </button>
+            <h2 className='titlebar-text'>På bio {getDayLabel(selectedDate)}</h2>
+            <button className="arrow-button next" onClick={handleNextDay} disabled={isEndOfWeek}>
+              &#8594; {/* Höger pil */}
+            </button>
+          </section>
+        </section>
+        <section className="movie-grid col-12">
           {uniqueMovies.length > 0 ? (
             uniqueMovies.map((movie) => (
               <MovieComponent
                 key={movie._id}
                 _id={movie._id}
                 title={movie.title}
-                // year={movie.year}
+                year={movie.year}
                 poster={movie.poster}
                 genre={movie.genre}
-                // ageRestriction={movie.ageRestriction}
+                ageRestriction={movie.ageRestriction}
               />
             ))
           ) : (
