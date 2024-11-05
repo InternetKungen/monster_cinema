@@ -285,7 +285,9 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
           {/* Section 1: Showtime Info */}
           <div className="booking-information-header col-12">
             <div className="booking-information-header__poster col-4">
-              <img src={movie?.poster} alt={movie?.title} />
+              <div className="booking-information-header__poster-image">
+                <img src={movie?.poster} alt={movie?.title} />
+                </div>
               </div>
             <div className="booking-information-header-container col-8">
               <div className="booking-information-header__top">

@@ -61,14 +61,23 @@
 	border-radius: 5px;
 	width: fit-content;
 	height: fit-content;
+	display: flex;
+	justify-content: end;
+	
+	.booking-information-header__poster-image {
+		background: $border-image-poster;
+		padding: 3px;
+		border-radius: 5px;
+		width: fit-content;
+		height: fit-content;
 
-	img {
-		width: 100%;
-		height: 100%;
-		max-width: 200px;
-		object-fit: cover;
-		border: 3px solid;
-		border-image: $border-image-poster;
+		img {
+			width: 100%;
+			height: 100%;
+			max-width: 200px;
+			object-fit: cover;
+			border-radius: 5px;
+		}
 	}
 }
 
