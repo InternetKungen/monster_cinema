@@ -182,7 +182,6 @@ export const removeTicket = async (req, res) => {
 export const getUserInfo = async (req, res) => {
   try {
     const user = await User.findById(req.user._id).populate("bookings").exec();
-    console.log("User info endpoint hit");
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
@@ -190,8 +189,7 @@ export const getUserInfo = async (req, res) => {
     // Remove the password field from the user object
     const { password, ...userWithoutPassword } = user.toObject();
 
-    res.status(200).json({user:userWithoutPassword});
-    console.log("User info sent");
+    res.status(200).json(userWithoutPassword);
   } catch (error) {
     console.error('Error fetching user info:', error); // Log the error for debugging
     res.status(500).json({ error: 'Server error' });

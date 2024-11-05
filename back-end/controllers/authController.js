@@ -21,35 +21,26 @@ export const userRegister = async (req, res) => {
 
 export const userLogin = async (req, res) => {
   try {
-      const { email, password } = req.body;
-      const user = await User.findOne({ email });
-      if (!user) {
-          return res.status(400).json({ error: "User does not exist" });
-      }
-      const isPasswordValid = await bcrypt.compare(password, user.password);
-      if (!isPasswordValid) {
-          return res.status(400).json({ error: "Invalid password" });
-      }
-      const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET);
-      if (!token) {
-          return res.status(500).json({ error: "Failed to generate token" });
-      }
-      
-      // Set the cookie with more secure options
-      res.cookie("token", token, {
-          httpOnly: true, // Prevents JavaScript access
-          secure: false, // Set to true in production (over HTTPS)
-          sameSite: 'Lax', // CSRF protection
-          maxAge: 60 * 60 * 1000 // 1 hour
-      });
-
-      const { password: _, ...userWithoutPassword } = user.toObject();
-      res.status(200).json({ message: "User logged in successfully", user: userWithoutPassword });
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ error: "User does not exist" });
+    }
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(400).json({ error: "Invalid password" });
+    }
+    const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET);
+    if (!token) {
+      return res.status(500).json({ error: "Failed to generate token" });
+    }
+    res.cookie("token", token, { httpOnly: true });
+    const { password: _, ...userWithoutPassword } = user.toObject();
+    res.status(200).json({ message: "User logged in successfully", user: userWithoutPassword });
   } catch (error) {
-      res.status(500).json({ error: "Server error" });
+    res.status(500).json({ error: "Server error" });
   }
-};
-
+}
 
 export const userLogout = (req, res) => {
   try {
