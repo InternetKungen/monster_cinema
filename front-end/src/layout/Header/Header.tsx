@@ -13,8 +13,13 @@ import LogoutIcon from "../../assets/icons/logout_35dp_FCAF00_FILL0_wght400_GRAD
 const Header: React.FC<{ onSelectDate: (daysAhead: number) => void }> = ({ onSelectDate }) => {
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState('login');
-  const handleShow = () => setShowModal(true);
-  const handleClose = () => setShowModal(false);
+  const handleShow = () => {
+    setModalType('login');
+    setShowModal(true)};
+  const handleClose = () => {
+    
+    setShowModal(false)
+  };
   const { user } = useContext(UserContext);
   const location = useLocation();
   const isBookingPage = location.pathname.startsWith('/booking/');
