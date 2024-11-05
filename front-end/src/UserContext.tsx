@@ -1,5 +1,5 @@
-import { createContext, useState, Dispatch, SetStateAction, ReactNode } from 'react';
-
+import { createContext, useState, Dispatch, SetStateAction, ReactNode, useEffect } from 'react';
+import { useCookies } from 'react-cookie';
 interface User {
     name: string;
     email: string;
@@ -19,6 +19,22 @@ export const UserContext = createContext<UserContextType>({
 
 const UserProvider = ({children}: {children: ReactNode}) => {
     const [user, setUser] = useState<User | null>(null);
+    const [cookies] = useCookies(['token']);
+    useEffect(() => {
+      fetch('/api/user/info', {
+        method: 'GET',
+        credentials: 'include',
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.user) {
+            setUser(data.user);
+          } else if (data.error) {
+            console.log(data.error);
+          }
+        }
+      )
+    }, [cookies.token])
   return (
     <UserContext.Provider value={{user, setUser}}>
       {children}

@@ -17,8 +17,8 @@ header {
     align-items: center;
     justify-content: flex-start;
     button {
-        border: none;
-      }
+      border: none;
+    }
     .schedule-button-container__button {
       display: flex;
       align-items: center;
@@ -82,6 +82,10 @@ header {
         align-items: center;
         max-width: 60px;
         border-left: 2px solid $color-secondary;
+        button {
+          border: none;
+          background: transparent;
+        }
         img {
             height: 40px;
             width: auto;
