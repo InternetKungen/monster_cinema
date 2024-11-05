@@ -49,7 +49,6 @@ const Header: React.FC<{ onSelectDate: (daysAhead: number) => void }> = ({ onSel
             </>
           )}
         </nav>
-
         <div className="logo-container col-4 text-center">
           <div className="logo-img-wrapper col-12">
             <Link to="/" onClick={scrollToTop}>
@@ -65,7 +64,7 @@ const Header: React.FC<{ onSelectDate: (daysAhead: number) => void }> = ({ onSel
               <img src={SearchIcon} alt="Search" className="SearchIcon" />
             </button>
           </div>
-
+        </div>
           {/* Om användaren är inloggad, visa ProfileIcon och LogoutIcon */}
           {user ? (
             <>
