@@ -9,7 +9,7 @@ import Logo from '../../assets/img/logo-text-side.png';
 import LogoSmall from '../../assets/img/logo-no-text.png';
 import LoginModal from '../../views/modals/LoginModal';
 import SearchBar from '../../components/SearchBar/SearchBar';
-
+import LogoutIcon from "../../assets/icons/logout_35dp_FCAF00_FILL0_wght400_GRAD0_opsz40.png"
 const Header: React.FC<{ onSelectDate: (daysAhead: number) => void }> = ({ onSelectDate }) => {
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState('login');
@@ -61,9 +61,15 @@ const Header: React.FC<{ onSelectDate: (daysAhead: number) => void }> = ({ onSel
           </div>
           <div className="search-login-container__icon col-6">
             {user ? (
+              <>
+              <div>
+                <img src={LogoutIcon} alt="Login" className="LoginIcon" />
+              </div>
               <Link to="/profile">
                 <img src={ProfileIcon} alt="Login" className="LoginIcon" />
               </Link>
+              
+              </>
             ) : (
               <div onClick={handleShow}>
                 <img src={LoginIcon} alt="Login" className="LoginIcon" />
