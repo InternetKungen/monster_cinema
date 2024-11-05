@@ -61,6 +61,15 @@ interface BookingPageProps {
   showtimeId: string | undefined;
 }
 
+const calculateEndTime = (startTime: string, length: number): string => {
+  const [hours, minutes] = startTime.split(':').map(Number);
+  const startDateTime = new Date();
+  startDateTime.setHours(hours, minutes, 0);
+  const endDateTime = new Date(startDateTime.getTime() + length * 60000);
+  return endDateTime.toTimeString().slice(0, 5); 
+};
+
+
 const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(true);
@@ -298,9 +307,9 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
               </div>
               <div className="booking-information-header__bottom">
                 <p><img src={dateIcon} alt="date" />Datum: {showtime && new Date(showtime.date).toLocaleDateString()}</p>
-                <p><img src={timeIcon} alt="time" />kl {showtime?.time}</p>
+                <p><img src={timeIcon} alt="time" />kl {showtime?.time} - {showtime && movie && calculateEndTime(showtime.time, movie.length)}</p>
                 <p><img src={hallIcon} alt="hall" />Salong: {showtime?.hall.hallName}</p>
-              </div>
+                </div>
             </div>
           </div>
 
