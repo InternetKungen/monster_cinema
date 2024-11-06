@@ -61,6 +61,15 @@ interface BookingPageProps {
   showtimeId: string | undefined;
 }
 
+const calculateEndTime = (startTime: string, length: number): string => {
+  const [hours, minutes] = startTime.split(':').map(Number);
+  const startDateTime = new Date();
+  startDateTime.setHours(hours, minutes, 0);
+  const endDateTime = new Date(startDateTime.getTime() + length * 60000);
+  return endDateTime.toTimeString().slice(0, 5);
+};
+
+
 const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(true);
@@ -199,15 +208,15 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
       const currentCount = prev[ticketType] || 0;
       const newCount = increment ? currentCount + 1 : Math.max(0, currentCount - 1);
       const updatedCounts = { ...prev, [ticketType]: newCount };
-      
+
       // Beräkna totala antalet biljetter efter ändringen
       const totalNewTickets = Object.values(updatedCounts).reduce((sum, count) => sum + count, 0);
-      
+
       // Om vi minskar antalet biljetter, ta bort det senast valda sätet
       if (!increment && totalNewTickets < selectedSeats.length) {
         setSelectedSeats(prev => prev.slice(0, -1)); // Ta bort det sista elementet i arrayen
       }
-      
+
       return updatedCounts;
     });
   };
@@ -297,10 +306,10 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
                 <p>Speltid: {movie?.length} minuter</p>
               </div>
               <div className="booking-information-header__bottom">
-                <p><img src={dateIcon} alt="date" />Datum: {showtime && new Date(showtime.date).toLocaleDateString()}</p>
-                <p><img src={timeIcon} alt="time" />kl {showtime?.time}</p>
-                <p><img src={hallIcon} alt="hall" />Salong: {showtime?.hall.hallName}</p>
-              </div>
+  				<p><img src={dateIcon} alt="date" />Datum: {showtime && new Date(showtime.date).toLocaleDateString()}</p>
+  				<p><img src={timeIcon} alt="time" />kl {showtime?.time} - {showtime && movie && calculateEndTime(showtime.time, movie.length)}</p>
+  				<p><img src={hallIcon} alt="hall" />Salong: {showtime?.hall.hallName}</p>
+			</div>
             </div>
           </div>
 
@@ -311,13 +320,13 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
                 <div key={ticketType._id} className="ticket-counts__tickets__ticket">
                   <label>{ticketType.type} </label>
                   <div className="ticket-counts__tickets__ticket__button-container">
-                    <button 
+                    <button
                       onClick={() => handleTicketCountChange(ticketType.type, false)}
                     >-</button>
                     <span className={(ticketCounts[ticketType.type] || 0) === 0 ? 'ticket-count-zero' : 'ticket-count-nonzero'}>
                       {ticketCounts[ticketType.type] || 0}
                     </span>
-                    <button 
+                    <button
                       onClick={() => handleTicketCountChange(ticketType.type, true)}
                     >+</button>
                   </div>
@@ -408,7 +417,7 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
           </div>
         </div>
         )}
-        
+
       {/* Section 6: Total Amount - Aside */}
       <div className="total-amount-aside col-12 col-lg-4 p-0">
         <div className="total-amount col-12 col-lg-4">
@@ -441,7 +450,7 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
 
             <h2>
               <span>Att betala:</span>
-              <span>{totalAmount} SEK</span>
+              <span>{totalAmount} KR</span>
             </h2>
           </div>
         </div>
