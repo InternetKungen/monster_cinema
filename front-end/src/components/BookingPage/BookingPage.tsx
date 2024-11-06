@@ -482,7 +482,7 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
 
             <h2>
               <span>Att betala:</span>
-              <span>{totalAmount} KR</span>
+              <span>{totalAmount} kr</span>
             </h2>
           </div>
         </div>
