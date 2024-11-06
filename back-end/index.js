@@ -9,8 +9,10 @@ import movierouter from "./routes/movie.js";
 import userRouter from "./routes/user.js";
 import showtimeRouter from "./routes/showtime.js";
 import ticketRouter from "./routes/ticket.js";
-import { Server } from 'socket.io';
-import http from 'http';
+import { Server } from "socket.io";
+import http from "http";
+import Showtime from "./models/Showtime.js";
+
 dotenv.config();
 
 const app = express();
@@ -25,7 +27,67 @@ app.use("/api/movie", movierouter);
 app.use("/api/user", userRouter);
 app.use("/api/showtime", showtimeRouter);
 app.use("/api/ticket", ticketRouter);
-app.listen(process.env.PORT, () => {
+
+// Skapa HTTP-server och Socket.io-server
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: process.env.FRONTEND_URL,
+    methods: ["GET", "POST"],
+  },
+});
+
+// Socket.io-anslutningar
+io.on("connection", (socket) => {
+  console.log("A user connected");
+
+  socket.on("book-seat", async (seatId, showtimeId) => {
+    try {
+      // Uppdatera databasen och signalera till alla anslutna klienter
+      await updateSeatStatus(seatId, showtimeId);
+      io.emit("seat-booked", seatId);
+    } catch (error) {
+      console.error("Error booking seat:", error);
+      socket.emit("booking-error", { message: "Failed to book seat" });
+    }
+  });
+
+  socket.on("disconnect", () => {
+    console.log("A user disconnected");
+  });
+});
+
+async function updateSeatStatus(seatId, showtimeId) {
+  try {
+    // Uppdatera platsens status i Showtime-dokumentet
+    const updatedShowtime = await Showtime.findOneAndUpdate(
+      {
+        _id: showtimeId,
+        "seats.seat": seatId,
+      },
+      {
+        $set: {
+          "seats.$.isBooked": true,
+        },
+      },
+      { new: true }
+    );
+
+    if (!updatedShowtime) {
+      throw new Error("Showtime or seat not found");
+    }
+
+    return updatedShowtime.seats.find(
+      (seat) => seat.seat.toString() === seatId
+    );
+  } catch (error) {
+    console.error("Error updating seat status:", error);
+    throw error;
+  }
+}
+
+// Starta servern
+server.listen(process.env.PORT, () => {
   try {
     connectDB();
     console.log("Server started at", process.env.PORT);
@@ -34,37 +96,3 @@ app.listen(process.env.PORT, () => {
     process.exit(1);
   }
 });
-
-const server = http.createServer(app);
-const io = new Server(server, {
-  cors: {
-    origin: process.env.FRONTEND_URL, // Din frontend-URL
-    methods: ['GET', 'POST']
-  }
-});
-
-io.on('connection', (socket) => {
-  console.log('A user connected');
-
-  socket.on('book-seat', (seatId, showtimeId) => {
-    // Uppdatera databasen och signalera till alla anslutna klienter
-    updateSeatStatus(seatId, showtimeId, true);
-    io.emit('seat-booked', seatId, showtimeId);
-  });
-
-  socket.on('disconnect', () => {
-    console.log('A user disconnected');
-  });
-});
-
-async function updateSeatStatus(seatId, showtimeId, isBooked) {
-  // Uppdatera sätets status i databasen
-  await Seat.findOneAndUpdate(
-    { _id: seatId, showtime: showtimeId },
-    { isBooked },
-    { new: true }
-  );
-
-  // Skicka en "seat-booked"-händelse till alla anslutna klienter
-  io.emit('seat-booked', seatId, showtimeId);
-}
