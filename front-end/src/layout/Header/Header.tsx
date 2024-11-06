@@ -1,19 +1,24 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useEffect, useState, useContext } from "react";
+import { Link, useLocation } from "react-router-dom";
 import SearchIcon from '../../assets/icons/search_35dp_FCAF00_FILL0_wght400_GRAD0_opsz40.png';
-import LoginIcon from '../../assets/icons/person_35dp_FCAF00_FILL0_wght400_GRAD0_opsz40.png';
-import ProfileIcon from "../../assets/icons/clarify_35dp_FCAF00_FILL0_wght400_GRAD0_opsz40.png"
-import { UserContext } from '../../UserContext';
-import './Header.scss';
-import Logo from '../../assets/img/logo-text-side.png';
+import LoginIcon from "../../assets/icons/person_35dp_FCAF00_FILL0_wght400_GRAD0_opsz40.png";
+import ProfileIcon from "../../assets/icons/clarify_35dp_FCAF00_FILL0_wght400_GRAD0_opsz40.png";
+import { UserContext } from "../../UserContext";
+import "./Header.scss";
+import Logo from "../../assets/img/logo-text-side.png";
 import LogoSmall from '../../assets/img/logo-no-text.png';
-import LoginModal from '../../views/modals/LoginModal';
+import LoginModal from "../../views/modals/LoginModal";
+import LogoutIcon from "../../assets/icons/logout_35dp_FCAF00_FILL0_wght400_GRAD0_opsz40.png";
 import SearchBar from '../../components/SearchBar/SearchBar';
 
 const Header: React.FC<{ onSelectDate: (daysAhead: number) => void }> = ({ onSelectDate }) => {
   const [showModal, setShowModal] = useState(false);
-  const [modalType, setModalType] = useState('login');
-  const handleShow = () => setShowModal(true);
+  const [modalType, setModalType] = useState("login");
+  const handleShow = () => {
+    setModalType("login");
+    setShowModal(true);
+  };
+
   const handleClose = () => setShowModal(false);
   const { user } = useContext(UserContext);
   const location = useLocation();
@@ -54,25 +59,43 @@ const Header: React.FC<{ onSelectDate: (daysAhead: number) => void }> = ({ onSel
         </div>
 
         <div className="search-login-container col-4 p-0">
-          <div className="search-login-container__icon col-6">
-            <div onClick={() => setIsSearchOpen(true)}>
+          {/* SearchIcon visas alltid */}
+          <div className="search-login-container__icon col-4">
+            <button onClick={() => setIsSearchOpen(true)} type="button">
               <img src={SearchIcon} alt="Search" className="SearchIcon" />
-            </div>
+            </button>
           </div>
-          <div className="search-login-container__icon col-6">
-            {user ? (
-              <Link to="/profile">
-                <img src={ProfileIcon} alt="Login" className="LoginIcon" />
-              </Link>
-            ) : (
-              <div onClick={handleShow}>
-                <img src={LoginIcon} alt="Login" className="LoginIcon" />
+
+          {/* Om användaren är inloggad, visa ProfileIcon och LogoutIcon */}
+          {user ? (
+            <>
+              <div className="search-login-container__icon col-4">
+                <Link to="/profile">
+                  <img src={ProfileIcon} alt="Profile" className="ProfileIcon" />
+                </Link>
               </div>
-            )}
-          </div>
+              <div className="search-login-container__icon col-4">
+                <Link to="/">
+                  <img src={LogoutIcon} alt="Logout" className="LogoutIcon" />
+                </Link>
+              </div>
+            </>
+          ) : (
+            // Om användaren inte är inloggad, visa bara LoginIcon
+            <div className="search-login-container__icon col-4">
+              <button onClick={handleShow} type="button">
+                <img src={LoginIcon} alt="Login" className="LoginIcon" />
+              </button>
+            </div>
+          )}
         </div>
       </div>
-      <LoginModal show={showModal} setModalType={setModalType} type={modalType} handleClose={handleClose} />
+      <LoginModal
+        show={showModal}
+        setModalType={setModalType}
+        type={modalType}
+        handleClose={handleClose}
+      />
       <SearchBar isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </header>
   );
