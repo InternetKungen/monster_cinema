@@ -5,6 +5,7 @@ import dateIcon from '../../assets/icons/calendar_today_35dp_FCAF00_FILL0_wght40
 import timeIcon from '../../assets/icons/schedule_35dp_FCAF00_FILL0_wght400_GRAD0_opsz40.png';
 import hallIcon from '../../assets/icons/icon-cinema-fatter.png';
 import { Container, Row } from 'react-bootstrap';
+import { io, Socket } from 'socket.io-client';
 
 interface Seat {
   seat: {
@@ -87,6 +88,24 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
   const [ticketCounts, setTicketCounts] = useState<Record<string, number>>({});
 
   const ORDINARY_PRICE = 140;
+
+  let socket: Socket;
+  useEffect(() => {
+  socket = io('http://localhost:5000'); // Din backend-URL
+
+  socket.on('connect', () => {
+    console.log('Connected to server');
+  });
+
+  socket.on('seat-booked', (seatId) => {
+    // Uppdatera UI genom att markera sätet som upptaget
+    updateSeatStatus(seatId, true);
+  });
+
+  return () => {
+      socket.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     document.body.classList.add('hide-footer');
@@ -183,6 +202,16 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
     }, {} as Record<number, Seat[]>);
   };
 
+  const updateSeatStatus = (seatId: string, isBooked: boolean) => {
+  setSeats((prevSeats) =>
+    prevSeats.map((seat) =>
+      seat._id === seatId
+        ? { ...seat, isBooked }
+        : seat
+      )
+    );
+  };
+
   const fetchTicketTypes = async () => {
     try {
       const response = await fetch('/api/ticket');
@@ -256,6 +285,11 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
     if (!response.ok) {
       throw new Error(data.error || 'Failed to create booking');
     }
+
+    // Skicka en "book-seat"-händelse till servern för varje vald plats
+    selectedSeatObjects.forEach(seat => {
+      socket.emit('book-seat', seat.seat._id, showtimeId);
+    });
 
     setBookingStatus({
       success: true,
