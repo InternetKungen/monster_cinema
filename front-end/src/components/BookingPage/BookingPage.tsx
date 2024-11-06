@@ -70,6 +70,38 @@ const calculateEndTime = (startTime: string, length: number): string => {
 };
 
 
+const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
+
+const formatDate = (dateStr: string): string => {
+  const date = new Date(dateStr);
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate() + 1);
+
+  const options = { day: 'numeric', month: 'long' } as const;
+  const weekdayOptions = { weekday: 'long', day: 'numeric', month: 'long' } as const;
+
+  if (
+    date.getDate() === today.getDate() &&
+    date.getMonth() === today.getMonth() &&
+    date.getFullYear() === today.getFullYear()
+  ) {
+    return `Idag ${date.toLocaleDateString('sv-SE', options)}`;
+  } else if (
+    date.getDate() === tomorrow.getDate() &&
+    date.getMonth() === tomorrow.getMonth() &&
+    date.getFullYear() === tomorrow.getFullYear()
+  ) {
+    return `Imorgon ${date.toLocaleDateString('sv-SE', options)}`;
+  } else {
+    const formattedDate = date.toLocaleDateString('sv-SE', weekdayOptions);
+    return capitalize(formattedDate);
+  }
+};
+
+
+
+
 const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(true);
@@ -306,7 +338,7 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
                 <p>Speltid: {movie?.length} minuter</p>
               </div>
               <div className="booking-information-header__bottom">
-  				<p><img src={dateIcon} alt="date" />Datum: {showtime && new Date(showtime.date).toLocaleDateString()}</p>
+  				<p><img src={dateIcon} alt="date" />{showtime && formatDate(showtime.date)}</p>
   				<p><img src={timeIcon} alt="time" />kl {showtime?.time} - {showtime && movie && calculateEndTime(showtime.time, movie.length)}</p>
   				<p><img src={hallIcon} alt="hall" />Salong: {showtime?.hall.hallName}</p>
 			</div>
