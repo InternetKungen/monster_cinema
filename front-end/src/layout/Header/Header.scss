@@ -86,7 +86,9 @@ header {
       display: flex;
       justify-content: center;
       align-items: center;
-      max-width: 40px;
+      width: 20%;
+      max-width: 60px;
+      min-width: 48px;
       border-left: 2px solid $color-secondary;
 
       button {
@@ -112,7 +114,10 @@ header {
       &:last-child {
         padding-right: 0px;
       }
-      @media (max-width: 576px) {
+    }
+    @media (max-width: 576px) {
+      .search-login-container__icon {
+        min-width: 40px;
         img {
           height: 28px;
           width: auto;
