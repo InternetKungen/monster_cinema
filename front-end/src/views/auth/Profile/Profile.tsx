@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../UserContext";
 import Accordion from "react-bootstrap/Accordion";
-// import moment from "moment";
+import "./Profile.scss";
 
 const Profile: React.FC = () => {
   const { user } = useContext(UserContext);
@@ -35,87 +35,91 @@ const Profile: React.FC = () => {
 
   return (
     <div className="profile-content">
-      <h1>Mina biljetter</h1>
-      <Accordion defaultActiveKey={["0"]} alwaysOpen>
-        <Accordion.Item eventKey="0">
-          <Accordion.Header>Bokningsthistorik</Accordion.Header>
-          <Accordion.Body>
-            {bookingHistory.length > 0 ? (
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>Filmtitel</th>
-                    <th>Bokat datum</th>
-                    <th>Totalt belopp</th>
-                    <th>Biljetttyper</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {bookingHistory.map((booking) => (
-                    <tr key={booking._id}>
-                      <td>{booking.movie.title}</td>
-                      <td>
-                        {new Date(booking.bookedAt[0].date)
-                          .toISOString()
-                          .slice(0, 10)}
-                      </td>
-                      <td>{booking.totalAmount} kr</td>
-                      <td>
-                        {booking.tickets.map((ticket: any) => (
-                          <div key={ticket._id}>
-                            {ticket.quantity} st {ticket.type}
-                          </div>
-                        ))}
-                      </td>
+      <h3>Välj biljett för avbokning</h3>
+      <div className="accordion-container-wrapper">
+        <Accordion className="p-3 g-0" alwaysOpen>
+          <Accordion.Item className="accordion-item" eventKey="0">
+            <Accordion.Header className="accordion-header">
+              Bokningsthistorik
+            </Accordion.Header>
+            <Accordion.Body className="accordion-body">
+              {bookingHistory.length > 0 ? (
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th>Filmtitel</th>
+                      <th>Bokat datum</th>
+                      <th>Totalt belopp</th>
+                      <th>Biljetttyper</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            ) : (
-              <p>Inga tidigare bokningar</p>
-            )}
-          </Accordion.Body>
-        </Accordion.Item>
-        <Accordion.Item eventKey="1">
-          <Accordion.Header>Aktuella bokningar</Accordion.Header>
-          <Accordion.Body>
-            {currentBookings.length > 0 ? (
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>Filmtitel</th>
-                    <th>Bokat datum</th>
-                    <th>Totalt belopp</th>
-                    <th>Biljetttyper</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {currentBookings.map((booking) => (
-                    <tr key={booking._id}>
-                      <td>{booking.movie.title}</td>
-                      <td>
-                        {new Date(booking.bookedAt[0].date)
-                          .toISOString()
-                          .slice(0, 10)}
-                      </td>
-                      <td>{booking.totalAmount} kr</td>
-                      <td>
-                        {booking.tickets.map((ticket: any) => (
-                          <div key={ticket._id}>
-                            {ticket.quantity} st {ticket.type}
-                          </div>
-                        ))}
-                      </td>
+                  </thead>
+                  <tbody>
+                    {bookingHistory.map((booking) => (
+                      <tr key={booking._id}>
+                        <td>{booking.movie.title}</td>
+                        <td>
+                          {new Date(booking.bookedAt[0].date)
+                            .toISOString()
+                            .slice(0, 10)}
+                        </td>
+                        <td>{booking.totalAmount} kr</td>
+                        <td>
+                          {booking.tickets.map((ticket: any) => (
+                            <div key={ticket._id}>
+                              {ticket.quantity} st {ticket.type}
+                            </div>
+                          ))}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              ) : (
+                <p>Inga tidigare bokningar</p>
+              )}
+            </Accordion.Body>
+          </Accordion.Item>
+          <Accordion.Item eventKey="1">
+            <Accordion.Header>Aktuella bokningar</Accordion.Header>
+            <Accordion.Body>
+              {currentBookings.length > 0 ? (
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th>Filmtitel</th>
+                      <th>Bokat datum</th>
+                      <th>Totalt belopp</th>
+                      <th>Biljetttyper</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            ) : (
-              <p>Inga aktuella bokningar</p>
-            )}
-          </Accordion.Body>
-        </Accordion.Item>
-      </Accordion>
+                  </thead>
+                  <tbody>
+                    {currentBookings.map((booking) => (
+                      <tr key={booking._id}>
+                        <td>{booking.movie.title}</td>
+                        <td>
+                          {new Date(booking.bookedAt[0].date)
+                            .toISOString()
+                            .slice(0, 10)}
+                        </td>
+                        <td>{booking.totalAmount} kr</td>
+                        <td>
+                          {booking.tickets.map((ticket: any) => (
+                            <div key={ticket._id}>
+                              {ticket.quantity} st {ticket.type}
+                            </div>
+                          ))}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              ) : (
+                <p>Inga aktuella bokningar</p>
+              )}
+            </Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
+      </div>
     </div>
   );
 };

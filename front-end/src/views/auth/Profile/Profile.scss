@@ -1,0 +1,80 @@
+.profile-content {
+  background: $color-primary-dark;
+  border-radius: 10px;
+  min-height: calc(100vh - (80px + 300px));
+  h3 {
+    background: linear-gradient(
+      to bottom,
+      $color-primary-light,
+      $color-primary-dark
+    );
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+    margin: 0;
+    color: $color-secondary;
+    @include text-stroke($color-primary-dark);
+  }
+  .accordion-container-wrapper {
+    margin: 0 auto;
+    max-width: 1234px;
+  }
+}
+
+.accordion {
+  .accordion-item {
+    background-color: $color-primary-light;
+  }
+  .accordion-button {
+    background: $color-secondary;
+    border-radius: 10px;
+  }
+}
+
+.accordion-body {
+  border-radius: 10px;
+  padding: 0;
+}
+
+.accordion-item {
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  border: none;
+  &:first-of-type {
+    border-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+  &:last-of-type {
+    border-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+}
+
+.table {
+  border-radius: 10px;
+  background: purple; //syns inte
+  thead {
+    background: yellow; //syns inte
+    tr {
+      background: red; //syns inte
+      th {
+        background: transparent;
+        border-radius: 10px;
+      }
+    }
+  }
+  tbody {
+    background: rgb(0, 38, 255); //syns inte
+    tr {
+      background: red; //syns inte
+      td {
+        background: green;
+        border-radius: 10px;
+      }
+    }
+  }
+}
