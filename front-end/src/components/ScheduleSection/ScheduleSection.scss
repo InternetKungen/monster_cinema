@@ -52,7 +52,8 @@
       text-align: center;
 
       &:hover {
-        outline: 3px solid $color-select;
+        background-color: $color-select;
+        transform: scale(1.02);
       }
 
       &.selected {
