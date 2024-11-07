@@ -136,9 +136,9 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
       console.log("Connected to server");
     });
 
-    // Lyssna på seat-booked händelser
-    socketRef.current.on("seat-booked", (seatId) => {
-      updateSeatStatus(seatId, true);
+    // Lyssna på seat-status-updated händelser
+    socketRef.current.on("seat-status-updated", (updatedSeat) => {
+      updateSeatStatus(updatedSeat._id, updatedSeat.isBooked);
     });
 
     // Cleanup funktion som körs när komponenten unmountas
@@ -148,23 +148,6 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
       }
     };
   }, []);
-  // let socket: Socket;
-  // useEffect(() => {
-  //   socket = io("/"); // Din backend-URL
-
-  //   socket.on("connect", () => {
-  //     console.log("Connected to server");
-  //   });
-
-  //   socket.on("seat-booked", (seatId) => {
-  //     // Uppdatera UI genom att markera sätet som upptaget
-  //     updateSeatStatus(seatId, true);
-  //   });
-
-  //   return () => {
-  //     socket.disconnect();
-  //   };
-  // }, []);
 
   useEffect(() => {
     document.body.classList.add("hide-footer");

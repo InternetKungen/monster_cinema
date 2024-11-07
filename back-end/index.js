@@ -77,9 +77,15 @@ async function updateSeatStatus(seatId, showtimeId) {
       throw new Error("Showtime or seat not found");
     }
 
-    return updatedShowtime.seats.find(
+    // Find the updated seat object
+    const updatedSeat = updatedShowtime.seats.find(
       (seat) => seat.seat.toString() === seatId
     );
+
+    // Emit a 'seat-status-updated' event with the updated seat object
+    io.emit("seat-status-updated", updatedSeat);
+
+    return updatedSeat;
   } catch (error) {
     console.error("Error updating seat status:", error);
     throw error;
