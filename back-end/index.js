@@ -30,12 +30,7 @@ app.use("/api/ticket", ticketRouter);
 
 // Skapa HTTP-server och Socket.io-server
 const server = http.createServer(app);
-const io = new Server(server, {
-  cors: {
-    origin: process.env.FRONTEND_URL,
-    methods: ["GET", "POST"],
-  },
-});
+const io = new Server(server);
 
 // Socket.io-anslutningar
 io.on("connection", (socket) => {
