@@ -95,7 +95,7 @@ header {
       }
 
       img {
-        height: 28px;
+        height: 40px;
         width: auto;
       }
 
@@ -111,6 +111,12 @@ header {
 
       &:last-child {
         padding-right: 0px;
+      }
+      @media (max-width: 576px) {
+        img {
+          height: 28px;
+          width: auto;
+        }
       }
     }
   }
