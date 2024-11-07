@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./BookingPage.scss";
 import dateIcon from "../../assets/icons/calendar_today_35dp_FCAF00_FILL0_wght400_GRAD0_opsz40.png";
 import timeIcon from "../../assets/icons/schedule_35dp_FCAF00_FILL0_wght400_GRAD0_opsz40.png";
 import hallIcon from "../../assets/icons/icon-cinema-fatter.png";
 import { Container, Row } from "react-bootstrap";
+import { io, Socket } from "socket.io-client";
 
 interface Seat {
   seat: {
@@ -60,6 +61,9 @@ interface TicketType {
 interface BookingPageProps {
   showtimeId: string | undefined;
 }
+
+//Static price for ordinary tickets
+const ORDINARY_PRICE = 140;
 
 const calculateEndTime = (startTime: string, length: number): string => {
   const [hours, minutes] = startTime.split(":").map(Number);
@@ -121,8 +125,29 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
   const [totalAmount, setTotalAmount] = useState<number>(0);
   const [ticketTypes, setTicketTypes] = useState<TicketType[]>([]);
   const [ticketCounts, setTicketCounts] = useState<Record<string, number>>({});
+  const socketRef = useRef<Socket | null>(null);
 
-  const ORDINARY_PRICE = 140;
+  useEffect(() => {
+    // Initiera socket-anslutningen
+    socketRef.current = io("/"); // eller din specifika backend URL
+
+    // Lyssna på anslutningshändelser
+    socketRef.current.on("connect", () => {
+      console.log("Connected to server");
+    });
+
+    // Lyssna på seat-status-updated händelser
+    socketRef.current.on("seat-status-updated", (updatedSeat) => {
+      updateSeatStatus(updatedSeat._id, updatedSeat.isBooked);
+    });
+
+    // Cleanup funktion som körs när komponenten unmountas
+    return () => {
+      if (socketRef.current) {
+        socketRef.current.disconnect();
+      }
+    };
+  }, []);
 
   useEffect(() => {
     document.body.classList.add("hide-footer");
@@ -222,6 +247,14 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
     }, {} as Record<number, Seat[]>);
   };
 
+  const updateSeatStatus = (seatId: string, isBooked: boolean) => {
+    setSeats((prevSeats) =>
+      prevSeats.map((seat) =>
+        seat._id === seatId ? { ...seat, isBooked } : seat
+      )
+    );
+  };
+
   const fetchTicketTypes = async () => {
     try {
       const response = await fetch("/api/ticket");
@@ -300,6 +333,13 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
 
       if (!response.ok) {
         throw new Error(data.error || "Failed to create booking");
+      }
+
+      // Emittera book-seat händelser med socket
+      if (socketRef.current) {
+        selectedSeatObjects.forEach((seat) => {
+          socketRef.current?.emit("book-seat", seat.seat._id, showtimeId);
+        });
       }
 
       setBookingStatus({
