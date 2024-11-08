@@ -44,36 +44,54 @@ const Profile: React.FC = () => {
             </Accordion.Header>
             <Accordion.Body className="accordion-body">
               {bookingHistory.length > 0 ? (
-                <table className="table">
-                  <thead>
-                    <tr>
-                      <th>Filmtitel</th>
-                      <th>Bokat datum</th>
-                      <th>Totalt belopp</th>
-                      <th>Biljetttyper</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {bookingHistory.map((booking) => (
-                      <tr key={booking._id}>
-                        <td>{booking.movie.title}</td>
-                        <td>
-                          {new Date(booking.bookedAt[0].date)
-                            .toISOString()
-                            .slice(0, 10)}
-                        </td>
-                        <td>{booking.totalAmount} kr</td>
-                        <td>
-                          {booking.tickets.map((ticket: any) => (
-                            <div key={ticket._id}>
-                              {ticket.quantity} st {ticket.type}
-                            </div>
-                          ))}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                <div className="profile__grid">
+                  {bookingHistory.map((booking) => (
+                    <div key={booking._id} className="profile__booking">
+                      <div className="profile__poster">
+                        <img
+                          src={booking.movie.poster}
+                          alt={booking.movie.title}
+                          className="profile__poster-image"
+                        />
+                      </div>
+                      <div className="profile__info">
+                        <h4 className="profile__title">
+                          {booking.movie.title}
+                        </h4>
+                        <p className="profile__details">
+                          {new Date(
+                            booking.bookedAt[0].date
+                          ).toLocaleDateString()}
+                          , {booking.bookedAt[0].time}
+                        </p>
+                        <p className="profile__details">
+                          {booking.hall.hallName}
+                        </p>
+                      </div>
+                      <div className="profile__booking-number">
+                        <p>Bokningsnummer: {booking.bookingNumber}</p>
+                      </div>
+                      <div className="profile__tickets">
+                        <p>
+                          Antal biljetter:{" "}
+                          {booking.tickets.reduce(
+                            (sum: number, ticket: any) => sum + ticket.quantity,
+                            0
+                          )}
+                        </p>
+                        {booking.tickets.map((ticket: any) => (
+                          <p key={ticket._id} className="profile__ticket">
+                            {ticket.quantity} st {ticket.type} -{" "}
+                            {ticket.price * ticket.quantity} kr
+                          </p>
+                        ))}
+                        <p className="profile__total">
+                          Summa: {booking.totalAmount} kr
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               ) : (
                 <p>Inga tidigare bokningar</p>
               )}
@@ -83,36 +101,56 @@ const Profile: React.FC = () => {
             <Accordion.Header>Aktuella bokningar</Accordion.Header>
             <Accordion.Body>
               {currentBookings.length > 0 ? (
-                <table className="table">
-                  <thead>
-                    <tr>
-                      <th>Filmtitel</th>
-                      <th>Bokat datum</th>
-                      <th>Totalt belopp</th>
-                      <th>Biljetttyper</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {currentBookings.map((booking) => (
-                      <tr key={booking._id}>
-                        <td>{booking.movie.title}</td>
-                        <td>
-                          {new Date(booking.bookedAt[0].date)
-                            .toISOString()
-                            .slice(0, 10)}
-                        </td>
-                        <td>{booking.totalAmount} kr</td>
-                        <td>
-                          {booking.tickets.map((ticket: any) => (
-                            <div key={ticket._id}>
-                              {ticket.quantity} st {ticket.type}
-                            </div>
-                          ))}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                <div className="profile__column">
+                  {currentBookings.map((booking) => (
+                    <div key={booking._id} className="profile__booking">
+                      <div className="profile__poster">
+                        <img
+                          src={booking.movie.poster}
+                          alt={booking.movie.title}
+                          className="profile__poster-image"
+                        />
+                      </div>
+                      <div className="profile__info">
+                        <h4 className="profile__title">
+                          {booking.movie.title}
+                        </h4>
+                        <p className="profile__details">
+                          {new Date(
+                            booking.bookedAt[0].date
+                          ).toLocaleDateString()}
+                          , {booking.bookedAt[0].time}
+                        </p>
+                        <p className="profile__details">
+                          {booking.hall.hallName}
+                        </p>
+                      </div>
+                      <div className="profile__booking-number">
+                        <p>Bokningsnummer: {booking.bookingNumber}</p>
+                      </div>
+                      <div className="profile__tickets">
+                        <p>
+                          Antal biljetter:{" "}
+                          {booking.tickets.reduce(
+                            (sum: number, ticket: any) => sum + ticket.quantity,
+                            0
+                          )}
+                        </p>
+                        {booking.tickets.map((ticket: any) => (
+                          <p key={ticket._id} className="profile__ticket">
+                            {ticket.quantity} st {ticket.type} -{" "}
+                            <span className="profile__ticket__ticket-price">
+                              {ticket.price * ticket.quantity} kr
+                            </span>
+                          </p>
+                        ))}
+                        <p className="profile__total">
+                          Summa: {booking.totalAmount} kr
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               ) : (
                 <p>Inga aktuella bokningar</p>
               )}

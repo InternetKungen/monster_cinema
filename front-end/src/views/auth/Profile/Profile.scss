@@ -23,6 +23,10 @@
   }
 }
 
+.accordion-button:not(.collapsed) {
+  box-shadow: none;
+}
+
 .accordion {
   .accordion-button {
     background: $color-secondary;
@@ -84,7 +88,6 @@
     > .accordion-header .accordion-button {
       border-bottom-right-radius: 0px;
       border-bottom-left-radius: 0px;
-      // border: none;
       color: $color-primary-dark;
       &.collapsed {
         background: $color-secondary;
@@ -101,28 +104,82 @@
   }
 }
 
-.table {
-  // border-radius: 10px;
-  background: purple; //syns inte
-  margin-bottom: 0px;
-  thead {
-    background: yellow; //syns inte
-    tr {
-      background: red; //syns inte
-      th {
-        background: transparent;
-        border-radius: 10px;
-      }
+.profile {
+  &__column {
+    display: flex;
+    flex-direction: column;
+    // gap: 1rem;
+
+    // @media (min-width: 768px) {
+    //   grid-template-columns: repeat(3, 1fr);
+    // }
+  }
+
+  &__booking {
+    border-bottom: 2px solid $color-secondary;
+    border-radius: 0px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    @include text-stroke($color-primary-dark);
+    background: $bg-color-showtime-odd;
+    p {
+      padding: 0px;
     }
   }
-  tbody {
-    background: rgb(0, 38, 255); //syns inte
-    tr {
-      background: red; //syns inte
-      td {
-        background: green;
-        border-radius: 10px;
-      }
+
+  &__poster {
+    &-image {
+      width: 64px;
+      height: 96px;
+      margin-right: 1rem;
     }
+  }
+
+  &__info {
+    flex: 1;
+  }
+
+  &__title {
+    font-weight: bold;
+    margin-bottom: 0px;
+    color: $color-secondary;
+  }
+
+  &__details {
+    margin-bottom: 0px;
+    padding: 0px;
+  }
+
+  &__booking-number {
+    margin-top: 0px;
+    margin-right: 1rem;
+  }
+
+  &__tickets {
+    margin-top: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  &__ticket {
+    margin-bottom: 0px;
+    font-size: 0.8rem;
+    align-self: flex-start;
+    width: 100%;
+    display: flex;
+    position: relative;
+    &__ticket-price {
+      position: absolute;
+      align-self: flex-end;
+      font-weight: bold;
+      right: 0px;
+    }
+  }
+
+  &__total {
+    font-weight: bold;
+    margin-top: 0px;
   }
 }
