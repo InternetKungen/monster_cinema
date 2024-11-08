@@ -129,10 +129,17 @@
   }
 
   &__poster {
+    background: $border-image-poster;
+    padding: 2px;
+    border-radius: 5px;
+    width: fit-content;
+    height: fit-content;
+    margin-right: 1rem;
     &-image {
       width: 64px;
       height: 96px;
-      margin-right: 1rem;
+      object-fit: cover;
+      border-radius: 5px;
     }
     @media (max-width: 576px) {
       display: none;
