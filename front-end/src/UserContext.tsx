@@ -28,18 +28,20 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [cookies] = useCookies(["token"]);
   useEffect(() => {
-    fetch("/api/user/info", {
-      method: "GET",
-      credentials: "include",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.user) {
-          setUser(data.user);
-        } else if (data.error) {
-          console.log(data.error);
-        }
-      });
+    if (cookies.token) {
+      fetch("/api/user/info", {
+        method: "GET",
+        credentials: "include",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.user) {
+            setUser(data.user);
+          } else if (data.error) {
+            console.log(data.error);
+          }
+        });
+    }
   }, [cookies.token]);
   const value = useMemo(() => ({ user, setUser }), [user, setUser]);
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
