@@ -134,26 +134,48 @@
       height: 96px;
       margin-right: 1rem;
     }
+    @media (max-width: 576px) {
+      display: none;
+    }
   }
 
   &__info {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   &__title {
     font-weight: bold;
     margin-bottom: 0px;
     color: $color-secondary;
+    font-size: 1.2rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    @media (max-width: 576px) {
+      font-size: 1rem;
+    }
   }
 
   &__details {
     margin-bottom: 0px;
     padding: 0px;
+    @media (max-width: 576px) {
+      font-size: 0.8rem;
+    }
   }
 
   &__booking-number {
     margin-top: 0px;
     margin-right: 1rem;
+    @media (max-width: 576px) {
+      font-size: 0.8rem;
+    }
   }
 
   &__tickets {

@@ -44,7 +44,7 @@ const Profile: React.FC = () => {
             </Accordion.Header>
             <Accordion.Body className="accordion-body">
               {bookingHistory.length > 0 ? (
-                <div className="profile__grid">
+                <div className="profile__column">
                   {bookingHistory.map((booking) => (
                     <div key={booking._id} className="profile__booking">
                       <div className="profile__poster">
@@ -69,7 +69,7 @@ const Profile: React.FC = () => {
                         </p>
                       </div>
                       <div className="profile__booking-number">
-                        <p>Bokningsnummer: {booking.bookingNumber}</p>
+                        <p>#: {booking.bookingNumber}</p>
                       </div>
                       <div className="profile__tickets">
                         <p>
@@ -81,8 +81,10 @@ const Profile: React.FC = () => {
                         </p>
                         {booking.tickets.map((ticket: any) => (
                           <p key={ticket._id} className="profile__ticket">
-                            {ticket.quantity} st {ticket.type} -{" "}
-                            {ticket.price * ticket.quantity} kr
+                            {ticket.quantity} st {ticket.type}
+                            <span className="profile__ticket__ticket-price">
+                              {ticket.price * ticket.quantity} kr
+                            </span>
                           </p>
                         ))}
                         <p className="profile__total">
@@ -126,7 +128,7 @@ const Profile: React.FC = () => {
                         </p>
                       </div>
                       <div className="profile__booking-number">
-                        <p>Bokningsnummer: {booking.bookingNumber}</p>
+                        <p>#: {booking.bookingNumber}</p>
                       </div>
                       <div className="profile__tickets">
                         <p>
