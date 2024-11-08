@@ -39,7 +39,6 @@
 }
 
 .accordion-body {
-  // border-radius: 10px;
   padding: 0;
   background: $color-primary-dark;
   p {
@@ -70,8 +69,6 @@
       border-bottom-left-radius: 0px;
       color: $color-primary-dark;
       &.collapsed {
-        // border-bottom-right-radius: 0px;
-        // border-bottom-left-radius: 0px;
         background: $color-secondary;
       }
     }
@@ -91,8 +88,6 @@
       color: $color-primary-dark;
       &.collapsed {
         background: $color-secondary;
-        // border-bottom-right-radius: 10px;
-        // border-bottom-left-radius: 10px;
       }
     }
     > .accordion-collapse {
@@ -108,11 +103,6 @@
   &__column {
     display: flex;
     flex-direction: column;
-    // gap: 1rem;
-
-    // @media (min-width: 768px) {
-    //   grid-template-columns: repeat(3, 1fr);
-    // }
   }
 
   &__booking {
@@ -125,6 +115,24 @@
     background: $bg-color-showtime-odd;
     p {
       padding: 0px;
+    }
+    &:last-child {
+      border-bottom: none;
+    }
+    &:nth-child(odd) {
+      background: $bg-color-showtime-odd;
+    }
+
+    &:nth-child(odd):hover {
+      background: $bg-color-showtime-hover-odd;
+    }
+
+    &:nth-child(even) {
+      background: $bg-color-showtime-even;
+    }
+
+    &:nth-child(even):hover {
+      background: $bg-color-showtime-hover-even;
     }
   }
 
