@@ -35,11 +35,20 @@
 }
 
 .accordion-body {
-  border-radius: 10px;
+  // border-radius: 10px;
   padding: 0;
-  background: $color-secondary;
+  background: $color-primary-dark;
+  p {
+    color: $color-secondary;
+    margin: 0;
+    padding: 1rem;
+  }
 }
 
+.collapse {
+  background: $color-primary-dark;
+  border-radius: 0px;
+}
 .accordion-item {
   margin-bottom: 1rem;
   border-radius: 10px;
@@ -55,6 +64,7 @@
     > .accordion-header .accordion-button {
       border-bottom-right-radius: 0px;
       border-bottom-left-radius: 0px;
+      color: $color-primary-dark;
       &.collapsed {
         // border-bottom-right-radius: 0px;
         // border-bottom-left-radius: 0px;
@@ -74,7 +84,8 @@
     > .accordion-header .accordion-button {
       border-bottom-right-radius: 0px;
       border-bottom-left-radius: 0px;
-      border: none;
+      // border: none;
+      color: $color-primary-dark;
       &.collapsed {
         background: $color-secondary;
         // border-bottom-right-radius: 10px;
