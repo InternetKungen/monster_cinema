@@ -5,6 +5,7 @@ import {
   SetStateAction,
   ReactNode,
   useEffect,
+  useMemo,
 } from "react";
 import { useCookies } from "react-cookie";
 interface User {
@@ -42,11 +43,8 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
         });
     }
   }, [cookies.token]);
-  return (
-    <UserContext.Provider value={{ user, setUser }}>
-      {children}
-    </UserContext.Provider>
-  );
+  const value = useMemo(() => ({ user, setUser }), [user, setUser]);
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
 
 export default UserProvider;
