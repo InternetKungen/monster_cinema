@@ -1,0 +1,222 @@
+.profile-content {
+  background: $color-primary-dark;
+  border-radius: 10px;
+  min-height: calc(100vh - (80px + 300px));
+  h3 {
+    background: linear-gradient(
+      to bottom,
+      $color-primary-light,
+      $color-primary-dark
+    );
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+    margin: 0;
+    color: $color-secondary;
+    @include text-stroke($color-primary-dark);
+  }
+  .accordion-container-wrapper {
+    margin: 0 auto;
+    max-width: 1234px;
+  }
+}
+
+.accordion-button:not(.collapsed) {
+  box-shadow: none;
+}
+
+.accordion {
+  .accordion-button {
+    background: $color-secondary;
+    border-radius: 0px;
+  }
+}
+.accordion-header {
+  background: $color-secondary;
+  border-radius: 0px;
+}
+
+.accordion-body {
+  padding: 0;
+  background: $color-primary-dark;
+  p {
+    color: $color-secondary;
+    margin: 0;
+    padding: 1rem;
+  }
+}
+
+.collapse {
+  background: $color-primary-dark;
+  border-radius: 0px;
+}
+.accordion-item {
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  overflow: hidden;
+  background: $color-secondary;
+
+  &:first-of-type {
+    border-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border: 2px solid $color-secondary;
+    background: $color-secondary;
+    > .accordion-header .accordion-button {
+      border-bottom-right-radius: 0px;
+      border-bottom-left-radius: 0px;
+      color: $color-primary-dark;
+      &.collapsed {
+        background: $color-secondary;
+      }
+    }
+  }
+  // &:not(:first-of-type) {
+  //   // border-top: 0;
+  // }
+  &:last-of-type {
+    border-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border: 2px solid $color-secondary;
+    background: $color-secondary;
+    > .accordion-header .accordion-button {
+      border-bottom-right-radius: 0px;
+      border-bottom-left-radius: 0px;
+      color: $color-primary-dark;
+      &.collapsed {
+        background: $color-secondary;
+      }
+    }
+    > .accordion-collapse {
+      border-radius: 0px;
+      border-bottom-right-radius: 0px;
+      border-bottom-left-radius: 0px;
+      background: $color-secondary;
+    }
+  }
+}
+
+.profile {
+  &__column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__booking {
+    border-bottom: 2px solid $color-secondary;
+    border-radius: 0px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    @include text-stroke($color-primary-dark);
+    background: $bg-color-showtime-odd;
+    p {
+      padding: 0px;
+    }
+    &:last-child {
+      border-bottom: none;
+    }
+    &:nth-child(odd) {
+      background: $bg-color-showtime-odd;
+    }
+
+    &:nth-child(odd):hover {
+      background: $bg-color-showtime-hover-odd;
+    }
+
+    &:nth-child(even) {
+      background: $bg-color-showtime-even;
+    }
+
+    &:nth-child(even):hover {
+      background: $bg-color-showtime-hover-even;
+    }
+  }
+
+  &__poster {
+    background: $border-image-poster;
+    padding: 2px;
+    border-radius: 5px;
+    width: fit-content;
+    height: fit-content;
+    margin-right: 1rem;
+    &-image {
+      width: 64px;
+      height: 96px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+    @media (max-width: 576px) {
+      display: none;
+    }
+  }
+
+  &__info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__title {
+    font-weight: bold;
+    margin-bottom: 0px;
+    color: $color-secondary;
+    font-size: 1.2rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    @media (max-width: 576px) {
+      font-size: 1rem;
+    }
+  }
+
+  &__details {
+    margin-bottom: 0px;
+    padding: 0px;
+    @media (max-width: 576px) {
+      font-size: 0.8rem;
+    }
+  }
+
+  &__booking-number {
+    margin-top: 0px;
+    margin-right: 1rem;
+    @media (max-width: 576px) {
+      font-size: 0.8rem;
+    }
+  }
+
+  &__tickets {
+    margin-top: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  &__ticket {
+    margin-bottom: 0px;
+    font-size: 0.8rem;
+    align-self: flex-start;
+    width: 100%;
+    display: flex;
+    position: relative;
+    &__ticket-price {
+      position: absolute;
+      align-self: flex-end;
+      font-weight: bold;
+      right: 0px;
+    }
+  }
+
+  &__total {
+    font-weight: bold;
+    margin-top: 0px;
+  }
+}
