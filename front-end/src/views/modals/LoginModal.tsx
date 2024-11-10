@@ -292,7 +292,10 @@ const LoginModal: React.FC<Props> = ({
           <span className="close-button" onClick={handleClose}>
             &times;
           </span>
-          <h2>Ändra lösenordet</h2>
+          <h2>Glömt lösenord</h2>
+          <p>
+            Fyll i din e-postadress så skickar vi ett nytt lösenord till dig.
+          </p>
           <form onSubmit={handleReset}>
             <div className="form-group">
               <label htmlFor="email">E-post</label>
@@ -337,7 +340,7 @@ const LoginModal: React.FC<Props> = ({
               />
             </div> */}
             <button type="submit" className="submit-button">
-              Ändra lösenordet
+              Skicka
             </button>
           </form>
         </div>
