@@ -1,29 +1,36 @@
 .movie-grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-	grid-gap: 5px;
-	margin-top: 5px;
-	margin-bottom: 5px;
-	width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 0.313rem;
+  margin-top: 0.313rem;
+  margin-bottom: 0.313rem;
+  width: 100%;
 
-	@media screen and (max-width: 992px) {
-		grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); // Visa två kolumner på mycket små skärmar
-	}
+  @media screen and (max-width: 992px) {
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(170px, 1fr)
+    ); // Visa två kolumner på mycket små skärmar
+  }
 
-	@media screen and (max-width: 768px) {
-		grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); // Visa två kolumner på många skärmar
-	}
+  @media screen and (max-width: 768px) {
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(165px, 1fr)
+    ); // Visa två kolumner på många skärmar
+  }
 
-	@media screen and (max-width: 430px) {
-		grid-template-columns: repeat(2, 1fr); // Visa två kolumner på mycket små skärmar
-	}
+  @media screen and (max-width: 430px) {
+    grid-template-columns: repeat(
+      2,
+      1fr
+    ); // Visa två kolumner på mycket små skärmar
+  }
 }
 
 .titlebar-component {
-	width: 100%;
-	margin-top: -4rem;
-
-
+  width: 100%;
+  margin-top: -4rem;
 }
 // .btn-secondary {
 // 	background-color: $color-secondary !important;
@@ -43,62 +50,63 @@
 // 	}
 // }
 .sorting-button-container {
-	display: flex;
-	// border-bottom: 1px solid $color-primary-dark;
-	// border-radius: 5px 5px 0 0;
-	overflow: hidden;
-	button {
-		border: none;
-	}
-	.filter-button {
-		flex-grow: 1;
-		background-color: $color-secondary;
-		// border-color: $color-secondary;
-		color:$color-primary-dark;
-		font-family: "Roboto", sans-serif;
-		font-weight: 500;
-		font-size: 1rem;
-		// font-style: normal;
-		border-right: 1px solid $color-primary-dark;
-		border-left: 1px solid $color-primary-dark;
-		border-top: 1px solid $color-primary-dark;
-		border-bottom: 0px solid $color-primary-dark;
-		padding: 5px;
-		border-radius: 5px 5px 0 0;
+  display: flex;
+  // border-bottom: 1px solid $color-primary-dark;
+  // border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  button {
+    border: none;
+  }
+  .filter-button {
+    flex-grow: 1;
+    background-color: $color-secondary;
+    // border-color: $color-secondary;
+    color: $color-primary-dark;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    // font-style: normal;
+    border-right: 0.063rem solid $color-primary-dark;
+    border-left: 0.063rem solid $color-primary-dark;
+    border-top: 0.063rem solid $color-primary-dark;
+    border-bottom: 0px solid $color-primary-dark;
+    padding: 0.313rem;
+    border-radius: 0.313rem 0.313rem 0 0;
 
-		@media screen and (max-width: 430px) {
-			font-size: 0.8rem;
-		}
+    @media screen and (max-width: 430px) {
+      font-size: 0.8rem;
+    }
 
-		&:hover,
-		&:active,
-		&:focus {
-		color: $color-primary-dark;
-		background-color: $color-select;
-		border-color: $color-select;
-		transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
-		}
-	}
+    &:hover,
+    &:active,
+    &:focus {
+      color: $color-primary-dark;
+      background-color: $color-select;
+      border-color: $color-select;
+      transition: background-color 0.3s ease-in-out,
+        border-color 0.3s ease-in-out;
+    }
+  }
 }
 
 .hidden-button {
-	background-color: $color-secondary;
-	height: 2.5rem;
-	color: $color-text-dark;
-	border: 2px solid $color-primary-dark;
-	cursor: pointer;
-	font-family: "Roboto", sans-serif;
-	font-weight: 500;
-	font-size: 1.4rem;
-	width: 50%;
-	border-radius: 20px;
-	margin-bottom: -3rem;
+  background-color: $color-secondary;
+  height: 2.5rem;
+  color: $color-text-dark;
+  border: 0.125rem solid $color-primary-dark;
+  cursor: pointer;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 1.4rem;
+  width: 50%;
+  border-radius: 1.25rem;
+  margin-bottom: -3rem;
 
-		&:disabled {
-			background-color: $color-border-light;
-		}
+  &:disabled {
+    background-color: $color-border-light;
+  }
 
-		&:hover {
-			background: $color-select;
-		}
+  &:hover {
+    background: $color-select;
+  }
 }

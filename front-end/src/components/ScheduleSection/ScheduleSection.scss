@@ -1,26 +1,26 @@
 .schedule-section {
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 1.25rem;
   background-color: transparent;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1);
 
   .schedule-section-title {
-    margin-top: 1px;
-    margin-bottom: 5px;
+    margin-top: 0.063rem;
+    margin-bottom: 0.313rem;
     display: flex;
     align-items: center;
     justify-content: center;
     background: $color-modal-bg;
     height: 5rem;
-    border-radius: 5px;
+    border-radius: 0.313rem;
 
     h2 {
       @include text-stroke($color-primary-dark);
       font-family: "Cinzel", serif;
       font-weight: bold;
-      font-size: 24px;
+      font-size: 1.5rem;
       color: $color-secondary;
       margin: 0;
       &::first-letter {
@@ -35,9 +35,9 @@
     justify-content: space-between;
     flex-wrap: wrap;
     background: $color-primary-dark;
-    border-radius: 5px;
+    border-radius: 0.313rem;
     padding: 0.5vw;
-    border: 3px solid $color-primary-light;
+    border: 0.188rem solid $color-primary-light;
 
     button {
       flex: 1 0 12%;
@@ -46,21 +46,21 @@
       padding-bottom: 1vh;
       background-color: $color-secondary;
       color: $color-primary-dark;
-      border-radius: 5px;
+      border-radius: 0.313rem;
       cursor: pointer;
       transition: background-color 0.4s, outline 0.1s, border 0.2s;
       text-align: center;
-      border: 1px solid $color-primary-dark;
-      margin-top: 1px;
-      margin-bottom: 1px;
+      border: 0.063rem solid $color-primary-dark;
+      margin-top: 0.063rem;
+      margin-bottom: 0.063rem;
 
       &:hover {
-        outline: 2px solid $color-select;
+        outline: 0.125rem solid $color-select;
       }
 
       &.selected {
         background-color: $color-select;
-        border: 1px solid $color-select;
+        border: 0.063rem solid $color-select;
       }
 
       &.no-showtime {
@@ -73,7 +73,7 @@
       p {
         margin: 0;
         text-align: center;
-        font-size: 16px;
+        font-size: 1rem;
         color: $color-primary-dark;
         white-space: nowrap;
         overflow: hidden;
@@ -81,7 +81,7 @@
 
         &:first-child {
           font-weight: bold;
-          font-size: 18px;
+          font-size: 1.125rem;
           &::first-letter {
             text-transform: uppercase;
           }
@@ -99,8 +99,8 @@
       h3 {
         margin: 0;
         background: $bg-gradient-hall-title;
-        padding: 10px;
-        border: 1px solid $color-primary-dark;
+        padding: 0.625rem;
+        border: 0.063 solid $color-primary-dark;
         color: $color-primary-dark;
         text-align: center;
         @include text-stroke($color-secondary);
@@ -108,8 +108,8 @@
 
       .schedule-section-showtime {
         margin-top: 0px;
-        border: 2px solid $color-secondary;
-        padding: 15px;
+        border: 0.125rem solid $color-secondary;
+        padding: 0.938rem;
         background: $bg-color-showtime-odd;
 
         &:nth-child(odd) {
@@ -142,7 +142,7 @@
             align-self: center;
             @include text-stroke($color-primary-dark);
             p {
-              margin-left: 5px;
+              margin-left: 0.313rem;
               text-align: left;
               color: $color-text-white;
               &::first-line {
@@ -153,52 +153,51 @@
           .schedule-section-showtime-info__image {
             display: inline-block;
             position: relative;
-            border-radius: 5px; // Samma som bilden för att matcha hörnen
+            border-radius: 0.313rem; // Samma som bilden för att matcha hörnen
             background: linear-gradient(
               to bottom,
               $color-primary-dark,
               $color-primary-light
             );
             padding: 2px; // Justera efter behov för att skapa avstånd mellan bilden och gradienten
-            margin-right: 15px;
+            margin-right: 0.938rem;
 
             img {
               width: 80px;
               height: 118px;
-              border-radius: 5px;
-              // border: 1px solid $color-primary-dark;
+              border-radius: 0.313rem;
             }
           }
 
           .schedule-section-showtime-info__text {
             flex: 3;
             @include text-stroke($color-primary-dark);
-            margin-top: 10px;
+            margin-top: 0.625rem;
 
             h5 {
-              font-size: 24px;
+              font-size: 1.5rem;
               color: $color-text-white;
             }
 
             p {
-              margin: 5px 0;
+              margin: 0.313rem 0;
               color: $color-text-white;
               text-align: left;
-              font-size: 14px;
+              font-size: 0.875rem;
             }
           }
           .schedule-section-showtime-info__text__age {
             position: absolute;
             bottom: -15px;
-            right: 110px;
+            right: 6.875rem;
 
             p {
-              font-size: 12px;
+              font-size: 0.75rem;
               text-align: right;
               background: $color-primary-light;
               color: $color-secondary;
-              padding: 0px 5px;
-              border-radius: 3px;
+              padding: 0px 0.313rem;
+              border-radius: 0.188rem;
               @include text-stroke($color-primary-dark);
             }
           }
@@ -209,7 +208,7 @@
 
   p {
     text-align: center;
-    font-size: 16px;
+    font-size: 1rem;
     color: #999;
   }
 }

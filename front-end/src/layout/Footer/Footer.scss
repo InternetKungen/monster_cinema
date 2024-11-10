@@ -1,8 +1,8 @@
 .footer {
   background-color: $color-primary-dark;
-  padding: 10px;
-  border: 2px solid $color-secondary;
-  border-radius: 10px;
+  padding: 0.625rem;
+  border: 0.125rem solid $color-secondary;
+  border-radius: 0.625rem;
   z-index: 1;
 
   h5,
@@ -14,7 +14,7 @@
     color: $color-secondary;
     padding-left: 0;
     li {
-      margin-bottom: 10px;
+      margin-bottom: 0.625rem;
 
       a {
         color: $color-secondary;
@@ -31,11 +31,11 @@
 
   .social-media-links {
     a {
-      margin: 0 10px;
+      margin: 0 0.625rem;
       text-decoration: none;
 
       img {
-        width: 40px;
+        width: 2.5rem;
         transition: filter 0.3s ease;
       }
 
