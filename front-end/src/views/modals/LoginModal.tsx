@@ -96,6 +96,7 @@ const LoginModal: React.FC<Props> = ({
   const handleReset = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
+    setSuccessMessage("");
     fetch("/api/auth/reset-password", {
       method: "POST",
       headers: {
