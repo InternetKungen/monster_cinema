@@ -1,12 +1,12 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Logo from '../../assets/img/logo-text-side.png';
-import facebookIcon from '../../assets/icons/socialmedia-facebook-gul.png';
-import instagramIcon from '../../assets/icons/socialmedia-instagram-gul.png';
-import XIcon from '../../assets/icons/socialmedia-x-gul.png';
-import youtubeIcon from '../../assets/icons/socialmedia-youtube-gul.png';
+import React from "react";
+import { Link } from "react-router-dom";
+import Logo from "../../assets/img/logo-text-side.png";
+import facebookIcon from "../../assets/icons/socialmedia-facebook-gul.png";
+import instagramIcon from "../../assets/icons/socialmedia-instagram-gul.png";
+import XIcon from "../../assets/icons/socialmedia-x-gul.png";
+import youtubeIcon from "../../assets/icons/socialmedia-youtube-gul.png";
 
-import './Footer.scss';
+import "./Footer.scss";
 
 const Footer: React.FC = () => {
   return (
@@ -14,7 +14,6 @@ const Footer: React.FC = () => {
       <div className="container-fluid">
         <div className="row text-light">
           <div className="col-sm-3">
-            <h5>Om oss</h5>
             <ul className="list-unstyled">
               <li>
                 <Link to="/about-us">Om oss</Link>
