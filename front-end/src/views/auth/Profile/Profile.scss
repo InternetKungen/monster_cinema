@@ -1,6 +1,6 @@
 .profile-content {
   background: $color-primary-dark;
-  border-radius: 10px;
+  border-radius: 0.625rem;
   min-height: calc(100vh - (80px + 300px));
   h3 {
     background: linear-gradient(
@@ -8,18 +8,18 @@
       $color-primary-light,
       $color-primary-dark
     );
-    border-radius: 10px 10px 0 0;
+    border-radius: 0.625rem 0.625rem 0 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 80px;
+    height: 5rem;
     margin: 0;
     color: $color-secondary;
     @include text-stroke($color-primary-dark);
   }
   .accordion-container-wrapper {
     margin: 0 auto;
-    max-width: 1234px;
+    max-width: 77.125rem;
   }
 }
 
@@ -54,14 +54,14 @@
 }
 .accordion-item {
   margin-bottom: 1rem;
-  border-radius: 10px;
+  border-radius: 0.625rem;
   overflow: hidden;
   background: $color-secondary;
 
   &:first-of-type {
-    border-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
+    border-radius: 0.625rem;
+    border-bottom-right-radius: 0.625rem;
+    border-bottom-left-radius: 0.625rem;
     border: 2px solid $color-secondary;
     background: $color-secondary;
     > .accordion-header .accordion-button {
@@ -73,14 +73,12 @@
       }
     }
   }
-  // &:not(:first-of-type) {
-  //   // border-top: 0;
-  // }
+
   &:last-of-type {
-    border-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border: 2px solid $color-secondary;
+    border-radius: 0.625rem;
+    border-bottom-right-radius: 0.625rem;
+    border-bottom-left-radius: 0.625rem;
+    border: 0.125rem solid $color-secondary;
     background: $color-secondary;
     > .accordion-header .accordion-button {
       border-bottom-right-radius: 0px;
@@ -106,7 +104,7 @@
   }
 
   &__booking {
-    border-bottom: 2px solid $color-secondary;
+    border-bottom: 0.125rem solid $color-secondary;
     border-radius: 0px;
     padding: 1rem;
     display: flex;
@@ -138,8 +136,8 @@
 
   &__poster {
     background: $border-image-poster;
-    padding: 2px;
-    border-radius: 5px;
+    padding: 0.125rem;
+    border-radius: 0.313rem;
     width: fit-content;
     height: fit-content;
     margin-right: 1rem;
@@ -147,7 +145,7 @@
       width: 64px;
       height: 96px;
       object-fit: cover;
-      border-radius: 5px;
+      border-radius: 0.313rem;
     }
     @media (max-width: 576px) {
       display: none;
