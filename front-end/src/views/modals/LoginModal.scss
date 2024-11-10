@@ -46,7 +46,9 @@ input {
   border: 0.063rem solid #ccc;
   border-radius: 0.25rem;
 }
-
+.password-reset {
+  cursor: pointer;
+}
 .submit-button {
   background-color: $color-secondary;
   color: $color-primary-dark;

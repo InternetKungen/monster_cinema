@@ -1,6 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
 import "./LoginModal.scss"; // Ensure this import is correct
 import { UserContext } from "../../UserContext";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 type Props = {
   type: string;
@@ -21,6 +22,7 @@ const LoginModal: React.FC<Props> = ({
   const [lastName, setLastName] = useState("");
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const { setUser } = useContext(UserContext);
   useEffect(() => {
     setEmail("");
@@ -93,6 +95,8 @@ const LoginModal: React.FC<Props> = ({
   };
   const handleReset = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
+    setSuccessMessage("");
     fetch("/api/auth/reset-password", {
       method: "POST",
       headers: {
@@ -106,6 +110,7 @@ const LoginModal: React.FC<Props> = ({
       .then((data) => {
         if (data.message) {
           setSuccessMessage(data.message);
+          setLoading(false);
         } else {
           setError(data.error);
         }
@@ -174,7 +179,7 @@ const LoginModal: React.FC<Props> = ({
               <p>
                 Har du glömt lösenordet? Klicka{" "}
                 <span
-                  className="text-decoration-underline pe-auto"
+                  className="text-decoration-underline password-reset"
                   onClick={() => setModalType("reset")}
                 >
                   här
@@ -292,7 +297,10 @@ const LoginModal: React.FC<Props> = ({
           <span className="close-button" onClick={handleClose}>
             &times;
           </span>
-          <h2>Ändra lösenordet</h2>
+          <h2>Glömt lösenord</h2>
+          <p>
+            Fyll i din e-postadress så skickar vi ett nytt lösenord till dig.
+          </p>
           <form onSubmit={handleReset}>
             <div className="form-group">
               <label htmlFor="email">E-post</label>
@@ -337,7 +345,7 @@ const LoginModal: React.FC<Props> = ({
               />
             </div> */}
             <button type="submit" className="submit-button">
-              Ändra lösenordet
+              {loading ? <LoadingSpinner size="sm" /> : "Skicka"}
             </button>
           </form>
         </div>
