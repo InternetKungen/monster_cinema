@@ -318,9 +318,6 @@
     }
   }
   button {
-    // display: flex;
-    // justify-content: center;
-    // align-items: center;
     text-align: center;
     background: $color-secondary;
     border: 0.125rem solid $color-primary-dark;
@@ -331,7 +328,6 @@
     cursor: pointer;
     font-weight: bolder;
     font-size: 1.125rem;
-    // padding-top: 0.15rem;
     &:hover {
       transition: border 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
       border: 0.125rem solid $color-select;
@@ -351,7 +347,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: $bg-gradient-modal;
+  background: rgba(0, 0, 0, 0.5);
   color: $color-secondary;
   border: 0.125rem solid $color-secondary;
   border-radius: 0.625rem;
@@ -362,10 +358,26 @@
 }
 
 .modal-content {
-  background: $color-white;
+  border: 3px solid $color-primary-light;
+  height: fit-content;
+  background: $color-modal-bg;
   padding: 1.25rem;
-  border-radius: 0.313rem;
+  border-radius: 10px;
   text-align: center;
+  button {
+    background: $color-secondary;
+    border: 0.125rem solid $color-primary-dark;
+    border-radius: 10px;
+    padding: 0.625rem 1.25rem;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    max-width: 200px;
+    width: 100%;
+    align-self: center;
+    &:hover {
+      background: $color-select;
+    }
+  }
 }
 
 .book-button-container {
