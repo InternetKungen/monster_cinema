@@ -52,10 +52,10 @@ export const userLogin = async (req, res) => {
       return res.status(500).json({ error: "Failed to generate token" });
     }
     res.cookie("token", token, {
-      httpOnly: true, // Prevents JavaScript access
+      httpOnly: false, // Prevents JavaScript access
       secure: false, // Set to true in production (over HTTPS)
       sameSite: "Lax", // CSRF protection
-      maxAge: 60 * 60 * 1000, // 1 hour
+      maxAge: 3600000, // 1 hour
     });
     const { password: _, ...userWithoutPassword } = user.toObject();
     res.status(200).json({
