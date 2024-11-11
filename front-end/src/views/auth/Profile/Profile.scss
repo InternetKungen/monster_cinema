@@ -108,9 +108,23 @@
     border-radius: 0px;
     padding: 1rem;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     @include text-stroke($color-primary-dark);
     background: $bg-color-showtime-odd;
+    &-content {
+      display: flex;
+      flex-direction: row;
+      border: none;
+      background: none;
+      width: 100%;
+      cursor: pointer;
+      text-align: left;
+      align-items: center;
+      @include text-stroke($color-primary-dark);
+      @media (max-width: 576px) {
+        font-size: 0.8rem;
+      }
+    }
     p {
       padding: 0px;
     }
