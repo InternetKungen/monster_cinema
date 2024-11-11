@@ -192,7 +192,12 @@ const Profile: React.FC = () => {
               {currentBookings.length > 0 ? (
                 <div className="profile__column">
                   {currentBookings.map((booking) => (
-                    <div key={booking._id} className="profile__booking">
+                    <div
+                      key={booking._id}
+                      className={`profile__booking ${
+                        expandedBooking === booking._id ? "expanded" : ""
+                      }`}
+                    >
                       <button
                         className="profile__booking-content"
                         onClick={() => handleBookingClick(booking)}
@@ -247,7 +252,9 @@ const Profile: React.FC = () => {
                       </button>
                       {expandedBooking === booking._id && (
                         <button
-                          className="cancel-button"
+                          className={`cancel-button ${
+                            expandedBooking === booking._id ? "visible" : ""
+                          }`}
                           onClick={() => handleShowCancelModal(booking)}
                         >
                           Avboka
@@ -286,10 +293,16 @@ const Profile: React.FC = () => {
           )}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowCancelModal(false)}>
+          <Button
+            className="button-secondary"
+            type="button"
+            variant="secondary"
+            onClick={() => setShowCancelModal(false)}
+          >
             Avbryt
           </Button>
           <Button
+            className="button-danger"
             variant="danger"
             onClick={handleCancelBooking}
             disabled={isLoading}
