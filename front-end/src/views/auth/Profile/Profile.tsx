@@ -244,15 +244,15 @@ const Profile: React.FC = () => {
                             </p>
                           </div>
                         </div>
-                        {expandedBooking === booking._id && (
-                          <button
-                            className="cancel-button"
-                            onClick={() => handleShowCancelModal(booking)}
-                          >
-                            Avboka
-                          </button>
-                        )}
                       </button>
+                      {expandedBooking === booking._id && (
+                        <button
+                          className="cancel-button"
+                          onClick={() => handleShowCancelModal(booking)}
+                        >
+                          Avboka
+                        </button>
+                      )}
                     </div>
                   ))}
                 </div>

@@ -198,6 +198,7 @@
   }
 
   &__booking-number {
+    align-self: flex-start;
     margin-top: 0px;
     margin-right: 1rem;
     @media (max-width: 576px) {
