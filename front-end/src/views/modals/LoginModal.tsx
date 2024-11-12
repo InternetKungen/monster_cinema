@@ -97,6 +97,7 @@ const LoginModal: React.FC<Props> = ({
     e.preventDefault();
     setLoading(true);
     setSuccessMessage("");
+    setError("");
     fetch("/api/auth/reset-password", {
       method: "POST",
       headers: {
@@ -112,7 +113,10 @@ const LoginModal: React.FC<Props> = ({
           setSuccessMessage(data.message);
           setLoading(false);
         } else {
-          setError(data.error);
+          setTimeout(() => {
+            setError(data.error);
+            setLoading(false);
+          }, 1000);
         }
       })
       .catch((err) => {

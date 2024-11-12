@@ -3,11 +3,22 @@ import express from "express";
 import Seat from "../models/Seat.js";
 import Showtime from "../models/Showtime.js";
 import Movie from "../models/Movie.js";
-import { createHall, deleteHalls, getHallById, getHalls, getSeatInfo, getSeatsOfHallAtShowtime, getShowtimesOfMovieInHall, patchSeats } from "../controllers/hallController.js";
+import {
+  createHall,
+  deleteHalls,
+  getHallById,
+  getHalls,
+  getSeatInfo,
+  getSeatsOfHallAtShowtime,
+  getShowtimesOfMovieInHall,
+  patchSeats,
+} from "../controllers/hallController.js";
+import { authUser } from "../middlewares/authUser.js";
+import { isAuthAdmin } from "../middlewares/isAuthAdmin.js";
 const hallrouter = express.Router();
 
 // Create a new hall
-hallrouter.post("/", createHall);
+hallrouter.post("/", authUser, isAuthAdmin, createHall);
 
 // Get all halls
 // /api/hall
@@ -23,14 +34,14 @@ hallrouter.get("/:id", getHallById);
 
 // delete all halls and their seats and showtimes
 // /api/hall
-hallrouter.delete("/", deleteHalls);
+hallrouter.delete("/", authUser, isAuthAdmin, deleteHalls);
 
 // get all seats of a hall at a specific showtime
 // /api/hall/:hallId/showtime/:showtime
 // hallrouter.get("/:hallId/showtime/:showtime", getSeatsOfHallAtShowtime); // NOT IN USE -- MAYBE LATER
 
 // get a seat info
-hallrouter.get("/seat/:id", getSeatInfo)
+hallrouter.get("/seat/:id", getSeatInfo);
 
 //pathc seats
 // hallrouter.patch('/patch-seats', patchSeats); // NOT IN USE
