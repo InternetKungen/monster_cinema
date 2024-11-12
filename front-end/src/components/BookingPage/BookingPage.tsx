@@ -525,12 +525,14 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
 
         {showModal && (
           <div className="booking-modal">
-            <div className="modal-content">
+            <div className="booking-modal-content">
               <h2>Bokningsbekräftelse</h2>
               {bookingStatus?.success ? (
                 <>
                   <p>Bokningen genomfördes</p>
-                  <p>Ditt bokningsnummer: {bookingStatus.bookingNumber}</p>
+                  <p>Ditt bokningsnummer:</p>
+                  <h3>{bookingStatus.bookingNumber}</h3>
+
                   <p>Information har skickats till angiven e-postadress</p>
                   <button onClick={closeModal}>Stäng</button>
                 </>

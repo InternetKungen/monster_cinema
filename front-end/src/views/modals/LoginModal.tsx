@@ -125,12 +125,12 @@ const LoginModal: React.FC<Props> = ({
   };
   return (
     <div
-      className="modal-background position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
+      className="login-modal-background position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
       style={{ zIndex: 1000 }}
     >
       {type === "login" && (
         <section
-          className="modal-content"
+          className="login-modal-content"
           style={{
             background:
               "linear-gradient(to right, rgba(0,15,38,100), rgba(4,86,133,100), rgba(0,15,38,100))",
@@ -202,7 +202,7 @@ const LoginModal: React.FC<Props> = ({
       )}
       {type === "register" && (
         <div
-          className="modal-content"
+          className="login-modal-content"
           style={{
             background:
               "linear-gradient(to right, rgba(0,15,38,100), rgba(4,86,133,100), rgba(0,15,38,100))",
@@ -285,7 +285,7 @@ const LoginModal: React.FC<Props> = ({
       )}
       {type === "reset" && (
         <div
-          className="modal-content"
+          className="login-modal-content"
           style={{
             background:
               "linear-gradient(to right, rgba(0,15,38,100), rgba(4,86,133,100), rgba(0,15,38,100))",
