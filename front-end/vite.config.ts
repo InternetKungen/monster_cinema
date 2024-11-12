@@ -19,8 +19,8 @@ export default defineConfig({
         ws: true, // WebSocket proxy
       },
     },
-    host: true,
-    port: 3000,
+    // host: true,
+    // port: 3000,
   },
   plugins: [react()],
 });
