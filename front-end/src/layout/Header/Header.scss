@@ -1,12 +1,12 @@
 header {
   background-color: $color-primary-dark;
   z-index: 1;
-  border: 2px solid $color-secondary;
-  border-radius: 10px;
+  border: 0.125rem solid $color-secondary;
+  border-radius: 0.625rem;
   display: flex;
   justify-content: space-between;
   flex-direction: row !important;
-  height: 80px;
+  height: 5rem;
   overflow: hidden;
 
   .schedule-button-container {
@@ -24,9 +24,9 @@ header {
       align-items: center;
       justify-content: center;
       flex: 1;
-      max-width: 80px;
-      height: 76px;
-      border-right: 2px solid $color-secondary;
+      max-width: 5rem;
+      height: 4.75rem;
+      border-right: 0.125rem solid $color-secondary;
       text-decoration: none;
       color: $color-secondary;
       font-weight: 500;
@@ -49,10 +49,10 @@ header {
     @media (max-width: 576px) {
       opacity: 0;
       font-size: 0.9rem;
-      padding: 0 5px;
+      padding: 0 0.313rem;
 
       .schedule-button-container__button:first-child {
-        padding-left: 5px;
+        padding-left: 0.313rem;
       }
     }
   }
@@ -61,7 +61,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 76px;
+    height: 4.75rem;
 
     .logo-img-wrapper {
       display: flex;
@@ -69,8 +69,8 @@ header {
       align-items: center;
 
       .logo-img {
-        max-height: 76px;
-        max-width: 300px;
+        max-height: 4.75rem;
+        max-width: 18.75rem;
       }
     }
   }
@@ -80,16 +80,16 @@ header {
     right: 0;
     display: flex;
     justify-content: flex-end;
-    height: 76px;
+    height: 4.75rem;
 
     .search-login-container__icon {
       display: flex;
       justify-content: center;
       align-items: center;
       width: 20%;
-      max-width: 60px;
-      min-width: 48px;
-      border-left: 2px solid $color-secondary;
+      max-width: 3.75rem;
+      min-width: 3rem;
+      border-left: 0.125rem solid $color-secondary;
 
       button {
         border: none;
@@ -97,7 +97,7 @@ header {
       }
 
       img {
-        height: 40px;
+        height: 2.5rem;
         width: auto;
       }
 
@@ -117,9 +117,9 @@ header {
     }
     @media (max-width: 576px) {
       .search-login-container__icon {
-        min-width: 40px;
+        min-width: 2.5rem;
         img {
-          height: 28px;
+          height: 1.75rem;
           width: auto;
         }
       }

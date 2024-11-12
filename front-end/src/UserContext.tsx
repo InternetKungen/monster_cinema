@@ -8,6 +8,7 @@ import {
   useMemo,
 } from "react";
 import { useCookies } from "react-cookie";
+
 interface User {
   name: string;
   email: string;
@@ -27,7 +28,9 @@ export const UserContext = createContext<UserContextType>({
 const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [cookies] = useCookies(["token"]);
+
   useEffect(() => {
+    console.log("Cookies:", cookies); // Debugging: Log cookies to check their values
     if (cookies.token) {
       fetch("/api/user/info", {
         method: "GET",
@@ -37,13 +40,19 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
         .then((data) => {
           if (data.user) {
             setUser(data.user);
+            console.log("User data:", data.user); // Debugging: Log user data
           } else if (data.error) {
-            console.log(data.error);
+            console.log("Error:", data.error); // Debugging: Log error
           }
+        })
+        .catch((error) => {
+          console.error("Fetch error:", error); // Debugging: Log fetch error
         });
     }
   }, [cookies.token]);
+
   const value = useMemo(() => ({ user, setUser }), [user, setUser]);
+
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
 import "./LoginModal.scss"; // Ensure this import is correct
 import { UserContext } from "../../UserContext";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 type Props = {
   type: string;
@@ -19,17 +20,15 @@ const LoginModal: React.FC<Props> = ({
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [oldPassword, setOldPassword] = useState("");
   const [error, setError] = useState("");
-  const [newPassword, setNewPassword] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const { setUser } = useContext(UserContext);
   useEffect(() => {
     setEmail("");
     setPassword("");
     setFirstName("");
     setLastName("");
-    setOldPassword("");
-    setNewPassword("");
     setError("");
 
     if (show) {
@@ -96,6 +95,8 @@ const LoginModal: React.FC<Props> = ({
   };
   const handleReset = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
+    setSuccessMessage("");
     fetch("/api/auth/reset-password", {
       method: "POST",
       headers: {
@@ -103,18 +104,19 @@ const LoginModal: React.FC<Props> = ({
       },
       body: JSON.stringify({
         email,
-        oldPassword,
-        newPassword,
       }),
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.message) {
-          alert("Password reset successfully");
-          handleClose();
+          setSuccessMessage(data.message);
+          setLoading(false);
         } else {
           setError(data.error);
         }
+      })
+      .catch((err) => {
+        console.error(err);
       });
   };
   return (
@@ -177,7 +179,7 @@ const LoginModal: React.FC<Props> = ({
               <p>
                 Har du glömt lösenordet? Klicka{" "}
                 <span
-                  className="text-decoration-underline pe-auto"
+                  className="text-decoration-underline password-reset"
                   onClick={() => setModalType("reset")}
                 >
                   här
@@ -295,7 +297,10 @@ const LoginModal: React.FC<Props> = ({
           <span className="close-button" onClick={handleClose}>
             &times;
           </span>
-          <h2>Återställ lösenord</h2>
+          <h2>Glömt lösenord</h2>
+          <p>
+            Fyll i din e-postadress så skickar vi ett nytt lösenord till dig.
+          </p>
           <form onSubmit={handleReset}>
             <div className="form-group">
               <label htmlFor="email">E-post</label>
@@ -310,8 +315,11 @@ const LoginModal: React.FC<Props> = ({
               {error.includes("User") && (
                 <p className="text-danger mt-2 shake">{error}!</p>
               )}
+              {successMessage && (
+                <p className="text-success mt-2 shake">{successMessage}!</p>
+              )}
             </div>
-            <div className="form-group">
+            {/* <div className="form-group">
               <label htmlFor="oldpassword">Gammalt lösenord</label>
               <input
                 type="password"
@@ -335,9 +343,9 @@ const LoginModal: React.FC<Props> = ({
                 name="newpassword"
                 required
               />
-            </div>
+            </div> */}
             <button type="submit" className="submit-button">
-              Återställ lösenord
+              {loading ? <LoadingSpinner size="sm" /> : "Skicka"}
             </button>
           </form>
         </div>

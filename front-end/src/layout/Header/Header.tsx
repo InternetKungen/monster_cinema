@@ -26,6 +26,7 @@ const Header: React.FC<{ onSelectDate: (daysAhead: number) => void }> = ({
   const { user, setUser } = useContext(UserContext);
   const location = useLocation();
   const isBookingPage = location.pathname.startsWith("/booking/");
+  const isProfilePage = location.pathname.startsWith("/profile");
   console.log(user);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 576);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -58,7 +59,7 @@ const Header: React.FC<{ onSelectDate: (daysAhead: number) => void }> = ({
     <header className="container-fluid sticky-top p-0">
       <div className="row w-100">
         <nav className="schedule-button-container col-4">
-          {!isBookingPage && (
+          {!isBookingPage && !isProfilePage && (
             <>
               <button
                 onClick={() => onSelectDate(0)}

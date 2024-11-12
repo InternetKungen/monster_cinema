@@ -1,235 +1,237 @@
-
 .current-shows-section {
-	padding: 20px;
-	background-color: transparent;
-	border-radius: 8px;
-	max-width: 100%;
+  padding: 1.25rem;
+  background-color: transparent;
+  border-radius: 0.5rem;
+  max-width: 100%;
 
-	.titlebar-text {
-		text-align: center;
-		font-size: 2rem;
-		margin-bottom: 0px;
-		@include text-stroke($color-primary-dark);
-		color: #FCAF00;
-	}
-
-	// Style för navigation buttons
-
-	.titlebar-container {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		height: 6rem;
-		margin-top: 0rem;
-		background:  linear-gradient(to left, #000F26, #045685, #000F26);
-		border: 2px solid #000F26;
-		border-radius: 5px;
-	}
-
-
-  	.navigation-buttons {
-  	display: flex;
-  	justify-content: center;
-  	margin: 20px 0;
-		align-items: center;
-		h2 {
-			font-family: "Cinzel", serif;
-			font-weight: bold;
-			font-size: 1.5rem;
-			color: $color-secondary;
-			@include text-stroke($color-primary-dark);
-		}
-
-  	.arrow-button {
-  		position: relative;
-  		background: transparent;
-  		border: none;
-  		cursor: pointer;
-  		width: 60px;
-  		height: 60px;
-  		padding: 0;
-  		transition: transform 0.2s;
-
-  		&:hover {
-  			transform: scale(1.1);
-  		}
-
-  		&:disabled {
-  			cursor: not-allowed;
-  		}
-
-  		// knappstyling
-  		&.previous::before {
-  			content: '';
-  			position: absolute;
-  			top: 50%;
-  			left: 50%;
-  			width: 0;
-  			height: 0;
-  			border-top: 15px solid transparent;
-  			border-bottom: 15px solid transparent;
-  			border-right: 25px solid #FCAF00;
-  			transform: translate(-50%, -50%);
-  		}
-
-  		&.next::before {
-  			content: '';
-  			position: absolute;
-  			top: 50%;
-  			left: 50%;
-  			width: 0;
-  			height: 0;
-  			border-top: 15px solid transparent;
-  			border-bottom: 15px solid transparent;
-  			border-left: 25px solid #FCAF00;
-  			transform: translate(-50%, -50%);
-  		}
-  	}
+  .titlebar-text {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 0px;
+    @include text-stroke($color-primary-dark);
+    color: #fcaf00;
   }
 
-	.movie-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-		grid-gap: 5px;
-		margin-top: 5px;
-		margin-bottom: 5px;
-		width: 100%;
+  // Style för navigation buttons
 
-		@media screen and (max-width: 992px) {
-			grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-		}
+  .titlebar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 6rem;
+    margin-top: 0rem;
+    background: linear-gradient(to left, #000f26, #045685, #000f26);
+    border: 0.125rem solid #000f26;
+    border-radius: 0.313rem;
+  }
 
-		@media screen and (max-width: 768px) {
-			grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
-		}
+  .navigation-buttons {
+    display: flex;
+    justify-content: center;
+    margin: 1.25rem 0;
+    align-items: center;
+    h2 {
+      font-family: "Cinzel", serif;
+      font-weight: bold;
+      font-size: 1.5rem;
+      color: $color-secondary;
+      @include text-stroke($color-primary-dark);
+    }
 
-		@media screen and (max-width: 430px) {
-			grid-template-columns: repeat(2, 1fr);
-		}
-		.movie-button-container {
-			text-decoration: none;
-			display: flex;
-			flex-grow: 1;
-			align-items: center;
-			justify-content: center;
-			padding: 0;
+    .arrow-button {
+      position: relative;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      width: 3.75rem;
+      height: 3.75rem;
+      padding: 0;
+      transition: transform 0.2s;
 
-			// width: 40vw;
-			.movie-button {
-				flex-grow: 1;
-				padding: 10px;
-				background: $bg-gradient-movie-button;
-				border: 2px solid $color-primary-dark;
-				border-radius: 5px;
-				cursor: pointer;
-				font-size: 12px;
-				color: $color-white;
-				min-height: 350px;
-				transition: transform 0.2s ease, background 0.4s ease-in-out;
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				position: relative;
-				overflow: hidden;
-				width: 100%;
+      &:hover {
+        transform: scale(1.1);
+      }
 
-				@media screen and (max-width: 430px) {
-					max-width: 45vw;
-					height: 250px;
-					padding: 3px;
-					font-size: 9px;
+      &:disabled {
+        cursor: not-allowed;
+      }
 
-					.movie-button__poster {
-						height: 180px;
-					}
+      // knappstyling
+      &.previous::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-top: 0.938rem solid transparent;
+        border-bottom: 0.938rem solid transparent;
+        border-right: 1.563rem solid #fcaf00;
+        transform: translate(-50%, -50%);
+      }
 
-					h2 {
-						font-size: 0.9rem;
-					}
+      &.next::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-top: 0.938rem solid transparent;
+        border-bottom: 0.938rem solid transparent;
+        border-left: 1.563rem solid #fcaf00;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
 
-					p {
-						font-size: 0.6rem;
-					}
+  .movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 0.313rem;
+    margin-top: 0.313rem;
+    margin-bottom: 0.313rem;
+    width: 100%;
 
-					.genre {
-						font-size: 0.5rem;
-					}
+    @media screen and (max-width: 992px) {
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    }
 
-					.age-restriction {
-						font-size: 0.5rem;
-						padding-left: 0.2vw;
-						padding-right: 0.2vw;
-					}
-				}
-				h2 {
-					@include text-stroke($color-primary-dark);
-					margin: 0;
-					margin-top: 0.2rem;
-					padding: 0;
-					font-size: 1.2rem;
-					align-self: center;
-					white-space: nowrap;
-					overflow: hidden;
-					text-overflow: ellipsis;
-					width: 100%;
-					text-align: center;
-					// max-width: 100%;
-				}
+    @media screen and (max-width: 768px) {
+      grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+    }
 
-				p {
-					@include text-stroke($color-primary-dark);
-					margin: 0;
-					padding: 0;
-					font-size: 0.9rem;
-					text-align: center;
-				}
+    @media screen and (max-width: 430px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .movie-button-container {
+      text-decoration: none;
+      display: flex;
+      flex-grow: 1;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
 
-				.genre {
-					font-size: 0.75rem;
-					align-self: center;
-				}
+      // width: 40vw;
+      .movie-button {
+        flex-grow: 1;
+        padding: 0.625rem;
+        background: $bg-gradient-movie-button;
+        border: 0.125rem solid $color-primary-dark;
+        border-radius: 0.313rem;
+        cursor: pointer;
+        font-size: 0.75rem;
+        color: $color-white;
+        min-height: 21.875rem;
+        transition: transform 0.2s ease, background 0.4s ease-in-out;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        width: 100%;
 
-				.year {
-					font-size: 0.8rem;
-					display: none;
-				}
+        @media screen and (max-width: 430px) {
+          max-width: 45vw;
+          height: 15.625rem;
+          padding: 0.188rem;
+          font-size: 0.563rem;
 
-				.age-restriction {
-					display: none;
-				}
+          .movie-button__poster {
+            height: 11.25rem;
+          }
 
-				.movie-button__poster {
-					display: inline-block;
-					position: relative;
-					border-radius: 5px; // Samma som bilden för att matcha hörnen
-					background: linear-gradient(to bottom, $color-primary-dark, $color-primary-light);
-					padding: 1px; // Justera efter behov för att skapa avstånd mellan bilden och gradienten
-					height: 266px;
-					width: 100%;
+          h2 {
+            font-size: 0.9rem;
+          }
 
-					img {
-						border-radius: 5px;
-						width: 100%;
-						height: 100%;
-						object-fit: cover;
-					}
-				}
+          p {
+            font-size: 0.6rem;
+          }
 
-				&:hover {
-					transform: translateY(-5px);
-					background: $bg-gradient-movie-button-highlight;
-				}
-			}
-		}
-	}
+          .genre {
+            font-size: 0.5rem;
+          }
 
-	// Meddelanden för loading, error och no-movies
-	.loading,
-	.error,
-	.no-movies {
-		text-align: center;
-		font-size: 1.2rem;
-		color: white;
-		margin-top: 20px;
-	}
+          .age-restriction {
+            font-size: 0.5rem;
+            padding-left: 0.2vw;
+            padding-right: 0.2vw;
+          }
+        }
+        h2 {
+          @include text-stroke($color-primary-dark);
+          margin: 0;
+          margin-top: 0.2rem;
+          padding: 0;
+          font-size: 1.2rem;
+          align-self: center;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          width: 100%;
+          text-align: center;
+          // max-width: 100%;
+        }
+
+        p {
+          @include text-stroke($color-primary-dark);
+          margin: 0;
+          padding: 0;
+          font-size: 0.9rem;
+          text-align: center;
+        }
+
+        .genre {
+          font-size: 0.75rem;
+          align-self: center;
+        }
+
+        .year {
+          font-size: 0.8rem;
+          display: none;
+        }
+
+        .age-restriction {
+          display: none;
+        }
+
+        .movie-button__poster {
+          display: inline-block;
+          position: relative;
+          border-radius: 0.313rem; // Samma som bilden för att matcha hörnen
+          background: linear-gradient(
+            to bottom,
+            $color-primary-dark,
+            $color-primary-light
+          );
+          padding: 0.063rem; // Justera efter behov för att skapa avstånd mellan bilden och gradienten
+          height: 16.625rem;
+          width: 100%;
+
+          img {
+            border-radius: 0.313rem;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+
+        &:hover {
+          transform: translateY(-5px);
+          background: $bg-gradient-movie-button-highlight;
+        }
+      }
+    }
+  }
+
+  // Meddelanden för loading, error och no-movies
+  .loading,
+  .error,
+  .no-movies {
+    text-align: center;
+    font-size: 1.2rem;
+    color: white;
+    margin-top: 1.25rem;
+  }
 }

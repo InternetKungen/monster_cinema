@@ -5,12 +5,12 @@
 
 .modal-content {
   background: $color-modal-bg;
-  padding: 20px;
-  border-radius: 8px;
-  width: 500px;
+  padding: 1.25rem;
+  border-radius: 0.5rem;
+  width: 31.25rem;
   color: $color-secondary;
   max-width: 90%;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0.125rem 0.63rem rgba(0, 0, 0, 0.8);
   position: relative;
   @include text-stroke($color-primary-dark);
 }
@@ -21,40 +21,42 @@
 
 .close-button {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 24px;
+  top: 0.625rem;
+  right: 0.625rem;
+  font-size: 1.5rem;
   cursor: pointer;
 }
 
 h2 {
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 }
 
 .form-group {
   text-align: left;
-  margin-bottom: 15px;
+  margin-bottom: 0.938rem;
 }
 
 label {
-  margin-bottom: 5px;
+  margin-bottom: 0.313rem;
 }
 
 input {
   width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 0.5rem;
+  border: 0.063rem solid #ccc;
+  border-radius: 0.25rem;
 }
-
+.password-reset {
+  cursor: pointer;
+}
 .submit-button {
   background-color: $color-secondary;
   color: $color-primary-dark;
-  font-size: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
-  padding: 10px 40px;
+  font-size: 1.25rem;
+  box-shadow: 0 0.125rem 0.313rem rgba(0, 0, 0, 0.8);
+  padding: 0.63rem 2.5rem;
   border: none;
-  border-radius: 4px;
+  border-radius: 0.25rem;
   cursor: pointer;
 }
 
@@ -64,11 +66,21 @@ input {
 }
 
 @keyframes shake {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  50% { transform: translateX(5px); }
-  75% { transform: translateX(-5px); }
-  100% { transform: translateX(0); }
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 
 .shake {

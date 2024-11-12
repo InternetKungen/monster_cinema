@@ -1,6 +1,6 @@
 .profile-content {
   background: $color-primary-dark;
-  border-radius: 10px;
+  border-radius: 0.625rem;
   min-height: calc(100vh - (80px + 300px));
   h3 {
     background: linear-gradient(
@@ -8,18 +8,18 @@
       $color-primary-light,
       $color-primary-dark
     );
-    border-radius: 10px 10px 0 0;
+    border-radius: 0.625rem 0.625rem 0 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 80px;
+    height: 5rem;
     margin: 0;
     color: $color-secondary;
     @include text-stroke($color-primary-dark);
   }
   .accordion-container-wrapper {
     margin: 0 auto;
-    max-width: 1234px;
+    max-width: 77.125rem;
   }
 }
 
@@ -54,14 +54,14 @@
 }
 .accordion-item {
   margin-bottom: 1rem;
-  border-radius: 10px;
+  border-radius: 0.625rem;
   overflow: hidden;
   background: $color-secondary;
 
   &:first-of-type {
-    border-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
+    border-radius: 0.625rem;
+    border-bottom-right-radius: 0.625rem;
+    border-bottom-left-radius: 0.625rem;
     border: 2px solid $color-secondary;
     background: $color-secondary;
     > .accordion-header .accordion-button {
@@ -73,14 +73,12 @@
       }
     }
   }
-  // &:not(:first-of-type) {
-  //   // border-top: 0;
-  // }
+
   &:last-of-type {
-    border-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border: 2px solid $color-secondary;
+    border-radius: 0.625rem;
+    border-bottom-right-radius: 0.625rem;
+    border-bottom-left-radius: 0.625rem;
+    border: 0.125rem solid $color-secondary;
     background: $color-secondary;
     > .accordion-header .accordion-button {
       border-bottom-right-radius: 0px;
@@ -106,13 +104,35 @@
   }
 
   &__booking {
-    border-bottom: 2px solid $color-secondary;
+    border-bottom: 0.125rem solid $color-secondary;
     border-radius: 0px;
     padding: 1rem;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     @include text-stroke($color-primary-dark);
     background: $bg-color-showtime-odd;
+    overflow: hidden;
+    max-height: 200px; // Standardhöjd
+    transition: max-height 1.3s ease !important;
+    align-items: flex-end;
+    &.expanded {
+      max-height: 400px; // Ny max-höjd när cancel-button är synlig
+      transition: max-height 1.3s ease;
+    }
+    &-content {
+      display: flex;
+      flex-direction: row;
+      border: none;
+      background: none;
+      width: 100%;
+      cursor: pointer;
+      text-align: left;
+      align-items: center;
+      @include text-stroke($color-primary-dark);
+      @media (max-width: 576px) {
+        font-size: 0.8rem;
+      }
+    }
     p {
       padding: 0px;
     }
@@ -138,8 +158,8 @@
 
   &__poster {
     background: $border-image-poster;
-    padding: 2px;
-    border-radius: 5px;
+    padding: 0.125rem;
+    border-radius: 0.313rem;
     width: fit-content;
     height: fit-content;
     margin-right: 1rem;
@@ -147,7 +167,7 @@
       width: 64px;
       height: 96px;
       object-fit: cover;
-      border-radius: 5px;
+      border-radius: 0.313rem;
     }
     @media (max-width: 576px) {
       display: none;
@@ -186,6 +206,7 @@
   }
 
   &__booking-number {
+    align-self: flex-start;
     margin-top: 0px;
     margin-right: 1rem;
     @media (max-width: 576px) {
@@ -218,5 +239,129 @@
   &__total {
     font-weight: bold;
     margin-top: 0px;
+  }
+}
+
+.cancel-button {
+  display: none;
+  background: $color-secondary;
+  color: $color-primary-dark;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  max-width: 200px;
+  position: relative;
+  animation: cancel-button-fade-in 0.3s ease forwards 1;
+  padding: 5px 10px;
+  text-transform: capitalize;
+  border: none;
+  border-radius: 5px;
+
+  &.visible {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+    border: 2px solid $color-error;
+  }
+  @keyframes cancel-button-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  &:active {
+    transform: translateY(2px);
+    background: $color-error;
+    color: $color-secondary;
+  }
+
+  &:hover {
+    background: $color-error;
+    color: $color-secondary;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+// Modal Variables
+$modal-background-color: $color-modal-bg;
+$modal-title-color: $color-secondary;
+$modal-body-font-size: 1rem;
+$modal-padding: 0rem;
+$modal-border-radius: 0.3rem;
+
+$modal-header-background: $color-primary-dark;
+$modal-header-border-bottom: 1px solid $color-secondary;
+$modal-footer-background: $color-primary-dark;
+$modal-footer-border-top: 1px solid $color-secondary;
+
+$button-secondary-bg: $color-secondary;
+$button-secondary-color: $color-primary-dark;
+$button-secondary-hover-bg: $color-select;
+
+$button-danger-bg: $color-primary-dark;
+$button-danger-color: $color-error;
+$button-danger-hover-bg: $color-error;
+
+.modal-content {
+  background: $modal-background-color;
+  padding: $modal-padding;
+  border-radius: $modal-border-radius;
+
+  .modal-header {
+    background: $bg-gradient-info;
+    border-bottom: $modal-header-border-bottom;
+
+    .modal-title {
+      color: $modal-title-color;
+    }
+
+    .close {
+      color: $modal-title-color;
+    }
+  }
+
+  .modal-body {
+    font-size: $modal-body-font-size;
+    h5 {
+      color: $color-secondary;
+    }
+    p {
+      color: $color-secondary;
+    }
+  }
+
+  .modal-footer {
+    background: $modal-footer-background;
+    border-top: $modal-footer-border-top;
+  }
+}
+
+.button-secondary {
+  background-color: $button-secondary-bg;
+  color: $button-secondary-color;
+
+  &:hover {
+    color: $button-secondary-color;
+    background-color: $button-secondary-hover-bg;
+  }
+}
+
+.button-danger {
+  background: $button-danger-bg;
+  color: $button-danger-color;
+  @include text-stroke($color-primary-dark);
+  border: 3px solid $button-danger-color;
+  font-weight: bold;
+
+  &:hover {
+    background: $button-danger-hover-bg;
   }
 }
