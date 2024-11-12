@@ -12,7 +12,9 @@
     "preview:frontend": "cd front-end && vite preview",
     "start:backend": "cd back-end && node index.js",
     "dev:backend": "cd back-end && nodemon index.js",
-    "start": "concurrently \"npm run dev:backend\" \"npm run start:frontend\""
+    "start": "concurrently \"npm run dev:backend\" \"npm run start:frontend\"",
+    "start:dist": "concurrently \"npm run dev:backend\" \"npm run preview:frontend\"",
+    "start:build": "npm run build:frontend && concurrently \"npm run dev:backend\" \"npm run preview:frontend\""
   },
   "author": "",
   "license": "ISC",
