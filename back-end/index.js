@@ -11,36 +11,22 @@ import showtimeRouter from "./routes/showtime.js";
 import ticketRouter from "./routes/ticket.js";
 import { Server } from "socket.io";
 import http from "http";
-import path from "path";
 import Showtime from "./models/Showtime.js";
 
 dotenv.config();
 
 const app = express();
 
-// Middleware
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.json());
 
-// API-rutter
 app.use("/api/auth", router);
 app.use("/api/hall", hallrouter);
 app.use("/api/movie", movierouter);
 app.use("/api/user", userRouter);
 app.use("/api/showtime", showtimeRouter);
 app.use("/api/ticket", ticketRouter);
-
-// Om servern körs i produktionsläge, servera front-end-builden
-if (process.env.NODE_ENV === "production") {
-  const frontEndBuildPath = path.resolve("front-end", "dist");
-  app.use(express.static(frontEndBuildPath));
-
-  // För alla andra förfrågningar, returnera index.html från front-end
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(frontEndBuildPath, "index.html"));
-  });
-}
 
 // Skapa HTTP-server och Socket.io-server
 const server = http.createServer(app);
@@ -52,6 +38,7 @@ io.on("connection", (socket) => {
 
   socket.on("book-seat", async (seatId, showtimeId) => {
     try {
+      // Uppdatera databasen och signalera till alla anslutna klienter
       await updateSeatStatus(seatId, showtimeId);
       io.emit("seat-booked", seatId);
     } catch (error) {
@@ -65,9 +52,9 @@ io.on("connection", (socket) => {
   });
 });
 
-// Funktion för att uppdatera platsstatus i databasen
 async function updateSeatStatus(seatId, showtimeId) {
   try {
+    // Uppdatera platsens status i Showtime-dokumentet
     const updatedShowtime = await Showtime.findOneAndUpdate(
       {
         _id: showtimeId,
@@ -85,11 +72,14 @@ async function updateSeatStatus(seatId, showtimeId) {
       throw new Error("Showtime or seat not found");
     }
 
+    // Find the updated seat object
     const updatedSeat = updatedShowtime.seats.find(
       (seat) => seat.seat.toString() === seatId
     );
 
+    // Emit a 'seat-status-updated' event with the updated seat object
     io.emit("seat-status-updated", updatedSeat);
+
     return updatedSeat;
   } catch (error) {
     console.error("Error updating seat status:", error);
@@ -97,7 +87,7 @@ async function updateSeatStatus(seatId, showtimeId) {
   }
 }
 
-// Starta servern och anslut till databasen
+// Starta servern
 server.listen(process.env.PORT, () => {
   try {
     connectDB();
