@@ -438,3 +438,9 @@ body.hide-footer {
     display: none;
   }
 }
+
+.booking-information-header__poster-image img {
+  max-height: 300px;
+  width: auto;
+  object-fit: cover;
+}
