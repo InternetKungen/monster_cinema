@@ -34,7 +34,7 @@ hallrouter.get("/:id", getHallById);
 
 // delete all halls and their seats and showtimes
 // /api/hall
-hallrouter.delete("/", deleteHalls);
+hallrouter.delete("/", authUser, isAuthAdmin, deleteHalls);
 
 // get all seats of a hall at a specific showtime
 // /api/hall/:hallId/showtime/:showtime
