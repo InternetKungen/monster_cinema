@@ -349,33 +349,32 @@
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
   color: $color-secondary;
-  border: 0.125rem solid $color-secondary;
-  border-radius: 0.625rem;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 9999;
-}
 
-.modal-content {
-  border: 3px solid $color-primary-light;
-  height: fit-content;
-  background: $color-modal-bg;
-  padding: 1.25rem;
-  border-radius: 10px;
-  text-align: center;
-  button {
-    background: $color-secondary;
-    border: 0.125rem solid $color-primary-dark;
-    border-radius: 10px;
-    padding: 0.625rem 1.25rem;
-    cursor: pointer;
-    transition: background 0.3s ease-in-out;
-    max-width: 200px;
-    width: 100%;
-    align-self: center;
-    &:hover {
-      background: $color-select;
+  &-content {
+    border: 3px solid $color-secondary;
+    height: fit-content;
+    background: $color-modal-bg;
+    padding: 1.25rem;
+    border-radius: 0.625rem;
+    text-align: center;
+    @include text-stroke($color-primary-dark);
+    button {
+      background: $color-secondary;
+      border: 0.125rem solid $color-primary-dark;
+      border-radius: 10px;
+      padding: 0.625rem 1.25rem;
+      cursor: pointer;
+      transition: background 0.3s ease-in-out;
+      max-width: 200px;
+      width: 100%;
+      align-self: center;
+      &:hover {
+        background: $color-select;
+      }
     }
   }
 }
