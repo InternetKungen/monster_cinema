@@ -7,6 +7,7 @@ import About from "../../views/pages/About/About";
 import AboutCinemas from "../../views/pages/AboutCinemas/AboutCinemas";
 import Contact from "../../views/pages/Contact/Contact";
 import Profile from "../../views/auth/Profile/Profile";
+import ProtectedRoute from "../../ProtectedRoute";
 import "./Main.scss";
 
 interface MainProps {
@@ -36,7 +37,10 @@ const Main: React.FC<MainProps> = ({ scheduleRef, selectedDate }) => {
         <Route path="/about-us" element={<About />} />
         <Route path="/about-cinemas" element={<AboutCinemas />} />
         <Route path="/contact-us" element={<Contact />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route
+          path="/profile"
+          element={<ProtectedRoute element={<Profile />} />}
+        />
         <Route
           path="*"
           element={

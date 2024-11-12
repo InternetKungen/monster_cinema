@@ -73,15 +73,15 @@
       p {
         margin: 0;
         text-align: center;
-        font-size: 1rem;
+        font-size: calc(0.7rem + 0.3vw);
         color: $color-primary-dark;
         white-space: nowrap;
         overflow: hidden;
-        text-overflow: clip;
+        text-overflow: ellipsis;
 
         &:first-child {
           font-weight: bold;
-          font-size: 1.125rem;
+          font-size: calc(0.8rem + 0.4vw);
           &::first-letter {
             text-transform: uppercase;
           }
