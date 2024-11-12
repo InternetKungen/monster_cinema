@@ -355,12 +355,13 @@
   z-index: 9999;
 
   &-content {
-    border: 3px solid $color-secondary;
+    border: 2px solid $color-primary-light;
     height: fit-content;
     background: $color-modal-bg;
     padding: 1.25rem;
     border-radius: 0.625rem;
     text-align: center;
+    animation: open-modal-fade-in 0.3s ease-in-out;
     @include text-stroke($color-primary-dark);
     button {
       background: $color-secondary;
@@ -372,8 +373,21 @@
       max-width: 200px;
       width: 100%;
       align-self: center;
+      font-weight: bold;
+      text-transform: uppercase;
+
       &:hover {
         background: $color-select;
+      }
+    }
+    @keyframes open-modal-fade-in {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
     }
   }
