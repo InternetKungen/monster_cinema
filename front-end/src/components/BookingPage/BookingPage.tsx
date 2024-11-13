@@ -554,7 +554,7 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
 
         {/* Section 6: Total Amount - Aside */}
         <div className="total-amount-aside col-12 col-lg-4 p-0">
-          <div className="total-amount col-12 col-lg-4">
+          <div className="total-amount">
             {ticketTypes.map((ticketType) => (
               <h3 key={ticketType._id}>
                 <div className="total-amount__ticket-label">
@@ -566,7 +566,7 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
                 </span>
               </h3>
             ))}
-
+            <div className="total-amount__space"></div>
             <h3>
               <span>Ordinarie pris:</span>
               <span>
@@ -588,7 +588,7 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
                 kr
               </span>
             </h3>
-
+            <div className="total-amount__space"></div>
             <h2>
               <span>Att betala:</span>
               <span>{totalAmount} kr</span>
