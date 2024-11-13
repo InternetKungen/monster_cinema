@@ -15,6 +15,12 @@
   }
 }
 
+.booking-information-header-container {
+  @media (max-width: 576px) {
+    padding-right: 15px;
+  }
+}
+
 .booking-information-header {
   position: relative;
   border-radius: 0.625rem 0.625rem 0 0;
