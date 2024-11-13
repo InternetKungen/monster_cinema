@@ -114,6 +114,39 @@ const Profile: React.FC = () => {
     setShowCancelModal(true);
   };
 
+  // Använd denna med modalen för att visa formaterad datum med första bokstaven på veckodagen som stor bokstav.
+  // const capitalizeFirstWord = (str: string) => {
+  //   const words = str.split(" ");
+  //   if (words.length > 0) {
+  //     words[0] = words[0].charAt(0).toUpperCase() + words[0].slice(1);
+  //   }
+  //   return words.join(" ");
+  // };
+  // Använd denna i modalen (Efter <p> Datum: {" "} ...) för att visa formaterat datum med första bokstaven på veckodagen som stor bokstav.
+  // capitalizeFirstWord(
+  //                   formatDateLabel(new Date(selectedBooking.bookedAt[0].date))
+  //                 )}
+  //               , kl. {selectedBooking.bookedAt[0].time}
+
+  const formatDateLabel = (date: Date) => {
+    const today = new Date();
+    const tomorrow = new Date();
+    tomorrow.setDate(today.getDate() + 1);
+
+    if (date.toDateString() === today.toDateString()) {
+      return "Idag";
+    } else if (date.toDateString() === tomorrow.toDateString()) {
+      return "Imorgon";
+    } else {
+      return date.toLocaleDateString("sv-SE", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+    }
+  };
+
   return (
     <div className="profile-content">
       <h3>Välj biljett för avbokning</h3>
@@ -123,7 +156,7 @@ const Profile: React.FC = () => {
             <Accordion.Header className="accordion-header">
               Bokningshistorik
             </Accordion.Header>
-            <Accordion.Body className="accordion-body">
+            <Accordion.Body className="accordion-body no-pointer">
               {bookingHistory.length > 0 ? (
                 <div className="profile__column">
                   {bookingHistory.map((booking) => (
@@ -141,10 +174,10 @@ const Profile: React.FC = () => {
                             {booking.movie.title}
                           </h4>
                           <p className="profile__details">
-                            {new Date(
-                              booking.bookedAt[0].date
-                            ).toLocaleDateString()}
-                            ,{booking.bookedAt[0].time}
+                            {formatDateLabel(
+                              new Date(booking.bookedAt[0].date)
+                            )}
+                            , kl.{booking.bookedAt[0].time}
                           </p>
                           <p className="profile__details">
                             {booking.hall.hallName}
@@ -156,12 +189,14 @@ const Profile: React.FC = () => {
                         <div className="profile__booking-details">
                           <div className="profile__tickets">
                             <p>
-                              Antal biljetter:{" "}
-                              {booking.tickets.reduce(
-                                (sum: number, ticket: any) =>
-                                  sum + ticket.quantity,
-                                0
-                              )}
+                              <span>Antal biljetter:</span>
+                              <span>
+                                {booking.tickets.reduce(
+                                  (sum: number, ticket: any) =>
+                                    sum + ticket.quantity,
+                                  0
+                                )}
+                              </span>
                             </p>
                             {booking.tickets.map((ticket) => (
                               <p key={ticket._id} className="profile__ticket">
@@ -172,7 +207,8 @@ const Profile: React.FC = () => {
                               </p>
                             ))}
                             <p className="profile__total">
-                              Summa: {booking.totalAmount} kr
+                              <span>Summa: </span>
+                              <span>{booking.totalAmount} kr</span>
                             </p>
                           </div>
                         </div>
@@ -214,10 +250,10 @@ const Profile: React.FC = () => {
                             {booking.movie.title}
                           </h4>
                           <p className="profile__details">
-                            {new Date(
-                              booking.bookedAt[0].date
-                            ).toLocaleDateString()}
-                            ,{booking.bookedAt[0].time}
+                            {formatDateLabel(
+                              new Date(booking.bookedAt[0].date)
+                            )}
+                            , kl.{booking.bookedAt[0].time}
                           </p>
                           <p className="profile__details">
                             {booking.hall.hallName}
@@ -229,12 +265,14 @@ const Profile: React.FC = () => {
                         <div className="profile__booking-details">
                           <div className="profile__tickets">
                             <p>
-                              Antal biljetter:{" "}
-                              {booking.tickets.reduce(
-                                (sum: number, ticket: any) =>
-                                  sum + ticket.quantity,
-                                0
-                              )}
+                              <span>Antal biljetter:</span>
+                              <span>
+                                {booking.tickets.reduce(
+                                  (sum: number, ticket: any) =>
+                                    sum + ticket.quantity,
+                                  0
+                                )}
+                              </span>
                             </p>
                             {booking.tickets.map((ticket) => (
                               <p key={ticket._id} className="profile__ticket">
@@ -245,7 +283,8 @@ const Profile: React.FC = () => {
                               </p>
                             ))}
                             <p className="profile__total">
-                              Summa: {booking.totalAmount} kr
+                              <span>Summa: </span>
+                              <span>{booking.totalAmount} kr</span>
                             </p>
                           </div>
                         </div>
@@ -282,10 +321,11 @@ const Profile: React.FC = () => {
               <p>Film: {selectedBooking.movie.title}</p>
               <p>
                 Datum:{" "}
-                {new Date(
-                  selectedBooking.bookedAt[0].date
-                ).toLocaleDateString()}
-                ,{selectedBooking.bookedAt[0].time}
+                {selectedBooking &&
+                  new Date(
+                    selectedBooking.bookedAt[0].date
+                  ).toLocaleDateString()}
+                , kl. {selectedBooking.bookedAt[0].time}
               </p>
               <p>Bokningsnummer: {selectedBooking.bookingNumber}</p>
               {error && <p className="error-message">{error}</p>}
