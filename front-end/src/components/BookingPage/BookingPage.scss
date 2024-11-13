@@ -1,7 +1,7 @@
 .container {
   max-width: 77.125rem;
   margin: 0 auto;
-  padding: 1.25rem;
+  // padding: 1.25rem;
   display: flex;
   flex-direction: row;
   position: relative;
@@ -262,7 +262,7 @@
       align-items: center;
       justify-content: center;
     }
-    input[type="checkbox"] {
+    input[type='checkbox'] {
       // margin: 20px;
       transform: scale(1.6);
       text-align: left;
