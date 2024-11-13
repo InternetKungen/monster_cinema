@@ -11,7 +11,7 @@
   margin-bottom: 1.25rem;
   border-radius: 0.625rem;
   @media (max-width: 991.98px) {
-    margin-bottom: 18rem;
+    margin-bottom: calc(var(--dynamic-margin-bottom, 18rem));
   }
 }
 

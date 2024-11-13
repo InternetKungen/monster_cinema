@@ -125,6 +125,7 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
   const [totalAmount, setTotalAmount] = useState<number>(0);
   const [ticketTypes, setTicketTypes] = useState<TicketType[]>([]);
   const [ticketCounts, setTicketCounts] = useState<Record<string, number>>({});
+  const [dynamicMarginBottom, setDynamicMarginBottom] = useState("18rem");
   const socketRef = useRef<Socket | null>(null);
 
   useEffect(() => {
@@ -148,6 +149,26 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
       }
     };
   }, []);
+
+  useEffect(() => {
+    const calculateDynamicMarginBottom = () => {
+      const baseMargin = 11; // Bas-marginal i rem
+      const additionalMarginPerType = 2.3; // Extra marginal per ticketType
+      const totalTicketTypes = ticketTypes.length;
+      const calculatedMargin =
+        baseMargin + additionalMarginPerType * totalTicketTypes;
+      setDynamicMarginBottom(`${calculatedMargin}rem`);
+    };
+
+    calculateDynamicMarginBottom();
+  }, [ticketTypes]);
+
+  useEffect(() => {
+    document.documentElement.style.setProperty(
+      "--dynamic-margin-bottom",
+      dynamicMarginBottom
+    );
+  }, [dynamicMarginBottom]);
 
   useEffect(() => {
     document.body.classList.add("hide-footer");
