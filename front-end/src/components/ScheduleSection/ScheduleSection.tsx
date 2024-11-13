@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import "./ScheduleSection.scss";
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import './ScheduleSection.scss';
 
 interface Movie {
   title: string;
@@ -31,8 +31,8 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({ date, movieId }) => {
   const [showtimes, setShowtimes] = useState<{ [key: string]: Showtime[] }>({});
   const tomorrow = new Date(new Date().setDate(new Date().getDate() + 1))
     .toISOString()
-    .split("T")[0];
-  const today = new Date().toISOString().split("T")[0];
+    .split('T')[0];
+  const today = new Date().toISOString().split('T')[0];
   const [selectedDate, setSelectedDate] = useState<string>(today);
 
   useEffect(() => {
@@ -40,7 +40,7 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({ date, movieId }) => {
     const endDate = new Date();
     endDate.setDate(startDate.getDate() + 14);
 
-    const formatDate = (date: Date) => date.toISOString().split("T")[0];
+    const formatDate = (date: Date) => date.toISOString().split('T')[0];
 
     const fetchShowtimes = async () => {
       try {
@@ -56,7 +56,7 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({ date, movieId }) => {
         const data = await response.json();
         setShowtimes(data);
       } catch (error) {
-        console.error("Failed to fetch showtimes:", error);
+        console.error('Failed to fetch showtimes:', error);
       }
     };
 
@@ -65,28 +65,28 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({ date, movieId }) => {
 
   useEffect(() => {
     if (date) {
-      setSelectedDate(date.toISOString().split("T")[0]);
+      setSelectedDate(date.toISOString().split('T')[0]);
     }
   }, [date]);
 
   const calculateEndTime = (startTime: string, length: number) => {
-    const [hours, minutes] = startTime.split(":").map(Number);
+    const [hours, minutes] = startTime.split(':').map(Number);
     const startDate = new Date();
     startDate.setHours(hours, minutes);
     const endDate = new Date(startDate.getTime() + length * 60000);
     return endDate.toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: false,
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false
     });
   };
 
   const getDayLabel = (date: Date, index: number) => {
-    const options: Intl.DateTimeFormatOptions = { weekday: "long" };
+    const options: Intl.DateTimeFormatOptions = { weekday: 'long' };
 
-    if (index === 0) return "Idag";
-    if (index === 1) return "Imorgon";
-    return date.toLocaleDateString("sv-SE", options);
+    if (index === 0) return 'Idag';
+    if (index === 1) return 'Imorgon';
+    return date.toLocaleDateString('sv-SE', options);
   };
 
   const dateRangeTwoWeeks = () => {
@@ -96,23 +96,23 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({ date, movieId }) => {
     for (let i = 0; i < 14; i++) {
       const currentDate = new Date(today);
       currentDate.setDate(today.getDate() + i);
-      const currentDateKey = currentDate.toISOString().split("T")[0];
+      const currentDateKey = currentDate.toISOString().split('T')[0];
       const hasShowtimes =
         showtimes[currentDateKey] && showtimes[currentDateKey].length > 0;
 
       buttons.push(
         <button
           key={i}
-          className={`${selectedDate === currentDateKey ? "selected" : ""} ${
-            !hasShowtimes ? "no-showtime" : ""
+          className={`${selectedDate === currentDateKey ? 'selected' : ''} ${
+            !hasShowtimes ? 'no-showtime' : ''
           }`}
           onClick={() => handleDateClick(currentDate)}
         >
           <p>{getDayLabel(currentDate, i)}</p>
           <p>
-            {currentDate.toLocaleDateString("sv-SE", {
-              day: "numeric",
-              month: "numeric",
+            {currentDate.toLocaleDateString('sv-SE', {
+              day: 'numeric',
+              month: 'numeric'
             })}
           </p>
         </button>
@@ -123,7 +123,7 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({ date, movieId }) => {
   };
 
   const handleDateClick = (selectedDate: Date) => {
-    setSelectedDate(selectedDate.toISOString().split("T")[0]);
+    setSelectedDate(selectedDate.toISOString().split('T')[0]);
   };
 
   const groupShowtimesByHall = (showtimes: Showtime[]) => {
@@ -138,7 +138,7 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({ date, movieId }) => {
   };
 
   return (
-    <section className="schedule-section col-12 p-0 g-0">
+    <section className="schedule-section col-12 g-0">
       <div className="schedule-section-buttons g-0">{dateRangeTwoWeeks()}</div>
 
       <div className="schedule-section-title col-12 g-0">
@@ -146,10 +146,10 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({ date, movieId }) => {
           {getDayLabel(
             new Date(selectedDate),
             selectedDate === today ? 0 : selectedDate === tomorrow ? 1 : -1
-          )}{" "}
-          {new Date(selectedDate).toLocaleDateString("sv-SE", {
-            day: "2-digit",
-            month: "2-digit",
+          )}{' '}
+          {new Date(selectedDate).toLocaleDateString('sv-SE', {
+            day: '2-digit',
+            month: '2-digit'
           })}
         </h2>
       </div>
@@ -183,7 +183,7 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({ date, movieId }) => {
                           <h5>
                             {showtime.movie.title} ({showtime.movie.year})
                           </h5>
-                          <p> {showtime.movie.genre.join(", ")} </p>
+                          <p> {showtime.movie.genre.join(', ')} </p>
                         </div>
                         <div className="schedule-section-showtime-info__text__age">
                           <p>Åldersgräns {showtime.movie.ageRestriction} år</p>
