@@ -114,6 +114,25 @@ const Profile: React.FC = () => {
     setShowCancelModal(true);
   };
 
+  const formatDateLabel = (date: Date) => {
+    const today = new Date();
+    const tomorrow = new Date();
+    tomorrow.setDate(today.getDate() + 1);
+
+    if (date.toDateString() === today.toDateString()) {
+      return "Idag";
+    } else if (date.toDateString() === tomorrow.toDateString()) {
+      return "Imorgon";
+    } else {
+      return date.toLocaleDateString("sv-SE", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+    }
+  };
+
   return (
     <div className="profile-content">
       <h3>Välj biljett för avbokning</h3>
@@ -214,10 +233,10 @@ const Profile: React.FC = () => {
                             {booking.movie.title}
                           </h4>
                           <p className="profile__details">
-                            {new Date(
-                              booking.bookedAt[0].date
-                            ).toLocaleDateString()}
-                            ,{booking.bookedAt[0].time}
+                            {formatDateLabel(
+                              new Date(booking.bookedAt[0].date)
+                            )}
+                            , kl.{booking.bookedAt[0].time}
                           </p>
                           <p className="profile__details">
                             {booking.hall.hallName}
@@ -282,10 +301,9 @@ const Profile: React.FC = () => {
               <p>Film: {selectedBooking.movie.title}</p>
               <p>
                 Datum:{" "}
-                {new Date(
-                  selectedBooking.bookedAt[0].date
-                ).toLocaleDateString()}
-                ,{selectedBooking.bookedAt[0].time}
+                {selectedBooking &&
+                  formatDateLabel(new Date(selectedBooking.bookedAt[0].date))}
+                , kl.{selectedBooking.bookedAt[0].time}
               </p>
               <p>Bokningsnummer: {selectedBooking.bookingNumber}</p>
               {error && <p className="error-message">{error}</p>}

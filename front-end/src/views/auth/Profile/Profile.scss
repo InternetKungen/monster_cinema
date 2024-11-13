@@ -200,6 +200,9 @@
   &__details {
     margin-bottom: 0px;
     padding: 0px;
+    &::first-letter {
+      text-transform: capitalize;
+    }
     @media (max-width: 576px) {
       font-size: 0.8rem;
     }
@@ -315,6 +318,7 @@ $button-danger-hover-bg: $color-error;
   padding: $modal-padding;
   border-radius: $modal-border-radius;
   border: 2px solid $color-secondary;
+  @include text-stroke($color-primary-dark);
 
   .modal-header {
     background: $bg-gradient-info;
