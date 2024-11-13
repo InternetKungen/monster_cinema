@@ -114,7 +114,7 @@ const Profile: React.FC = () => {
     setShowCancelModal(true);
   };
 
-  // Använd denna i modalen för att visa formaterad datum med första bokstaven på veckodagen som stor bokstav.
+  // Använd denna med modalen för att visa formaterad datum med första bokstaven på veckodagen som stor bokstav.
   // const capitalizeFirstWord = (str: string) => {
   //   const words = str.split(" ");
   //   if (words.length > 0) {
@@ -156,7 +156,7 @@ const Profile: React.FC = () => {
             <Accordion.Header className="accordion-header">
               Bokningshistorik
             </Accordion.Header>
-            <Accordion.Body className="accordion-body">
+            <Accordion.Body className="accordion-body no-pointer">
               {bookingHistory.length > 0 ? (
                 <div className="profile__column">
                   {bookingHistory.map((booking) => (
@@ -189,12 +189,14 @@ const Profile: React.FC = () => {
                         <div className="profile__booking-details">
                           <div className="profile__tickets">
                             <p>
-                              Antal biljetter:{" "}
-                              {booking.tickets.reduce(
-                                (sum: number, ticket: any) =>
-                                  sum + ticket.quantity,
-                                0
-                              )}
+                              <span>Antal biljetter:</span>
+                              <span>
+                                {booking.tickets.reduce(
+                                  (sum: number, ticket: any) =>
+                                    sum + ticket.quantity,
+                                  0
+                                )}
+                              </span>
                             </p>
                             {booking.tickets.map((ticket) => (
                               <p key={ticket._id} className="profile__ticket">
@@ -205,7 +207,8 @@ const Profile: React.FC = () => {
                               </p>
                             ))}
                             <p className="profile__total">
-                              Summa: {booking.totalAmount} kr
+                              <span>Summa: </span>
+                              <span>{booking.totalAmount} kr</span>
                             </p>
                           </div>
                         </div>
@@ -262,12 +265,14 @@ const Profile: React.FC = () => {
                         <div className="profile__booking-details">
                           <div className="profile__tickets">
                             <p>
-                              Antal biljetter:{" "}
-                              {booking.tickets.reduce(
-                                (sum: number, ticket: any) =>
-                                  sum + ticket.quantity,
-                                0
-                              )}
+                              <span>Antal biljetter:</span>
+                              <span>
+                                {booking.tickets.reduce(
+                                  (sum: number, ticket: any) =>
+                                    sum + ticket.quantity,
+                                  0
+                                )}
+                              </span>
                             </p>
                             {booking.tickets.map((ticket) => (
                               <p key={ticket._id} className="profile__ticket">
@@ -278,7 +283,8 @@ const Profile: React.FC = () => {
                               </p>
                             ))}
                             <p className="profile__total">
-                              Summa: {booking.totalAmount} kr
+                              <span>Summa: </span>
+                              <span>{booking.totalAmount} kr</span>
                             </p>
                           </div>
                         </div>
