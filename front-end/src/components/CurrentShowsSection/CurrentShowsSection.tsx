@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import MovieComponent from '../MovieComponent/MovieComponent';
-import './CurrentShowsSection.scss';
+import React, { useEffect, useState } from "react";
+import MovieComponent from "../MovieComponent/MovieComponent";
+import "./CurrentShowsSection.scss";
 
 interface Movie {
   _id: string;
@@ -40,17 +40,17 @@ const CurrentShowsSection: React.FC = () => {
       setLoading(true);
       setError(null);
 
-      const startDate = today.toISOString().split('T')[0];
+      const startDate = today.toISOString().split("T")[0];
       const endDate = new Date(today); // Skapar kopia av today
       endDate.setDate(today.getDate() + 7);
-      const formattedEndDate = endDate.toISOString().split('T')[0];
+      const formattedEndDate = endDate.toISOString().split("T")[0];
 
       try {
         const response = await fetch(
           `/api/showtime/date-range?startDate=${startDate}&endDate=${formattedEndDate}`
         );
         if (!response.ok) {
-          throw new Error('Failed to fetch showtimes');
+          throw new Error("Failed to fetch showtimes");
         }
         const data = await response.json();
         console.log(data); // Kontrollera om data ser ut som förväntat
@@ -65,13 +65,13 @@ const CurrentShowsSection: React.FC = () => {
     fetchWeeklyShowtimes();
   }, []);
 
-  const formattedSelectedDate = selectedDate.toISOString().split('T')[0];
+  const formattedSelectedDate = selectedDate.toISOString().split("T")[0];
   const showtimes = allShowtimes[formattedSelectedDate] || []; // Hämta showtimes för det valda datumet
 
   // Kontrollera om det är idag eller en vecka framåt
   const isToday = selectedDate.toDateString() === new Date().toDateString();
   const endOfWeek = new Date(today); // Kopia av today för slutdatum
-  endOfWeek.setDate(today.getDate() + 7);
+  endOfWeek.setDate(today.getDate() + 6);
   const isEndOfWeek = selectedDate.toDateString() === endOfWeek.toDateString();
 
   // Filtrera unika filmer på ID
@@ -94,10 +94,10 @@ const CurrentShowsSection: React.FC = () => {
   const getDayLabel = (date: Date) => {
     const dayDiff = date.getDay() - today.getDay(); // Skillnad i dagar
 
-    if (dayDiff === 0) return 'idag';
-    if (dayDiff === 1) return 'imorgon';
+    if (dayDiff === 0) return "idag";
+    if (dayDiff === 1) return "imorgon";
 
-    return date.toLocaleDateString('sv-SE', { weekday: 'long' }); // Veckodagar
+    return date.toLocaleDateString("sv-SE", { weekday: "long" }); // Veckodagar
   };
 
   if (loading) return <div className="loading">Laddar filmer....</div>;
