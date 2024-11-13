@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './BookingPage.scss';
-import dateIcon from '../../assets/icons/calendar_today_35dp_FCAF00_FILL0_wght400_GRAD0_opsz40.png';
-import timeIcon from '../../assets/icons/schedule_35dp_FCAF00_FILL0_wght400_GRAD0_opsz40.png';
-import hallIcon from '../../assets/icons/icon-cinema-fatter.png';
-import { Container, Row } from 'react-bootstrap';
-import { io, Socket } from 'socket.io-client';
+import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import "./BookingPage.scss";
+import dateIcon from "../../assets/icons/calendar_today_35dp_FCAF00_FILL0_wght400_GRAD0_opsz40.png";
+import timeIcon from "../../assets/icons/schedule_35dp_FCAF00_FILL0_wght400_GRAD0_opsz40.png";
+import hallIcon from "../../assets/icons/icon-cinema-fatter.png";
+import { Container, Row } from "react-bootstrap";
+import { io, Socket } from "socket.io-client";
 
 interface Seat {
   seat: {
@@ -66,7 +66,7 @@ interface BookingPageProps {
 const ORDINARY_PRICE = 140;
 
 const calculateEndTime = (startTime: string, length: number): string => {
-  const [hours, minutes] = startTime.split(':').map(Number);
+  const [hours, minutes] = startTime.split(":").map(Number);
   const startDateTime = new Date();
   startDateTime.setHours(hours, minutes, 0);
   const endDateTime = new Date(startDateTime.getTime() + length * 60000);
@@ -81,11 +81,11 @@ const formatDate = (dateStr: string): string => {
   const tomorrow = new Date(today);
   tomorrow.setDate(today.getDate() + 1);
 
-  const options = { day: 'numeric', month: 'long' } as const;
+  const options = { day: "numeric", month: "long" } as const;
   const weekdayOptions = {
-    weekday: 'long',
-    day: 'numeric',
-    month: 'long'
+    weekday: "long",
+    day: "numeric",
+    month: "long",
   } as const;
 
   if (
@@ -93,15 +93,15 @@ const formatDate = (dateStr: string): string => {
     date.getMonth() === today.getMonth() &&
     date.getFullYear() === today.getFullYear()
   ) {
-    return `Idag ${date.toLocaleDateString('sv-SE', options)}`;
+    return `Idag ${date.toLocaleDateString("sv-SE", options)}`;
   } else if (
     date.getDate() === tomorrow.getDate() &&
     date.getMonth() === tomorrow.getMonth() &&
     date.getFullYear() === tomorrow.getFullYear()
   ) {
-    return `Imorgon ${date.toLocaleDateString('sv-SE', options)}`;
+    return `Imorgon ${date.toLocaleDateString("sv-SE", options)}`;
   } else {
-    const formattedDate = date.toLocaleDateString('sv-SE', weekdayOptions);
+    const formattedDate = date.toLocaleDateString("sv-SE", weekdayOptions);
     return capitalize(formattedDate);
   }
 };
@@ -114,7 +114,7 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
   const [movie, setMovie] = useState<Movie | null>(null);
   const [seats, setSeats] = useState<Seat[]>([]);
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
-  const [email, setEmail] = useState<string>('');
+  const [email, setEmail] = useState<string>("");
   const [ageConfirmation, setAgeConfirmation] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [bookingStatus, setBookingStatus] = useState<{
@@ -129,15 +129,15 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
 
   useEffect(() => {
     // Initiera socket-anslutningen
-    socketRef.current = io('/'); // eller din specifika backend URL
+    socketRef.current = io("/"); // eller din specifika backend URL
 
     // Lyssna på anslutningshändelser
-    socketRef.current.on('connect', () => {
-      console.log('Connected to server');
+    socketRef.current.on("connect", () => {
+      console.log("Connected to server");
     });
 
     // Lyssna på seat-status-updated händelser
-    socketRef.current.on('seat-status-updated', (updatedSeat) => {
+    socketRef.current.on("seat-status-updated", (updatedSeat) => {
       updateSeatStatus(updatedSeat._id, updatedSeat.isBooked);
     });
 
@@ -150,9 +150,9 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
   }, []);
 
   useEffect(() => {
-    document.body.classList.add('hide-footer');
+    document.body.classList.add("hide-footer");
     return () => {
-      document.body.classList.remove('hide-footer');
+      document.body.classList.remove("hide-footer");
     };
   }, []);
 
@@ -178,13 +178,13 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
       const response = await fetch(`/api/showtime/${showtimeId}`);
       const data = await response.json();
       if (!response.ok) {
-        throw new Error(data.message || 'Failed to fetch showtime details');
+        throw new Error(data.message || "Failed to fetch showtime details");
       }
       setShowtime(data);
       await fetchMovieDetails(data.movie._id);
       await fetchAvailableSeats();
     } catch (err: any) {
-      console.error('Error fetching showtime details:', err);
+      console.error("Error fetching showtime details:", err);
       setError(err.message);
     } finally {
       setLoading(false);
@@ -197,11 +197,11 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
       const response = await fetch(`/api/movie/${movieId}`);
       const data = await response.json();
       if (!response.ok) {
-        throw new Error(data.message || 'Failed to fetch movie details');
+        throw new Error(data.message || "Failed to fetch movie details");
       }
       setMovie(data);
     } catch (err: any) {
-      console.error('Error fetching movie details:', err);
+      console.error("Error fetching movie details:", err);
       setError(err.message);
     }
   };
@@ -211,11 +211,11 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
       const response = await fetch(`/api/showtime/${showtimeId}/seats`);
       const data = await response.json();
       if (!response.ok) {
-        throw new Error(data.message || 'Failed to fetch available seats');
+        throw new Error(data.message || "Failed to fetch available seats");
       }
       setSeats(data.seats);
     } catch (err: any) {
-      console.error('Error fetching available seats:', err);
+      console.error("Error fetching available seats:", err);
       setError(err.message);
     }
   };
@@ -232,7 +232,7 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
       // Add the seat only if the number of selected seats is less than the total ticket count
       setSelectedSeats((prev) => [...prev, seatId]);
     } else {
-      alert('You have selected the maximum number of seats allowed.');
+      alert("You have selected the maximum number of seats allowed.");
     }
   };
 
@@ -257,10 +257,10 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
 
   const fetchTicketTypes = async () => {
     try {
-      const response = await fetch('/api/ticket');
+      const response = await fetch("/api/ticket");
       const data = await response.json();
       if (!response.ok) {
-        throw new Error(data.message || 'Failed to fetch ticket types');
+        throw new Error(data.message || "Failed to fetch ticket types");
       }
       setTicketTypes(data);
       // Initialize ticket counts
@@ -270,7 +270,7 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
       });
       setTicketCounts(initialCounts);
     } catch (err: any) {
-      console.error('Error fetching ticket types:', err);
+      console.error("Error fetching ticket types:", err);
       setError(err.message);
     }
   };
@@ -300,14 +300,14 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
 
   const handleBooking = async () => {
     if (!email || selectedSeats.length === 0 || !ageConfirmation) {
-      setError('Please select seats, enter your email, and confirm age');
+      setError("Please select seats, enter your email, and confirm age");
       return;
     }
 
     try {
       const tickets = ticketTypes.map((ticketType) => ({
         type: ticketType.type,
-        quantity: ticketCounts[ticketType.type] || 0
+        quantity: ticketCounts[ticketType.type] || 0,
       }));
 
       // Filter out only the selected seats
@@ -315,44 +315,44 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
         selectedSeats.includes(seat._id)
       );
 
-      const response = await fetch('/api/user/bookings', {
-        method: 'POST',
+      const response = await fetch("/api/user/bookings", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           showtimeId,
           selectedSeats: selectedSeatObjects.map((seat) => seat.seat._id),
           email,
           tickets,
-          totalAmount
-        })
+          totalAmount,
+        }),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to create booking');
+        throw new Error(data.error || "Failed to create booking");
       }
 
       // Emittera book-seat händelser med socket
       if (socketRef.current) {
         selectedSeatObjects.forEach((seat) => {
-          socketRef.current?.emit('book-seat', seat.seat._id, showtimeId);
+          socketRef.current?.emit("book-seat", seat.seat._id, showtimeId);
         });
       }
 
       setBookingStatus({
         success: true,
-        bookingNumber: data.booking.bookingNumber
+        bookingNumber: data.booking.bookingNumber,
       });
 
       setShowModal(true); // Visa modalen med bokningsinformation
     } catch (err: any) {
-      console.error('Error creating booking:', err);
+      console.error("Error creating booking:", err);
       setBookingStatus({
         success: false,
-        message: err.message
+        message: err.message,
       });
     }
   };
@@ -387,7 +387,7 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
                 <p>
                   Tal: {movie?.language}, Undertexter: {movie?.subtitles}
                 </p>
-                <p>Genre: {movie?.genre.join(', ')}</p>
+                <p>Genre: {movie?.genre.join(", ")}</p>
                 <p>Speltid: {movie?.length} minuter</p>
               </div>
               <div className="booking-information-header__bottom">
@@ -397,7 +397,7 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
                 </p>
                 <p>
                   <img src={timeIcon} alt="time" />
-                  kl {showtime?.time} -{' '}
+                  kl {showtime?.time} -{" "}
                   {showtime &&
                     movie &&
                     calculateEndTime(showtime.time, movie.length)}
@@ -430,8 +430,8 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
                     <span
                       className={
                         (ticketCounts[ticketType.type] || 0) === 0
-                          ? 'ticket-count-zero'
-                          : 'ticket-count-nonzero'
+                          ? "ticket-count-zero"
+                          : "ticket-count-nonzero"
                       }
                     >
                       {ticketCounts[ticketType.type] || 0}
@@ -468,10 +468,10 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
                           }
                           className={`seat-button ${
                             seat.isBooked
-                              ? 'unavailable'
+                              ? "unavailable"
                               : selectedSeats.includes(seat._id)
-                              ? 'selected'
-                              : ''
+                              ? "selected"
+                              : ""
                           }`}
                           disabled={seat.isBooked}
                         >
@@ -516,7 +516,11 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
               </div>
             </div>
             <div className="book-button-container">
-              <button className="book-button" onClick={handleBooking}>
+              <button
+                className="book-button"
+                onClick={handleBooking}
+                type="button"
+              >
                 <h1>Köp biljett!</h1>
               </button>
             </div>
@@ -550,25 +554,26 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
 
         {/* Section 6: Total Amount - Aside */}
         <div className="total-amount-aside col-12 col-lg-4 p-0">
-          <div className="total-amount col-12 col-lg-4">
+          <div className="total-amount">
             {ticketTypes.map((ticketType) => (
               <h3 key={ticketType._id}>
-                <span>
-                  {ticketType.type}: {ticketCounts[ticketType.type] || 0} st
-                </span>
+                <div className="total-amount__ticket-label">
+                  <span>{ticketType.type}: </span>
+                  <span>{ticketCounts[ticketType.type] || 0} st</span>
+                </div>
                 <span>
                   {(ticketCounts[ticketType.type] || 0) * ticketType.price} kr
                 </span>
               </h3>
             ))}
-
+            <div className="total-amount__space"></div>
             <h3>
               <span>Ordinarie pris:</span>
               <span>
                 {Object.values(ticketCounts).reduce(
                   (sum, count) => sum + (count || 0) * ORDINARY_PRICE,
                   0
-                )}{' '}
+                )}{" "}
                 kr
               </span>
             </h3>
@@ -579,11 +584,11 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
                 {Object.values(ticketCounts).reduce(
                   (sum, count) => sum + (count || 0) * ORDINARY_PRICE,
                   0
-                ) - totalAmount}{' '}
+                ) - totalAmount}{" "}
                 kr
               </span>
             </h3>
-
+            <div className="total-amount__space"></div>
             <h2>
               <span>Att betala:</span>
               <span>{totalAmount} kr</span>
