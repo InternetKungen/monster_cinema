@@ -24,7 +24,9 @@ interface Showtime {
 
 const CurrentShowsSection: React.FC = () => {
   // const [showtimes, setShowtimes] = useState<Showtime[]>([]);
-  const [allShowtimes, setAllShowtimes] = useState<{ [date: string]: Showtime[] }>({});
+  const [allShowtimes, setAllShowtimes] = useState<{
+    [date: string]: Showtime[];
+  }>({});
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
@@ -33,19 +35,20 @@ const CurrentShowsSection: React.FC = () => {
   const today = new Date();
   today.setHours(0, 0, 0, 0); // Set to midnight
 
-
   useEffect(() => {
     const fetchWeeklyShowtimes = async () => {
       setLoading(true);
       setError(null);
 
       const startDate = today.toISOString().split('T')[0];
-      const endDate = new Date(today);  // Skapar kopia av today
+      const endDate = new Date(today); // Skapar kopia av today
       endDate.setDate(today.getDate() + 7);
       const formattedEndDate = endDate.toISOString().split('T')[0];
 
       try {
-        const response = await fetch(`/api/showtime/date-range?startDate=${startDate}&endDate=${formattedEndDate}`);
+        const response = await fetch(
+          `/api/showtime/date-range?startDate=${startDate}&endDate=${formattedEndDate}`
+        );
         if (!response.ok) {
           throw new Error('Failed to fetch showtimes');
         }
@@ -63,17 +66,19 @@ const CurrentShowsSection: React.FC = () => {
   }, []);
 
   const formattedSelectedDate = selectedDate.toISOString().split('T')[0];
-  const showtimes = allShowtimes[formattedSelectedDate] || [];  // Hämta showtimes för det valda datumet
+  const showtimes = allShowtimes[formattedSelectedDate] || []; // Hämta showtimes för det valda datumet
 
   // Kontrollera om det är idag eller en vecka framåt
   const isToday = selectedDate.toDateString() === new Date().toDateString();
-  const endOfWeek = new Date(today);  // Kopia av today för slutdatum
+  const endOfWeek = new Date(today); // Kopia av today för slutdatum
   endOfWeek.setDate(today.getDate() + 7);
   const isEndOfWeek = selectedDate.toDateString() === endOfWeek.toDateString();
 
   // Filtrera unika filmer på ID
   const uniqueMovies = Array.from(
-    new Map(showtimes.map(showtime => [showtime.movie._id, showtime.movie])).values()
+    new Map(
+      showtimes.map((showtime) => [showtime.movie._id, showtime.movie])
+    ).values()
   );
 
   // Hanterar dagsnavigationen
@@ -85,10 +90,9 @@ const CurrentShowsSection: React.FC = () => {
     setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate() + 1)));
   };
 
-
   // Hämtar label för utvald dag
   const getDayLabel = (date: Date) => {
-    const dayDiff = (date.getDay() - today.getDay()); // Skillnad i dagar
+    const dayDiff = date.getDay() - today.getDay(); // Skillnad i dagar
 
     if (dayDiff === 0) return 'idag';
     if (dayDiff === 1) return 'imorgon';
@@ -102,14 +106,24 @@ const CurrentShowsSection: React.FC = () => {
   return (
     <section className="container">
       <section className="current-shows-section col-12 g-0 p-0">
-        <section className='titlebar-container'>
+        <section className="titlebar-container">
           {/* Dagsnavigationsknappar */}
           <section className="navigation-buttons">
-            <button className="arrow-button previous" onClick={handlePreviousDay} disabled={isToday}>
+            <button
+              className="arrow-button previous"
+              onClick={handlePreviousDay}
+              disabled={isToday}
+            >
               &#8592; {/* Vänster pil*/}
             </button>
-            <h2 className='titlebar-text'>På bio {getDayLabel(selectedDate)}</h2>
-            <button className="arrow-button next" onClick={handleNextDay} disabled={isEndOfWeek}>
+            <h2 className="titlebar-text">
+              På bio {getDayLabel(selectedDate)}
+            </h2>
+            <button
+              className="arrow-button next"
+              onClick={handleNextDay}
+              disabled={isEndOfWeek}
+            >
               &#8594; {/* Höger pil */}
             </button>
           </section>
@@ -128,7 +142,9 @@ const CurrentShowsSection: React.FC = () => {
               />
             ))
           ) : (
-            <p className="no-movies">Idag visar vi inga filmer, prova en annan dag</p>
+            <p className="no-movies">
+              Idag visar vi inga filmer, prova en annan dag
+            </p>
           )}
         </section>
       </section>

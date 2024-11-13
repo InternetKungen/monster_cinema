@@ -1,7 +1,7 @@
 .container {
   max-width: 77.125rem;
   margin: 0 auto;
-  padding: 1.25rem;
+  // padding: 1.25rem;
   display: flex;
   flex-direction: row;
   position: relative;
@@ -11,7 +11,13 @@
   margin-bottom: 1.25rem;
   border-radius: 0.625rem;
   @media (max-width: 991.98px) {
-    margin-bottom: 16.25rem;
+    margin-bottom: 18rem;
+  }
+}
+
+.booking-information-header-container {
+  @media (max-width: 576px) {
+    padding-right: 15px;
   }
 }
 
@@ -37,7 +43,7 @@
 .booking-information-header__top {
   position: relative;
   margin-bottom: 1.25rem;
-
+  @include text-stroke($color-primary-dark);
   p {
     font-size: 0.875rem;
 
@@ -129,13 +135,16 @@
 }
 
 .book-button {
-  padding: -20px 20px;
   background-color: $color-secondary;
   color: $color-text-dark;
   border: 0.125rem solid $color-primary-dark;
   cursor: pointer;
   width: 50%;
   border-radius: 0.625rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
 
   &:disabled {
     background-color: $color-border-light;
@@ -214,6 +223,7 @@
   color: $color-secondary;
   border: 0.125rem solid $color-secondary;
   padding: 1.25rem;
+  @include text-stroke($color-primary-dark);
 }
 
 .ticket-counts {
@@ -257,14 +267,15 @@
     padding: 0.625rem;
     position: relative;
     .checkbox-container {
-      width: 25%;
+      width: fit-content;
       display: flex;
       align-items: center;
       justify-content: center;
+      margin-right: 5%;
+      margin-left: 5%;
     }
     input[type="checkbox"] {
-      // margin: 20px;
-      transform: scale(1.6);
+      transform: scale(2.6);
       text-align: left;
       accent-color: $color-select;
     }
@@ -318,9 +329,6 @@
     }
   }
   button {
-    // display: flex;
-    // justify-content: center;
-    // align-items: center;
     text-align: center;
     background: $color-secondary;
     border: 0.125rem solid $color-primary-dark;
@@ -331,7 +339,6 @@
     cursor: pointer;
     font-weight: bolder;
     font-size: 1.125rem;
-    // padding-top: 0.15rem;
     &:hover {
       transition: border 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
       border: 0.125rem solid $color-select;
@@ -351,21 +358,58 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: $bg-gradient-modal;
+  background: rgba(0, 0, 0, 0.5);
   color: $color-secondary;
-  border: 0.125rem solid $color-secondary;
-  border-radius: 0.625rem;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 9999;
-}
 
-.modal-content {
-  background: $color-white;
-  padding: 1.25rem;
-  border-radius: 0.313rem;
-  text-align: center;
+  &-content {
+    border: 2px solid $color-primary-light;
+    height: fit-content;
+    background: $color-modal-bg;
+    padding: 1.25rem;
+    border-radius: 0.625rem;
+    text-align: center;
+    animation: open-modal-fade-in 0.3s ease-in-out;
+    @include text-stroke($color-primary-dark);
+    h3 {
+      font-size: 2.5rem;
+      margin-bottom: 1.25rem;
+      color: $color-select;
+    }
+    button {
+      background: $color-secondary;
+      border: 0.125rem solid $color-primary-dark;
+      border-radius: 10px;
+      padding: 0.625rem 1.25rem;
+      cursor: pointer;
+      transition: background 0.3s ease-in-out;
+      max-width: 200px;
+      width: 100%;
+      align-self: center;
+      font-weight: bold;
+      text-transform: uppercase;
+      background-color: $color-secondary;
+      color: $color-primary-dark;
+      font-size: 1.25rem;
+      box-shadow: 0 0.125rem 0.313rem rgba(0, 0, 0, 0.8);
+      &:hover {
+        background: $color-select;
+      }
+    }
+    @keyframes open-modal-fade-in {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
 }
 
 .book-button-container {
@@ -378,11 +422,13 @@
 }
 
 .total-amount-aside {
-  position: relative;
+  position: sticky;
   height: fit-content;
   z-index: 3;
+  top: 88px;
   @media (max-width: 991.98px) {
     position: fixed;
+    top: auto;
     bottom: 0;
     left: 0;
     z-index: 999;
@@ -391,6 +437,15 @@
     background: transparent;
     .total-amount {
       position: sticky;
+      h3 {
+        .total-amount__ticket-label {
+          display: flex;
+          justify-content: space-between;
+          max-width: 200px;
+          width: 30%;
+          min-width: 160px;
+        }
+      }
     }
   }
 }
@@ -400,11 +455,11 @@
   color: $color-primary-dark;
   border: 0.125rem solid $color-primary-dark;
   padding: 1.25rem;
-  margin-top: 0;
   border-radius: 0.625rem;
-  position: fixed;
-  width: 25%;
-
+  position: relative;
+  .total-amount__space {
+    height: 5px;
+  }
   h3,
   h2 {
     margin-top: 0.625rem;
@@ -412,7 +467,13 @@
     justify-content: space-between;
     text-align: left;
     font-size: 1.25rem;
-
+    .total-amount__ticket-label {
+      display: flex;
+      justify-content: space-between;
+      max-width: 200px;
+      width: 30%;
+      min-width: 160px;
+    }
     &:last-child {
       font-size: 1.563rem;
       font-weight: bold;
@@ -431,6 +492,7 @@
 }
 .book-button h1 {
   font-size: 1.563rem;
+  margin: 0;
 }
 
 body.hide-footer {

@@ -371,7 +371,7 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
   }
 
   return (
-    <Container className="g-0 p-0">
+    <Container className="g-0 p-0 p-md-2">
       <Row className="w-100 g-0">
         <div className="booking-information col-md-12 col-lg-8 g-0">
           {/* Section 1: Showtime Info */}
@@ -516,7 +516,11 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
               </div>
             </div>
             <div className="book-button-container">
-              <button className="book-button" onClick={handleBooking}>
+              <button
+                className="book-button"
+                onClick={handleBooking}
+                type="button"
+              >
                 <h1>Köp biljett!</h1>
               </button>
             </div>
@@ -525,12 +529,14 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
 
         {showModal && (
           <div className="booking-modal">
-            <div className="modal-content">
+            <div className="booking-modal-content">
               <h2>Bokningsbekräftelse</h2>
               {bookingStatus?.success ? (
                 <>
                   <p>Bokningen genomfördes</p>
-                  <p>Ditt bokningsnummer: {bookingStatus.bookingNumber}</p>
+                  <p>Ditt bokningsnummer:</p>
+                  <h3>{bookingStatus.bookingNumber}</h3>
+
                   <p>Information har skickats till angiven e-postadress</p>
                   <button onClick={closeModal}>Stäng</button>
                 </>
@@ -548,18 +554,19 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
 
         {/* Section 6: Total Amount - Aside */}
         <div className="total-amount-aside col-12 col-lg-4 p-0">
-          <div className="total-amount col-12 col-lg-4">
+          <div className="total-amount">
             {ticketTypes.map((ticketType) => (
               <h3 key={ticketType._id}>
-                <span>
-                  {ticketType.type}: {ticketCounts[ticketType.type] || 0} st
-                </span>
+                <div className="total-amount__ticket-label">
+                  <span>{ticketType.type}: </span>
+                  <span>{ticketCounts[ticketType.type] || 0} st</span>
+                </div>
                 <span>
                   {(ticketCounts[ticketType.type] || 0) * ticketType.price} kr
                 </span>
               </h3>
             ))}
-
+            <div className="total-amount__space"></div>
             <h3>
               <span>Ordinarie pris:</span>
               <span>
@@ -581,7 +588,7 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
                 kr
               </span>
             </h3>
-
+            <div className="total-amount__space"></div>
             <h2>
               <span>Att betala:</span>
               <span>{totalAmount} kr</span>

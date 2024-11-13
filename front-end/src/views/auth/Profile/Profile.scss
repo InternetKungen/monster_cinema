@@ -97,6 +97,10 @@
   }
 }
 
+.no-pointer {
+  pointer-events: none;
+}
+
 .profile {
   &__column {
     display: flex;
@@ -154,6 +158,18 @@
     &:nth-child(even):hover {
       background: $bg-color-showtime-hover-even;
     }
+    .profile__booking-details {
+      width: 40%;
+      max-width: 150px;
+      .profile__tickets {
+        p {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          width: 100%;
+        }
+      }
+    }
   }
 
   &__poster {
@@ -200,6 +216,9 @@
   &__details {
     margin-bottom: 0px;
     padding: 0px;
+    &::first-letter {
+      text-transform: capitalize;
+    }
     @media (max-width: 576px) {
       font-size: 0.8rem;
     }
@@ -295,7 +314,7 @@ $modal-background-color: $color-modal-bg;
 $modal-title-color: $color-secondary;
 $modal-body-font-size: 1rem;
 $modal-padding: 0rem;
-$modal-border-radius: 0.3rem;
+$modal-border-radius: 10px;
 
 $modal-header-background: $color-primary-dark;
 $modal-header-border-bottom: 1px solid $color-secondary;
@@ -314,6 +333,8 @@ $button-danger-hover-bg: $color-error;
   background: $modal-background-color;
   padding: $modal-padding;
   border-radius: $modal-border-radius;
+  border: 2px solid $color-secondary;
+  @include text-stroke($color-primary-dark);
 
   .modal-header {
     background: $bg-gradient-info;
@@ -363,5 +384,11 @@ $button-danger-hover-bg: $color-error;
 
   &:hover {
     background: $button-danger-hover-bg;
+  }
+}
+
+.modal-date-capitalize {
+  &::first-letter {
+    text-transform: capitalize;
   }
 }
