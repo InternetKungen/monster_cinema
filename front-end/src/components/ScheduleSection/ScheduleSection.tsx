@@ -138,7 +138,9 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({ date, movieId }) => {
   };
 
   return (
-    <section className="schedule-section col-12 g-0">
+    <section className="schedule-section col-12  p-0 p-md-2 g-0">
+      {/* p-0: Sets padding to 0 on all screen sizes.
+        p-md-2: Sets padding to 0.5rem (Bootstrap p-2) on medium screens and larger (≥768px). */}
       <div className="schedule-section-buttons g-0">{dateRangeTwoWeeks()}</div>
 
       <div className="schedule-section-title col-12 g-0">
