@@ -370,3 +370,9 @@ $button-danger-hover-bg: $color-error;
     background: $button-danger-hover-bg;
   }
 }
+
+.modal-date-capitalize {
+  &::first-letter {
+    text-transform: capitalize;
+  }
+}
