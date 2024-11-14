@@ -380,7 +380,7 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
 
   const closeModal = () => {
     setShowModal(false);
-    navigate(`/booking-confirmation/${bookingStatus?.bookingNumber}`);
+    navigate(`/profile`);
   };
 
   if (loading) {
