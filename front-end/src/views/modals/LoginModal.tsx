@@ -2,12 +2,14 @@ import React, { useEffect, useContext, useState } from "react";
 import "./LoginModal.scss"; // Ensure this import is correct
 import { UserContext } from "../../UserContext";
 import LoadingSpinner from "../../components/LoadingSpinner";
+import Popup from "../../components/Popup/Popup";
 
 type Props = {
   type: string;
   show: boolean;
   handleClose: () => void;
   setModalType: (type: string) => void;
+  setAlertPopup: (message: string) => void;
 };
 
 const LoginModal: React.FC<Props> = ({
@@ -15,6 +17,7 @@ const LoginModal: React.FC<Props> = ({
   show,
   handleClose,
   setModalType,
+  setAlertPopup,
 }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -23,6 +26,7 @@ const LoginModal: React.FC<Props> = ({
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  // const [alertPopup, setAlertPopup] = useState<string | null>(null);
   const { setUser } = useContext(UserContext);
   useEffect(() => {
     setEmail("");
@@ -62,7 +66,7 @@ const LoginModal: React.FC<Props> = ({
       .then((res) => res.json())
       .then((data) => {
         if (data.message) {
-          alert("User created successfully");
+          setAlertPopup("Användaren har skapats");
           setUser(data.user);
           handleClose();
         } else {
@@ -85,7 +89,7 @@ const LoginModal: React.FC<Props> = ({
       .then((res) => res.json())
       .then((data) => {
         if (data.message) {
-          alert("User logged in successfully");
+          setAlertPopup("Du har loggats in");
           setUser(data.user);
           handleClose();
         } else {

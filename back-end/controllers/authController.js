@@ -70,7 +70,7 @@ export const userLogin = async (req, res) => {
 export const userLogout = (req, res) => {
   try {
     res.clearCookie("token");
-    res.status(200).json({ message: "User logged out successfully" });
+    res.status(200).json({ message: "Användaren har loggats ut" });
   } catch (error) {
     res.status(500).json({ error: `Server Error ${error.message}` });
   }

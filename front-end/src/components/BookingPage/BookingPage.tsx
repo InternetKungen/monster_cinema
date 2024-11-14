@@ -6,6 +6,7 @@ import timeIcon from "../../assets/icons/schedule_35dp_FCAF00_FILL0_wght400_GRAD
 import hallIcon from "../../assets/icons/icon-cinema-fatter.png";
 import { Container, Row } from "react-bootstrap";
 import { io, Socket } from "socket.io-client";
+import Popup from "../Popup/Popup";
 
 interface Seat {
   seat: {
@@ -253,7 +254,7 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
       // Add the seat only if the number of selected seats is less than the total ticket count
       setSelectedSeats((prev) => [...prev, seatId]);
     } else {
-      alert("You have selected the maximum number of seats allowed.");
+      setError("You have selected the maximum number of seats allowed.");
     }
   };
 
@@ -321,7 +322,13 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
 
   const handleBooking = async () => {
     if (!email || selectedSeats.length === 0 || !ageConfirmation) {
-      setError("Please select seats, enter your email, and confirm age");
+      setError(
+        !email
+          ? "Vänligen ange din e-postadress."
+          : selectedSeats.length === 0
+          ? "Vänligen välj platser."
+          : "Vänligen bekräfta att du är medveten om filmens åldersgräns."
+      );
       return;
     }
 
@@ -353,7 +360,7 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Failed to create booking");
+        throw new Error(data.error || "Misslyckades skapa bokning");
       }
 
       // Emittera book-seat händelser med socket
@@ -385,10 +392,6 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
 
   if (loading) {
     return <div className="container">Loading...</div>;
-  }
-
-  if (error) {
-    return <div className="error-message">{error}</div>;
   }
 
   return (
@@ -617,6 +620,15 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
           </div>
         </div>
       </Row>
+      {error && (
+        <div className="popup-overlay">
+          <Popup
+            title="Information saknas"
+            info={error}
+            onClose={() => setError(null)}
+          />
+        </div>
+      )}
     </Container>
   );
 };
