@@ -1,3 +1,16 @@
+.movie-grid-container {
+  padding: 0.313rem;
+  background-color: transparent;
+  max-width: 100%;
+  border: 2px solid $color-secondary;
+  border-image: linear-gradient(
+      to bottom,
+      $color-secondary,
+      $color-select 40%,
+      transparent 80%
+    )
+    1;
+}
 .movie-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
