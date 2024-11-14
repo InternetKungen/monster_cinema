@@ -1,11 +1,11 @@
-.container {
-  max-width: 77.125rem;
-  margin: 0 auto;
-  // padding: 1.25rem;
-  display: flex;
-  flex-direction: row;
-  position: relative;
-}
+// .container {
+//   // max-width: 77.125rem;
+//   // margin: 0 auto;
+//   // padding: 1.25rem;
+//   // display: flex;
+//   // flex-direction: row;
+//   // position: relative;
+// }
 
 .booking-information {
   margin-bottom: 1.25rem;
@@ -27,6 +27,7 @@
   background: $bg-gradient-info;
   height: 21.875rem;
   padding: 1.25rem;
+  margin-top: 0.05rem;
 
   h1 {
     font-size: 1.75rem;
