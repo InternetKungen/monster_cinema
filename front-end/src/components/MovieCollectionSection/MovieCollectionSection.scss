@@ -10,6 +10,9 @@
       transparent 80%
     )
     1;
+  @media screen and (max-width: 576px) {
+    padding: 0rem;
+  }
 }
 .movie-grid {
   display: grid;
