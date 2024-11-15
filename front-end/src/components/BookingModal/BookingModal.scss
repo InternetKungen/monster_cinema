@@ -1,0 +1,261 @@
+.booking-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: $color-text-white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+
+  &-content {
+    border: 2px solid $color-primary-light;
+    height: fit-content;
+    max-height: 90vh;
+    background: $color-modal-bg;
+    padding: 1.25rem;
+    border-radius: 0.625rem;
+    animation: open-modal-fade-in 0.3s ease-in-out;
+    @include text-stroke($color-primary-dark);
+    max-width: 600px;
+    width: 90%;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    &__modal-header {
+      margin-bottom: 0.2rem;
+
+      h2 {
+        font-size: 1.75rem;
+        color: $color-secondary;
+      }
+    }
+
+    &__modal-body {
+      display: flex;
+      flex-direction: column;
+      &__movie-info {
+        margin-bottom: 0.5rem;
+
+        h3 {
+          font-size: 1.75rem;
+          color: $color-text-white;
+          margin-bottom: 0.2rem;
+          justify-self: center;
+        }
+
+        p {
+          margin-bottom: 0.5rem;
+          font-size: 1.1rem;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+
+          .movie-info-icon {
+            height: 1.5rem;
+            padding-right: 0.5rem;
+          }
+          .movie-info-label {
+            color: $color-secondary;
+            margin-right: 10px;
+          }
+          .movie-info-date-text {
+            &::first-letter {
+              text-transform: uppercase;
+            }
+          }
+        }
+      }
+
+      &__seats-info {
+        margin-bottom: 0rem;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        h4 {
+          font-size: 1rem;
+          color: $color-secondary;
+          margin-right: 10px;
+          font-weight: thin;
+        }
+
+        .seat-list {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.1rem;
+          justify-content: flex-start;
+
+          .seat-item {
+            text-align: center;
+            background: $bg-gradient-total-amount;
+            color: $color-primary-dark;
+            font-weight: bold;
+            @include text-stroke($color-text-white);
+            border: 1px solid $color-primary-light;
+            padding: 0.1rem 0.2rem;
+            border-radius: 0.5rem;
+            font-size: 0.75rem;
+            width: 55px;
+            transition: transform 0.3s ease-in-out;
+            &:hover {
+              background: $bg-gradient-total-amount;
+              transform: scale(1.1);
+              cursor: pointer;
+            }
+            @media screen and (max-width: 576px) {
+              font-size: 0.55rem;
+              width: 45px;
+            }
+          }
+        }
+      }
+
+      &__tickets-info {
+        margin-bottom: 0rem;
+        .ticket-header {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+
+          h4 {
+            font-size: 1rem;
+            color: $color-secondary;
+            margin-right: 10px;
+            font-weight: thin;
+          }
+
+          .ticket-list {
+            display: flex;
+            flex-direction: row;
+            .ticket-item {
+              margin-bottom: 0.5rem;
+              font-size: 1rem;
+              &::after {
+                content: "";
+                margin: 0 0.3rem;
+              }
+              @media screen and (max-width: 576px) {
+                font-size: 0.9rem;
+              }
+            }
+          }
+        }
+
+        .tickets-info-total-amount {
+          margin-top: 0rem;
+          padding-top: 0.3rem;
+          border-top: 1px solid $color-primary-light;
+          font-size: 1.3rem;
+          display: flex;
+          justify-content: space-between;
+          color: $color-secondary;
+        }
+      }
+
+      &__booking-number {
+        text-align: center;
+
+        p {
+          font-size: 1rem;
+          margin-bottom: 0.2rem;
+          @media screen and (max-width: 576px) {
+            font-size: 0.8rem;
+          }
+        }
+
+        h3 {
+          font-size: 2.5rem;
+          margin-bottom: 0.25rem;
+          color: $color-select;
+          @media screen and (max-width: 576px) {
+            font-size: 2rem;
+          }
+        }
+
+        .email-info {
+          font-size: 1rem;
+          opacity: 0.8;
+          @media screen and (max-width: 576px) {
+            font-size: 0.8rem;
+          }
+        }
+      }
+    }
+
+    &__modal-footer {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+
+      button,
+      &__close {
+        background: $color-secondary;
+        border: 0.125rem solid $color-primary-light;
+        border-radius: 10px;
+        padding: 0.625rem 1.25rem;
+        cursor: pointer;
+        transition: background 0.3s ease-in-out;
+        max-width: 200px;
+        text-transform: none;
+        width: 100%;
+        font-weight: bold;
+        color: $color-primary-dark;
+        font-size: 1.25rem;
+        box-shadow: 0 0.125rem 0.313rem rgba(0, 0, 0, 0.8);
+
+        &:hover {
+          background: $color-select;
+          opacity: 0.8;
+        }
+      }
+    }
+  }
+
+  @keyframes open-modal-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+// Responsive styles
+@media (max-width: 768px) {
+  .booking-modal {
+    &-content {
+      width: 95%;
+      margin: 1rem;
+      padding: 1rem;
+
+      .modal-header {
+        h2 {
+          font-size: 1.75rem;
+        }
+      }
+
+      .modal-body {
+        .movie-info {
+          h3 {
+            font-size: 1.5rem;
+          }
+        }
+
+        .booking-number {
+          h3 {
+            font-size: 2rem;
+          }
+        }
+      }
+    }
+  }
+}

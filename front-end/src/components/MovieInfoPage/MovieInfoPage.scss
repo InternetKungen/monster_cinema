@@ -49,6 +49,28 @@
     h2 {
       font-size: 2rem;
       color: $color-white;
+      @media screen and (max-width: 576px) {
+        font-size: 1.8rem;
+      }
+    }
+    &__label {
+      font-size: 1rem;
+      font-family: Cinzel, serif;
+      font-weight: bold;
+      color: $color-secondary;
+      @media screen and (max-width: 576px) {
+        font-size: 0.8rem;
+      }
+    }
+    .genre,
+    .duration {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      font-size: medium;
+      @media screen and (max-width: 576px) {
+        font-size: small;
+      }
     }
     .wrapper-movie-info__details {
       display: inline-block;

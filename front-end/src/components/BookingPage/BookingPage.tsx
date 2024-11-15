@@ -7,6 +7,7 @@ import hallIcon from "../../assets/icons/icon-cinema-fatter.png";
 import { Container, Row } from "react-bootstrap";
 import { io, Socket } from "socket.io-client";
 import Popup from "../Popup/Popup";
+import BookingModal from "../BookingModal/BookingModal";
 
 interface Seat {
   seat: {
@@ -573,28 +574,18 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
         </div>
 
         {showModal && (
-          <div className="booking-modal">
-            <div className="booking-modal-content">
-              <h2>Bokningsbekräftelse</h2>
-              {bookingStatus?.success ? (
-                <>
-                  <p>Bokningen genomfördes</p>
-                  <p>Ditt bokningsnummer:</p>
-                  <h3>{bookingStatus.bookingNumber}</h3>
-
-                  <p>Information har skickats till angiven e-postadress</p>
-                  <button onClick={closeModal}>Stäng</button>
-                </>
-              ) : (
-                <>
-                  <p>{bookingStatus?.message}</p>
-                  <button onClick={closeModal} type="button">
-                    Stäng
-                  </button>
-                </>
-              )}
-            </div>
-          </div>
+          <BookingModal
+            showModal={showModal}
+            closeModal={closeModal}
+            bookingStatus={bookingStatus}
+            movie={movie}
+            showtime={showtime}
+            selectedSeats={selectedSeats}
+            seats={seats}
+            ticketCounts={ticketCounts}
+            totalAmount={totalAmount}
+            email={email}
+          />
         )}
 
         {/* Section 6: Total Amount - Aside */}
