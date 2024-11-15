@@ -16,6 +16,10 @@
 }
 
 .booking-information-header-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 80%;
   @media (max-width: 576px) {
     padding-right: 15px;
   }
@@ -43,21 +47,42 @@
 
 .booking-information-header__top {
   position: relative;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
   @include text-stroke($color-primary-dark);
+  h1 {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+    @media screen and (max-width: 576px) {
+      font-size: 1.4rem;
+    }
+  }
   p {
-    font-size: 0.875rem;
-
-    &:nth-child(2) {
+    font-size: 1rem;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    .label {
       font-size: 0.813rem;
-      margin-bottom: 0.313rem;
+      font-weight: bold;
+      color: $color-secondary;
+      font-family: Cinzel, serif;
+    }
+    @media screen and (max-width: 576px) {
+      font-size: 0.813rem;
+      .label {
+        font-size: 0.713rem;
+      }
     }
 
-    &:nth-child(3) {
-      font-size: 0.813rem;
-      padding: 0;
-      margin: 0;
-    }
+    // &:nth-child(2) {
+    //   font-size: 1.013rem;
+    //   margin-bottom: 0.113rem;
+    // }
+
+    // &:nth-child(3) {
+    //   font-size: 1.013rem;
+    //   padding: 0;
+    //   margin: 0;
+    // }
   }
 }
 
@@ -89,7 +114,7 @@
 }
 
 .booking-information-header__bottom {
-  padding-top: 1.25rem;
+  padding-top: 0rem;
 
   p {
     display: flex;

@@ -66,6 +66,16 @@ interface BookingPageProps {
 //Static price for ordinary tickets
 const ORDINARY_PRICE = 140;
 
+const formatRuntime = (minutes: number) => {
+  const hours = Math.floor(minutes / 60);
+  const remainingMinutes = minutes % 60;
+  if (hours > 1) {
+    return `${hours} timmar ${remainingMinutes} minuter`;
+  } else {
+    return `${hours} timme ${remainingMinutes} minuter`;
+  }
+};
+
 const calculateEndTime = (startTime: string, length: number): string => {
   const [hours, minutes] = startTime.split(":").map(Number);
   const startDateTime = new Date();
@@ -254,7 +264,7 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
       // Add the seat only if the number of selected seats is less than the total ticket count
       setSelectedSeats((prev) => [...prev, seatId]);
     } else {
-      setError("You have selected the maximum number of seats allowed.");
+      setError("Du behöver biljetter till alla platser.");
     }
   };
 
@@ -282,7 +292,7 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
       const response = await fetch("/api/ticket");
       const data = await response.json();
       if (!response.ok) {
-        throw new Error(data.message || "Failed to fetch ticket types");
+        throw new Error(data.message || "Misslyckades att hitta biljetter");
       }
       setTicketTypes(data);
       // Initialize ticket counts
@@ -409,10 +419,21 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
               <div className="booking-information-header__top">
                 <h1>{movie?.title}</h1>
                 <p>
-                  Tal: {movie?.language}, Undertexter: {movie?.subtitles}
+                  <span className="label">Tal:</span>{" "}
+                  {capitalize(movie?.language || "")}
                 </p>
-                <p>Genre: {movie?.genre.join(", ")}</p>
-                <p>Speltid: {movie?.length} minuter</p>
+                <p>
+                  <span className="label">Undertexter:</span>{" "}
+                  {capitalize(String(movie?.subtitles))}
+                </p>
+                <p>
+                  <span className="label">Genre:</span>{" "}
+                  {movie?.genre.join(", ")}
+                </p>
+                <p>
+                  <span className="label">Speltid:</span>{" "}
+                  {formatRuntime(movie?.length || 0)}
+                </p>
               </div>
               <div className="booking-information-header__bottom">
                 <p>
@@ -513,7 +534,7 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
               <p>För att boka biljetter, ange din e-postadress.</p>
               <input
                 type="email"
-                placeholder="Enter your email"
+                placeholder="Ange din e-postadress"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="email-input"
