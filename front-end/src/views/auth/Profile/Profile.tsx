@@ -56,16 +56,32 @@ const Profile: React.FC = () => {
       });
       const data = await response.json();
       const today = new Date();
+      // today.setHours(0, 0, 0, 0); // Nollställ tiden till midnatt
 
       setBookingHistory(
-        data.filter(
-          (booking: Booking) => new Date(booking.bookedAt[0].date) < today
-        )
+        data.filter((booking: Booking) => {
+          const bookedDate = new Date(booking.bookedAt[0].date);
+          bookedDate.setHours(
+            parseInt(booking.bookedAt[0].time.split(":")[0]),
+            parseInt(booking.bookedAt[0].time.split(":")[1]),
+            0,
+            0
+          ); // Sätt tidskomponenten från booking.bookedAt[0].time
+          return bookedDate < today;
+        })
       );
+
       setCurrentBookings(
-        data.filter(
-          (booking: Booking) => new Date(booking.bookedAt[0].date) >= today
-        )
+        data.filter((booking: Booking) => {
+          const bookedDate = new Date(booking.bookedAt[0].date);
+          bookedDate.setHours(
+            parseInt(booking.bookedAt[0].time.split(":")[0]),
+            parseInt(booking.bookedAt[0].time.split(":")[1]),
+            0,
+            0
+          ); // Sätt tidskomponenten från booking.bookedAt[0].time
+          return bookedDate >= today;
+        })
       );
     } catch (err) {
       setError("Det gick inte att hämta bokningarna");
@@ -130,15 +146,28 @@ const Profile: React.FC = () => {
 
   const formatDateLabel = (date: Date) => {
     const today = new Date();
-    const tomorrow = new Date();
-    tomorrow.setDate(today.getDate() + 1);
+    today.setHours(0, 0, 0, 0);
 
-    if (date.toDateString() === today.toDateString()) {
-      return "Idag";
-    } else if (date.toDateString() === tomorrow.toDateString()) {
-      return "Imorgon";
+    const bookingDate = new Date(date);
+    bookingDate.setHours(0, 0, 0, 0);
+
+    const formatOptions = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    } as const;
+
+    if (bookingDate.getTime() === today.getTime()) {
+      return `Idag ${today.toLocaleDateString("sv-SE", formatOptions)}`;
+    } else if (
+      bookingDate.getTime() ===
+      today.getTime() + 24 * 60 * 60 * 1000
+    ) {
+      const tomorrow = new Date(today);
+      tomorrow.setDate(today.getDate() + 1);
+      return `Imorgon ${tomorrow.toLocaleDateString("sv-SE", formatOptions)}`;
     } else {
-      return date.toLocaleDateString("sv-SE", {
+      return bookingDate.toLocaleDateString("sv-SE", {
         weekday: "long",
         year: "numeric",
         month: "long",
