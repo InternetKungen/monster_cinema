@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import ScheduleSection from '../ScheduleSection/ScheduleSection';
-import './MovieInfoPage.scss';
+import React, { useState, useEffect } from "react";
+import ScheduleSection from "../ScheduleSection/ScheduleSection";
+import "./MovieInfoPage.scss";
 
 interface Movie {
   _id: string;
@@ -27,9 +27,22 @@ interface MovieInfoPageProps {
   selectedDate: Date;
 }
 
-const MovieInfoPage: React.FC<MovieInfoPageProps> = ({ movieId, scheduleRef, selectedDate }) => {
-  const [movie, setMovie] = useState<Movie | null>(null);
+const formatRuntime = (minutes: number) => {
+  const hours = Math.floor(minutes / 60);
+  const remainingMinutes = minutes % 60;
+  if (hours > 1) {
+    return `${hours} timmar ${remainingMinutes} minuter`;
+  } else {
+    return `${hours} timme ${remainingMinutes} minuter`;
+  }
+};
 
+const MovieInfoPage: React.FC<MovieInfoPageProps> = ({
+  movieId,
+  scheduleRef,
+  selectedDate,
+}) => {
+  const [movie, setMovie] = useState<Movie | null>(null);
   useEffect(() => {
     if (movieId) {
       fetch(`/api/movie/${movieId}`)
@@ -60,9 +73,17 @@ const MovieInfoPage: React.FC<MovieInfoPageProps> = ({ movieId, scheduleRef, sel
         <div className="movie-info">
           <h2>{movie.title}</h2>
           <div className="row col-lg-12 align-items-center">
-            <p className="age-restriction col-lg-4">Åldersgräns: {movie.ageRestriction}+</p>
-            <p className="genre col-lg-4">Genre: {movie.genre.join(", ")}</p>
-            <p className="duration col-lg-4">Längd: {movie.length} min</p>
+            <p className="age-restriction col-lg-4">
+              Åldersgräns: {movie.ageRestriction}+
+            </p>
+            <p className="genre col-lg-4">
+              <span className="movie-info__label">Genre: </span>
+              {movie.genre.join(", ")}
+            </p>
+            <p className="duration col-lg-4">
+              <span className="movie-info__label">Längd: </span>
+              {formatRuntime(movie.length)}
+            </p>
           </div>
           <p className="description">{movie.description}</p>
           <div className="wrapper-movie-info__details">
@@ -85,7 +106,7 @@ const MovieInfoPage: React.FC<MovieInfoPageProps> = ({ movieId, scheduleRef, sel
 
       <section ref={scheduleRef}>
         <ScheduleSection movieId={movieId} date={selectedDate} />
-        </section>
+      </section>
     </div>
   );
 };
