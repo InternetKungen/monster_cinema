@@ -12,6 +12,7 @@ import ticketRouter from "./routes/ticket.js";
 import { Server } from "socket.io";
 import http from "http";
 import Showtime from "./models/Showtime.js";
+import path from "path";
 
 dotenv.config();
 
@@ -27,6 +28,15 @@ app.use("/api/movie", movierouter);
 app.use("/api/user", userRouter);
 app.use("/api/showtime", showtimeRouter);
 app.use("/api/ticket", ticketRouter);
+
+// Servera statiska filer från dist-mappen
+const distPath = path.resolve("..", "front-end", "dist");
+app.use(express.static(distPath));
+
+// Serve index.html på icke-API-vägar för att stödja SPA-routning
+app.get("*", (req, res) => {
+  res.sendFile(path.join(distPath, "index.html"));
+});
 
 // Skapa HTTP-server och Socket.io-server
 const server = http.createServer(app);
