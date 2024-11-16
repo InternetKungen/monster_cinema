@@ -70,8 +70,8 @@
         &:active {
           transform: translateY(2px);
           img {
-            filter: drop-shadow(0px 0px 0px $color-primary-dark)
-              brightness(1.07) hue-rotate(95deg);
+            filter: drop-shadow(0px 0px 0px $color-primary-dark) brightness(1.2)
+              hue-rotate(95deg);
           }
         }
       }
