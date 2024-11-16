@@ -329,6 +329,19 @@ $button-danger-bg: $color-primary-dark;
 $button-danger-color: $color-error;
 $button-danger-hover-bg: $color-error;
 
+// .modal-open {
+//   overflow: auto !important;
+//   overflow-x: hidden; /* Förhindrar horisontell scroll om det behövs */
+//   // padding-right: 17px !important; /* Kompenserar för scrollbar-bredden */
+//   padding: 0 !important;
+//   margin: 0 !important;
+//   position: absolute !important;
+//   top: 0 !important;
+//   left: 0 !important;
+//   right: 0 !important;
+//   bottom: 0 !important;
+// }
+
 .modal-content {
   background: $modal-background-color;
   padding: $modal-padding;
