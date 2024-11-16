@@ -48,10 +48,51 @@
       width: 3.75rem;
       height: 3.75rem;
       padding: 0;
-      transition: transform 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s;
+      img {
+        filter: drop-shadow(1px 1px 2px $color-primary-dark);
+      }
+
+      // &::before {
+      //   content: "";
+      //   position: absolute;
+      //   top: 50%;
+      //   left: 50%;
+      //   transform: translate(-50%, -50%);
+      //   width: 1px;
+      //   height: 1px;
+      //   background: transparent;
+      //   box-shadow: 0px 0px 40px $color-primary-dark;
+      //   z-index: -2;
+      //   transition: transform 0.2s, box-shadow 0.2s;
+      //   border-radius: 50%; /* För en mjukare, rundad glöd */
+      //   &:hover {
+      //     box-shadow: 0px 0px 60px $color-primary-dark;
+      //     transform: translateY(-2px);
+      //     &:active {
+      //       transform: translateY(2px);
+      //       box-shadow: 0px 0px 0px $color-primary-dark;
+      //     }
+      //   }
+      // }
+      &:active {
+        transform: translateY(2px);
+        img {
+          filter: drop-shadow(0px 0px 0px $color-primary-dark);
+        }
+      }
 
       &:hover {
-        transform: scale(1.1);
+        transform: translateY(-2px);
+        img {
+          filter: drop-shadow(2px 2px 2px $color-primary-dark);
+        }
+        &:active {
+          transform: translateY(2px);
+          img {
+            filter: drop-shadow(0px 0px 0px $color-primary-dark);
+          }
+        }
       }
 
       &:disabled {
