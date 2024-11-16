@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import MovieComponent from "../MovieComponent/MovieComponent";
 import "./CurrentShowsSection.scss";
+import leftArrowImg from "../../assets/img/left-arrow-down.png";
+import rightArrowImg from "../../assets/img/right-arrow-down.png";
 
 interface Movie {
   _id: string;
@@ -114,7 +116,8 @@ const CurrentShowsSection: React.FC = () => {
               onClick={handlePreviousDay}
               disabled={isToday}
             >
-              &#8592; {/* Vänster pil*/}
+              {/* &#8592; Vänster pil */}
+              <img src={leftArrowImg} alt="left arrow for navigation" />
             </button>
             <h2 className="titlebar-text">
               På bio {getDayLabel(selectedDate)}
@@ -124,7 +127,8 @@ const CurrentShowsSection: React.FC = () => {
               onClick={handleNextDay}
               disabled={isEndOfWeek}
             >
-              &#8594; {/* Höger pil */}
+              <img src={rightArrowImg} alt="right arrow for navigation" />
+              {/* &#8594; Höger pil */}
             </button>
           </section>
         </section>
