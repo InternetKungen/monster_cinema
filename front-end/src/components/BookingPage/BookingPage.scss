@@ -173,7 +173,11 @@
   padding: 10px;
 
   &:disabled {
-    background-color: $color-border-light;
+    opacity: 0.5;
+    cursor: not-allowed;
+    &:hover {
+      background: $color-secondary;
+    }
   }
 
   &:hover {

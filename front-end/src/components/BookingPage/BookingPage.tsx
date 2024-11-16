@@ -566,8 +566,15 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
                 className="book-button"
                 onClick={handleBooking}
                 type="button"
+                disabled={
+                  !email || selectedSeats.length === 0 || !ageConfirmation
+                }
               >
-                <h1>Köp biljett!</h1>
+                <h1>
+                  {selectedSeats.length > 1
+                    ? "Boka biljetter!"
+                    : "Boka biljett!"}
+                </h1>
               </button>
             </div>
           </div>
