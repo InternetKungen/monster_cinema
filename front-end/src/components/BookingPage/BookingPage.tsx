@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "./BookingPage.scss";
 import dateIcon from "../../assets/icons/calendar_today_35dp_FCAF00_FILL0_wght400_GRAD0_opsz40.png";
@@ -8,6 +8,7 @@ import { Container, Row } from "react-bootstrap";
 import { io, Socket } from "socket.io-client";
 import Popup from "../Popup/Popup";
 import BookingModal from "../BookingModal/BookingModal";
+import { UserContext } from "../../UserContext";
 
 interface Seat {
   seat: {
@@ -138,6 +139,7 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
   const [ticketTypes, setTicketTypes] = useState<TicketType[]>([]);
   const [ticketCounts, setTicketCounts] = useState<Record<string, number>>({});
   const [dynamicMarginBottom, setDynamicMarginBottom] = useState("18rem");
+  const { user } = useContext(UserContext);
   const socketRef = useRef<Socket | null>(null);
 
   useEffect(() => {
@@ -161,6 +163,12 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
       }
     };
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      setEmail(user.email);
+    }
+  }, [user]);
 
   useEffect(() => {
     const calculateDynamicMarginBottom = () => {
@@ -531,15 +539,21 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
 
             {/* Section 4: Contact Information */}
             <div className="contact-info">
-              <h3>Biljettleverans</h3>
-              <p>För att boka biljetter, ange din e-postadress.</p>
-              <input
-                type="email"
-                placeholder="Ange din e-postadress"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="email-input"
-              />
+              {user ? (
+                <h3>Välkommen, {user.firstName || user.email}!</h3>
+              ) : (
+                <>
+                  <h3>Biljettleverans</h3>
+                  <p>För att boka biljetter, ange din e-postadress.</p>
+                  <input
+                    type="email"
+                    placeholder="Ange din e-postadress"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="email-input"
+                  />
+                </>
+              )}
             </div>
 
             {/* Section 5: Age Confirmation */}
