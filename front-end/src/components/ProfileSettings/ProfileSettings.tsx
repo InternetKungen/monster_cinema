@@ -1,12 +1,12 @@
 import React, { useContext, useState } from "react";
 import { UserContext } from "../../UserContext";
+import Popup from "../../components/Popup/Popup";
 import "./ProfileSettings.scss";
 
 const ProfileSettings = () => {
   const { user, setUser } = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const [alertPopup, setAlertPopup] = useState<string | null>(null);
 
   // Profile update state
   const [firstName, setFirstName] = useState(user?.firstName ?? "");
@@ -20,8 +20,6 @@ const ProfileSettings = () => {
   const handleProfileUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    setError("");
-    setSuccess("");
 
     try {
       const response = await fetch("/api/user/update-profile", {
@@ -38,13 +36,15 @@ const ProfileSettings = () => {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || "Failed to update profile");
+        throw new Error(
+          data.message || "Misslyckades uppdatera användarinformation"
+        );
       }
 
       setUser((prev) => (prev ? { ...prev, firstName, lastName } : null));
-      setSuccess("Profile updated successfully!");
+      setAlertPopup("Användarinformation har uppdaterats!");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
+      setAlertPopup(err instanceof Error ? err.message : "Ett fel inträffade");
     } finally {
       setIsLoading(false);
     }
@@ -53,11 +53,9 @@ const ProfileSettings = () => {
   const handlePasswordUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    setError("");
-    setSuccess("");
 
     if (newPassword !== confirmPassword) {
-      setError("New passwords don't match");
+      setAlertPopup("Nya lösenordet matchar inte");
       setIsLoading(false);
       return;
     }
@@ -77,15 +75,15 @@ const ProfileSettings = () => {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || "Failed to update password");
+        throw new Error(data.message || "Misslyckades att uppdatera lösenord");
       }
 
-      setSuccess("Password updated successfully!");
+      setAlertPopup("Password updated successfully!");
       setOldPassword("");
       setNewPassword("");
       setConfirmPassword("");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
+      setAlertPopup(err instanceof Error ? err.message : "Ett fel inträffade");
     } finally {
       setIsLoading(false);
     }
@@ -93,9 +91,15 @@ const ProfileSettings = () => {
 
   return (
     <div className="profile-settings">
-      {error && <div className="alert error">{error}</div>}
-
-      {success && <div className="alert success">{success}</div>}
+      {alertPopup && (
+        <div className="popup-overlay">
+          <Popup
+            title=""
+            info={alertPopup}
+            onClose={() => setAlertPopup(null)}
+          />
+        </div>
+      )}
 
       <div className="card">
         <div className="card-header">
