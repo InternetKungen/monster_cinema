@@ -63,13 +63,12 @@ const ProfileSettings = () => {
     }
 
     try {
-      const response = await fetch("/api/auth/reset-password", {
+      const response = await fetch("/api/user/update-password", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: user?.email,
           oldPassword,
           newPassword,
         }),
@@ -100,36 +99,36 @@ const ProfileSettings = () => {
 
       <div className="card">
         <div className="card-header">
-          <h2>Profile Information</h2>
+          <h2>Användarinformation</h2>
         </div>
         <div className="card-content">
           <form onSubmit={handleProfileUpdate}>
             <div className="form-grid">
               <div className="form-group">
-                <label htmlFor="firstName">First Name</label>
+                <label htmlFor="firstName">Förnamn:</label>
                 <input
                   id="firstName"
                   type="text"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
-                  placeholder="First Name"
+                  placeholder="Förnamn"
                   disabled={isLoading}
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="lastName">Last Name</label>
+                <label htmlFor="lastName">Efternamn:</label>
                 <input
                   id="lastName"
                   type="text"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
-                  placeholder="Last Name"
+                  placeholder="Efternamn"
                   disabled={isLoading}
                 />
               </div>
             </div>
             <button type="submit" className="button" disabled={isLoading}>
-              {isLoading ? "Updating..." : "Update Profile"}
+              {isLoading ? "Uppdaterar..." : "Uppdatera information"}
             </button>
           </form>
         </div>
@@ -137,45 +136,45 @@ const ProfileSettings = () => {
 
       <div className="card">
         <div className="card-header">
-          <h2>Change Password</h2>
+          <h2>Ändra lösenord</h2>
         </div>
         <div className="card-content">
           <form onSubmit={handlePasswordUpdate}>
             <div className="form-group">
-              <label htmlFor="oldPassword">Current Password</label>
+              <label htmlFor="oldPassword">Nuvarande lösenord</label>
               <input
                 id="oldPassword"
                 type="password"
                 value={oldPassword}
                 onChange={(e) => setOldPassword(e.target.value)}
-                placeholder="Current Password"
+                placeholder="Ange nuvarande lösenord"
                 disabled={isLoading}
               />
             </div>
             <div className="form-group">
-              <label htmlFor="newPassword">New Password</label>
+              <label htmlFor="newPassword">Nytt lösenord</label>
               <input
                 id="newPassword"
                 type="password"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
-                placeholder="New Password"
+                placeholder="Ange nytt lösenord"
                 disabled={isLoading}
               />
             </div>
             <div className="form-group">
-              <label htmlFor="confirmPassword">Confirm New Password</label>
+              <label htmlFor="confirmPassword">Bekräfta nytt lösenord</label>
               <input
                 id="confirmPassword"
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="Confirm New Password"
+                placeholder="Ange nytt lösenord igen"
                 disabled={isLoading}
               />
             </div>
             <button type="submit" className="button" disabled={isLoading}>
-              {isLoading ? "Updating..." : "Change Password"}
+              {isLoading ? "Uppdaterar..." : "Ändra lösenord"}
             </button>
           </form>
         </div>
