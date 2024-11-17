@@ -11,7 +11,6 @@ import showtimeRouter from "./routes/showtime.js";
 import ticketRouter from "./routes/ticket.js";
 import { Server } from "socket.io";
 import http from "http";
-// import Showtime from "./models/Showtime.js";
 import path from "path";
 import { updateSeatStatus } from "./utils/seatUtils.js";
 
@@ -51,7 +50,6 @@ io.on("connection", (socket) => {
     try {
       // Uppdatera databasen och signalera till alla anslutna klienter
       await updateSeatStatus(seatId, showtimeId, true);
-      // io.emit("seat-booked", seatId);
     } catch (error) {
       console.error("Error booking seat:", error);
       socket.emit("booking-error", { message: "Failed to book seat" });

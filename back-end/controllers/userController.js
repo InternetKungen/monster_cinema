@@ -1,7 +1,4 @@
-import Movie from "../models/Movie.js";
-import Hall from "../models/Hall.js";
 import Booking from "../models/Booking.js";
-import { authUser } from "../middlewares/authUser.js";
 import Seat from "../models/Seat.js";
 import Showtime from "../models/Showtime.js";
 import User from "../models/User.js";
