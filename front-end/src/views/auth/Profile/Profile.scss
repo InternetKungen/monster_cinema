@@ -17,6 +17,66 @@
     color: $color-secondary;
     @include text-stroke($color-primary-dark);
   }
+  .profile-settings-button-container {
+    position: fixed;
+    top: 14px;
+    z-index: 1050;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-left: 10px;
+    .profile-settings-button {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 180px;
+      background: transparent;
+      border-radius: 0px;
+      border: none;
+      color: $color-secondary;
+      font-weight: bold;
+      margin-right: 1rem;
+      transition: color 0.2s ease-in-out;
+      @include text-stroke($color-primary-dark);
+      &::after {
+        transition: color 0.2s ease-in-out;
+        content: "\2699";
+        font-size: 1.7rem;
+        color: $color-secondary;
+        @include text-stroke($color-primary-dark);
+        padding-left: 5px;
+      }
+      @media screen and (max-width: 768px) {
+        font-size: 0.8rem;
+        max-width: 160px;
+      }
+      &:focus {
+        background: transparent;
+      }
+      &:active {
+        color: $color-select;
+        background: transparent;
+        transition: color 0.2s ease-in-out;
+        &::after {
+          content: "\2699";
+          font-size: 1.7rem;
+          color: $color-select;
+          @include text-stroke($color-primary-dark);
+          transition: color 0.2s ease-in-out;
+        }
+      }
+      &:hover {
+        filter: brightness(1.4);
+        background: transparent;
+      }
+      &-text {
+        @media screen and (max-width: 576px) {
+          display: none;
+        }
+      }
+    }
+  }
   .accordion-container-wrapper {
     margin: 0 auto;
     max-width: 77.125rem;
@@ -329,18 +389,30 @@ $button-danger-bg: $color-primary-dark;
 $button-danger-color: $color-error;
 $button-danger-hover-bg: $color-error;
 
-// .modal-open {
-//   overflow: auto !important;
-//   overflow-x: hidden; /* Förhindrar horisontell scroll om det behövs */
-//   // padding-right: 17px !important; /* Kompenserar för scrollbar-bredden */
-//   padding: 0 !important;
-//   margin: 0 !important;
-//   position: absolute !important;
-//   top: 0 !important;
-//   left: 0 !important;
-//   right: 0 !important;
-//   bottom: 0 !important;
-// }
+button.btn-close {
+  color: $color-secondary;
+  position: absolute;
+  top: 1rem;
+  right: 1.4rem;
+  z-index: 1;
+  opacity: 1 !important;
+  background: none !important;
+  &::after {
+    content: "\2716";
+    font-size: 1.5rem;
+    color: $color-secondary;
+    @include text-stroke($color-primary-dark);
+  }
+  &:hover {
+    filter: brightness(1.1);
+    transition: all 0.3s ease-in-out;
+    opacity: 1 !important;
+  }
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+}
 
 .modal-content {
   background: $modal-background-color;

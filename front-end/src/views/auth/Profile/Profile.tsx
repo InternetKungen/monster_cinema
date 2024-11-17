@@ -3,6 +3,7 @@ import { UserContext } from "../../../UserContext";
 import Accordion from "react-bootstrap/Accordion";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import ProfileSettings from "../../../components/ProfileSettings/ProfileSettings";
 import "./Profile.scss";
 
 interface Ticket {
@@ -39,6 +40,7 @@ const Profile: React.FC = () => {
   const [expandedBooking, setExpandedBooking] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showProfileSettings, setShowProfileSettings] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -178,6 +180,16 @@ const Profile: React.FC = () => {
 
   return (
     <div className="profile-content">
+      <div className="profile-settings-button-container">
+        <Button
+          className="profile-settings-button"
+          onClick={() => setShowProfileSettings(true)}
+        >
+          <span className="profile-settings-button-text">
+            Profilinställningar
+          </span>
+        </Button>
+      </div>
       <h3>Välj biljett för avbokning</h3>
       <div className="accordion-container-wrapper">
         <Accordion className="p-3 g-0" alwaysOpen>
@@ -379,6 +391,19 @@ const Profile: React.FC = () => {
             {isLoading ? "Avbokar..." : "Avboka"}
           </Button>
         </Modal.Footer>
+      </Modal>
+      <Modal
+        show={showProfileSettings}
+        onHide={() => setShowProfileSettings(false)}
+        size="lg"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Profilinställningar</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <ProfileSettings />
+        </Modal.Body>
       </Modal>
     </div>
   );
