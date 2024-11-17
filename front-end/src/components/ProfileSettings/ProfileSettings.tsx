@@ -78,7 +78,7 @@ const ProfileSettings = () => {
         throw new Error(data.message || "Misslyckades att uppdatera lösenord");
       }
 
-      setAlertPopup("Password updated successfully!");
+      setAlertPopup("Lösenordet har uppdaterats!");
       setOldPassword("");
       setNewPassword("");
       setConfirmPassword("");

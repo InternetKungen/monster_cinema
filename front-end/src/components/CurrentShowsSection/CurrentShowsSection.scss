@@ -65,7 +65,7 @@
       &:hover {
         transform: translateY(-2px);
         img {
-          filter: drop-shadow(2px 2px 2px $color-primary-dark);
+          filter: drop-shadow(2px 2px 2px $color-primary-dark) brightness(1.1);
         }
         &:active {
           transform: translateY(2px);

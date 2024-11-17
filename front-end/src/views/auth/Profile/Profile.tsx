@@ -180,13 +180,15 @@ const Profile: React.FC = () => {
 
   return (
     <div className="profile-content">
+      <div className="profile-settings-button-container">
+        <Button
+          className="profile-settings-button"
+          onClick={() => setShowProfileSettings(true)}
+        >
+          Profilinställningar
+        </Button>
+      </div>
       <h3>Välj biljett för avbokning</h3>
-      <Button
-        className="profile-settings-button"
-        onClick={() => setShowProfileSettings(true)}
-      >
-        Profilinställningar
-      </Button>
       <div className="accordion-container-wrapper">
         <Accordion className="p-3 g-0" alwaysOpen>
           <Accordion.Item className="accordion-item" eventKey="0">
