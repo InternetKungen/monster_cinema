@@ -185,7 +185,9 @@ const Profile: React.FC = () => {
           className="profile-settings-button"
           onClick={() => setShowProfileSettings(true)}
         >
-          Profilinställningar
+          <span className="profile-settings-button-text">
+            Profilinställningar
+          </span>
         </Button>
       </div>
       <h3>Välj biljett för avbokning</h3>
