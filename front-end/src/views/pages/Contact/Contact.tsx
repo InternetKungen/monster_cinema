@@ -1,6 +1,6 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
-import TitleBarComponent from '../../../components/TitleBarComponent/TitleBarComponent';
-import './contact.scss';
+import React, { useState, ChangeEvent, FormEvent } from "react";
+import TitleBarComponent from "../../../components/TitleBarComponent/TitleBarComponent";
+import "./contact.scss";
 
 // Definerar strukturen för input values
 interface InputValues {
@@ -12,31 +12,35 @@ interface InputValues {
 // Form-componenten
 const Form: React.FC = () => {
   const [inputValues, setInputValues] = useState<InputValues>({
-    Email: '',
-    Name: '',
-    Message: '',
+    Email: "",
+    Name: "",
+    Message: "",
   });
 
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
-  const [messageError, setMessageError] = useState<string>('');
+  const [messageError, setMessageError] = useState<string>("");
 
   const { Email, Name, Message } = inputValues;
 
   // Hanterar förändring för input fields
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
 
     // Limit the message to 500 words
-    if (name === 'Message') {
-      const wordCount = value.split(/\s+/).filter((word) => word.length > 0).length;
+    if (name === "Message") {
+      const wordCount = value
+        .split(/\s+/)
+        .filter((word) => word.length > 0).length;
       if (wordCount <= 500) {
         setInputValues((prev) => ({
           ...prev,
           [name]: value,
         }));
-        setMessageError('');
+        setMessageError("");
       } else {
-        setMessageError('Message cannot exceed 500 words.');
+        setMessageError("Message cannot exceed 500 words.");
       }
     } else {
       setInputValues((prev) => ({
@@ -90,14 +94,19 @@ const Form: React.FC = () => {
               />
               {messageError && <p className="error-message">{messageError}</p>}
             </article>
-            <button type="submit" className="contact-send-button">Skicka in</button>
+            <button type="submit" className="contact-send-button">
+              Skicka in
+            </button>
           </form>
         </>
       ) : (
         <article className="contact-form-info">
-          <p>Hej, {Name}! <br/>
-		  Tack för att du kontaktar oss på Monsterbio<br/>
-		  Vi återkommer till dig så fort vi kan</p>
+          <p>
+            Hej, {Name}! <br />
+            Tack för att du kontaktar oss på Monsterbio
+            <br />
+            Vi återkommer till dig så fort vi kan
+          </p>
         </article>
       )}
     </>
@@ -108,19 +117,27 @@ const Form: React.FC = () => {
 const Contact: React.FC = () => {
   return (
     <section>
-      <article className='contact-container'>
-		<TitleBarComponent title='Kontakta oss' />
-        <p className='contact-text'>
-          Vår toppmoderna biograf finns i Gränbystadens Galleria precis intill E4:an. <br/>
-          Alltid 4 timmars fri parkering och utanför biografen stannar både lokal- och regionalbussar.<br/>
-          <br/>
-          Behöver du hjälp med något? <br/>
-          Ring oss på: <a href="tel:5555555555" className='contact-text-a'>018-100000</a> eller använd formuläret nedan<br/>
+      <article className="contact-container">
+        <TitleBarComponent title="Kontakta oss" />
+        <p className="contact-text">
+          Vår toppmoderna biograf finns i Gränbystadens Galleria precis intill
+          E4:an. <br />
+          Alltid 4 timmars fri parkering och utanför biografen stannar både
+          lokal- och regionalbussar.
+          <br />
+          <br />
+          Behöver du hjälp med något? <br />
+          Ring oss på:{" "}
+          <a href="tel:5555555555" className="contact-text-a">
+            018-100000
+          </a>{" "}
+          eller använd formuläret nedan
+          <br />
         </p>
+        <article className="form-container">
+          <Form />
+        </article>
       </article>
-      <div className='form-container'>
-        <Form />
-      </div>
     </section>
   );
 };
