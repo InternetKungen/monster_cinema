@@ -77,7 +77,6 @@
         color: $color-primary-dark;
         white-space: nowrap;
         overflow: hidden;
-        text-overflow: ellipsis;
 
         &:first-child {
           font-weight: bold;
@@ -94,6 +93,9 @@
 
     .short-day-name {
       display: none;
+      &::first-letter {
+        text-transform: uppercase;
+      }
     }
 
     @media (max-width: 576px) {

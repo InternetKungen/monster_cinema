@@ -86,8 +86,8 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({ date, movieId }) => {
     const fullDayName = date.toLocaleDateString("sv-SE", options);
     const shortDayName = fullDayName.slice(0, 3);
 
-    if (index === 0) return { full: "Idag", short: "Ida" };
-    if (index === 1) return { full: "Imorgon", short: "Imo" };
+    if (index === 0) return { full: "Idag", short: "Idag" };
+    if (index === 1) return { full: "Imorgon", short: "Imorn" };
     return { full: fullDayName, short: shortDayName };
   };
 
