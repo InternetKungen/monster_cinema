@@ -5,7 +5,7 @@ import LoginIcon from "../../assets/icons/person_35dp_FCAF00_FILL0_wght400_GRAD0
 import ProfileIcon from "../../assets/icons/clarify_35dp_FCAF00_FILL0_wght400_GRAD0_opsz40.png";
 import { UserContext } from "../../UserContext";
 import "./Header.scss";
-import Logo from "../../assets/img/logo-text-side-80p.png";
+import Logo from "../../assets/img/logo-text-side-200p.png";
 import LogoSmall from "../../assets/img/logo-no-text-128p.png";
 import LoginModal from "../../views/modals/LoginModal";
 import LogoutIcon from "../../assets/icons/logout_35dp_FCAF00_FILL0_wght400_GRAD0_opsz40.png";

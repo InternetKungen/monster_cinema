@@ -98,9 +98,9 @@ const MovieCollectionSection: React.FC = () => {
 
   console.log("Filetered: " + JSON.stringify(filteredMovies));
   return (
-    <div className="container col-12 py-5">
+    <div className="container col-12 py-5 g-0 px-md-3">
       <section className="movie-collection-section col-12 g-0">
-        <TitleBarComponent className="titlebar-component" title="Våra filmer" />
+        <TitleBarComponent title="Våra filmer" />
         <div className="sorting-button-container text-center col-md-12 col-lg-6 g-0">
           <Button
             className="filter-button"

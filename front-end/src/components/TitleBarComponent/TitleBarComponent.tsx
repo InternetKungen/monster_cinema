@@ -1,15 +1,20 @@
 // ReusableTitle.tsx
-import React from 'react';
-import './TitleBarComponent.scss';
+import React from "react";
+import "./TitleBarComponent.scss";
 
 interface TitleBarComponentProps {
   title: string;
   className?: string;
 }
 
-const TitleBarComponent: React.FC<TitleBarComponentProps> = ({ title, className = '' }) => {
+const TitleBarComponent: React.FC<TitleBarComponentProps> = ({
+  title,
+  className = "",
+}) => {
   return (
-    <h1 className={`title-bar-component ${className}`}>{title}</h1>
+    <div className="title-bar-component-container col-12">
+      <h1 className={`title-bar-component ${className}`}>{title}</h1>
+    </div>
   );
 };
 
