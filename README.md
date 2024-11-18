@@ -16,9 +16,8 @@ Feel free to read up on the requirements set by our teacher here:
 https://fe23-kyh.lms.nodehill.se/article/projektarbete-filmvisarna-fe23
 
 ## EndPoints: 
-Table of Contents: API Endpoints Documentation
 
-Special Endpoints for Developers
+### Special Endpoints for Developers
 
 Add Hall (POST /api/hall)
 
@@ -38,7 +37,7 @@ Update Ticket Type (PUT /api/ticket/{ticketTypeId})
 
 Delete Ticket Type (DELETE /api/ticket/{ticketTypeId})
 
-Endpoints
+### Endpoints
 
 Movie Endpoints
 
@@ -50,7 +49,7 @@ Get All Movies (GET /api/movie)
 
 Get Movie by ID (GET /api/movie/{movieId})
 
-Showtime
+### Showtime
 
 Create Showtime (POST /api/showtime)
 
@@ -64,7 +63,7 @@ Get Showtime By ID (GET /api/showtime/{showtimeId})
 
 Get Seats of Showtime (GET /api/showtime/{showtimeId}}/seats)
 
-User Endpoints
+### User Endpoints
 
 Register User (POST /api/auth/register) 
 
@@ -84,7 +83,7 @@ Create Booking (POST /api/user/bookings)
 
 Update User Profile (POST /api/user/update-profile)
 
-Hall Endpoints
+### Hall Endpoints
 
 Add Hall (POST /api/hall)
 
@@ -92,7 +91,7 @@ Delete All Halls (DELETE /api/hall)
 
 Get All Halls (GET /api/hall)
 
-Ticket Endpoints
+### Ticket Endpoints
 
 Get All Ticket Types (GET /api/ticket/)
 
