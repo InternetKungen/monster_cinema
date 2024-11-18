@@ -4,10 +4,10 @@
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  min-height: 80vh; // Ensure it has enough height, at least 80% of viewport
+  min-height: 80vh;
   padding: 2rem;
   box-sizing: border-box;
-  overflow-y: auto; // Allow scrolling if the content overflows
+  overflow-y: auto;
 }
 
 .about-cinemas-text {
@@ -16,7 +16,7 @@
   text-align: center;
   font-size: 1.2rem;
   color: #fcaf00;
-  line-height: 1.6; // Improve readability
+  line-height: 1.6;
 
   @media (max-width: 768px) {
     font-size: 1.1rem;
@@ -31,7 +31,7 @@
 
 .about-cinemas-title-two {
   margin-top: 2rem;
-  margin-bottom: 2rem; // Add margin-bottom to create space between the title and buttons
+  margin-bottom: 2rem;
   font-size: 1.6rem;
   color: #fcaf00;
   text-align: center;
