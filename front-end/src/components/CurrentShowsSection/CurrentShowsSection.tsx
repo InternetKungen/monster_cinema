@@ -106,7 +106,7 @@ const CurrentShowsSection: React.FC = () => {
   if (error) return <div className="error">Error: {error}</div>;
 
   return (
-    <section className="container pt-sm-5 pb-0 g-0 px-md-3">
+    <section className="container pb-0 g-0 px-md-3">
       <section className="current-shows-section col-12 g-0 p-0">
         <section className="titlebar-container">
           {/* Dagsnavigationsknappar */}
