@@ -132,7 +132,7 @@ const CurrentShowsSection: React.FC = () => {
             </button>
           </section>
         </section>
-        <section className="movie-grid col-12">
+        <section className="movie-grid col-12 current-scroll">
           {uniqueMovies.length > 0 ? (
             uniqueMovies.map((movie) => (
               <MovieComponent

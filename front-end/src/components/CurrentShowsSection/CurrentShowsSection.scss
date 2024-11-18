@@ -1,6 +1,4 @@
 .current-shows-section {
-  // padding: 1.25rem;
-  // background-color: transparent;
   border-radius: 0.5rem;
   max-width: 100%;
   margin-top: 0.5rem;
@@ -108,6 +106,15 @@
     }
   }
 
+  .current-scroll {
+    @media screen and (min-width: 992px) {
+      overflow-x: auto;
+      grid-gap: 0.313rem;
+      grid-auto-flow: column;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+  }
+
   .movie-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -128,6 +135,7 @@
       grid-template-columns: repeat(2, 1fr);
       grid-gap: 0rem;
     }
+
     .movie-button-container {
       text-decoration: none;
       display: flex;
@@ -154,6 +162,9 @@
         position: relative;
         overflow: hidden;
         width: 100%;
+        @media screen and (min-width: 992px) {
+          min-width: 200px;
+        }
 
         @media screen and (max-width: 430px) {
           max-width: 49vw;
