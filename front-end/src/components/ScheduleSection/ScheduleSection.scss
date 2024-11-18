@@ -88,6 +88,24 @@
         }
       }
     }
+    .full-day-name {
+      display: block;
+    }
+
+    .short-day-name {
+      display: none;
+    }
+
+    @media (max-width: 576px) {
+      .full-day-name {
+        display: none;
+      }
+
+      .short-day-name {
+        display: block;
+        font-weight: 700;
+      }
+    }
   }
   .schedule-columns {
     margin: 0 auto;

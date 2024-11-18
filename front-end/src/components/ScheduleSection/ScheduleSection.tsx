@@ -83,10 +83,12 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({ date, movieId }) => {
 
   const getDayLabel = (date: Date, index: number) => {
     const options: Intl.DateTimeFormatOptions = { weekday: "long" };
+    const fullDayName = date.toLocaleDateString("sv-SE", options);
+    const shortDayName = fullDayName.slice(0, 3);
 
-    if (index === 0) return "Idag";
-    if (index === 1) return "Imorgon";
-    return date.toLocaleDateString("sv-SE", options);
+    if (index === 0) return { full: "Idag", short: "Ida" };
+    if (index === 1) return { full: "Imorgon", short: "Imo" };
+    return { full: fullDayName, short: shortDayName };
   };
 
   const dateRangeTwoWeeks = () => {
@@ -99,6 +101,7 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({ date, movieId }) => {
       const currentDateKey = currentDate.toISOString().split("T")[0];
       const hasShowtimes =
         showtimes[currentDateKey] && showtimes[currentDateKey].length > 0;
+      const dayLabel = getDayLabel(currentDate, i);
 
       buttons.push(
         <button
@@ -108,7 +111,8 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({ date, movieId }) => {
           }`}
           onClick={() => handleDateClick(currentDate)}
         >
-          <p>{getDayLabel(currentDate, i)}</p>
+          <p className="full-day-name">{dayLabel.full}</p>
+          <p className="short-day-name">{dayLabel.short}</p>
           <p>
             {currentDate.toLocaleDateString("sv-SE", {
               day: "numeric",
@@ -145,10 +149,12 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({ date, movieId }) => {
 
       <div className="schedule-section-title col-12 g-0">
         <h2>
-          {getDayLabel(
-            new Date(selectedDate),
-            selectedDate === today ? 0 : selectedDate === tomorrow ? 1 : -1
-          )}{" "}
+          {
+            getDayLabel(
+              new Date(selectedDate),
+              selectedDate === today ? 0 : selectedDate === tomorrow ? 1 : -1
+            ).full
+          }{" "}
           {new Date(selectedDate).toLocaleDateString("sv-SE", {
             day: "2-digit",
             month: "2-digit",
