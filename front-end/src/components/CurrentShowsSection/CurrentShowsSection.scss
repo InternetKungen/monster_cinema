@@ -126,6 +126,7 @@
 
     @media screen and (max-width: 430px) {
       grid-template-columns: repeat(2, 1fr);
+      grid-gap: 0rem;
     }
     .movie-button-container {
       text-decoration: none;
@@ -155,7 +156,7 @@
         width: 100%;
 
         @media screen and (max-width: 430px) {
-          max-width: 45vw;
+          max-width: 49vw;
           height: 15.625rem;
           padding: 0.188rem;
           font-size: 0.563rem;

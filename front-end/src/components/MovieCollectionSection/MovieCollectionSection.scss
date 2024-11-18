@@ -27,6 +27,7 @@
       auto-fill,
       minmax(170px, 1fr)
     ); // Visa två kolumner på mycket små skärmar
+    grid-gap: 0.188rem;
   }
 
   @media screen and (max-width: 768px) {
@@ -34,13 +35,15 @@
       auto-fill,
       minmax(165px, 1fr)
     ); // Visa två kolumner på många skärmar
+    grid-gap: 0rem;
   }
 
   @media screen and (max-width: 430px) {
     grid-template-columns: repeat(
       2,
       1fr
-    ); // Visa två kolumner på mycket små skärmar
+    ); // Visa två kolumner på mycket små skärmar'
+    grid-gap: 0rem;
   }
 }
 
