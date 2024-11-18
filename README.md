@@ -9,7 +9,7 @@ Contributers in this repository are:
 - [hkarimm](https://github.com/hkarimm)
 - [nonthanan23](https://github.com/Nonthanan23)
 
-![Skärmbild 2024-11-18 035621](https://github.com/user-attachments/assets/24470c92-7471-4d2e-b68b-9b01e37ca338)
+## Visit the website here: 
 
 ## Requirements 
 Feel free to read up on the requirements set by our teacher here: 
@@ -18,6 +18,5 @@ https://fe23-kyh.lms.nodehill.se/article/projektarbete-filmvisarna-fe23
 ## Installation
 
 Follow these steps to get the project running on your local machine: 
--
--
--
+- npm i 
+- 
