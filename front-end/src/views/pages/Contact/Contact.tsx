@@ -40,7 +40,7 @@ const Form: React.FC = () => {
         }));
         setMessageError("");
       } else {
-        setMessageError("Message cannot exceed 500 words.");
+        setMessageError("Meddelandet kan inte vara längre än 500 ord");
       }
     } else {
       setInputValues((prev) => ({
@@ -52,7 +52,7 @@ const Form: React.FC = () => {
 
   // Hanterar form-submission
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // Prevent default form submission
+    e.preventDefault();
     setFormSubmitted(true);
   };
 

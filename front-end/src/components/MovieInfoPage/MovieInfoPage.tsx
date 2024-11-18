@@ -81,7 +81,7 @@ const MovieInfoPage: React.FC<MovieInfoPageProps> = ({
               {movie.genre.join(", ")}
             </p>
             <p className="duration col-lg-4">
-              <span className="movie-info__label">Längd: </span>
+              <span className="movie-info__label">Speltid: </span>
               {formatRuntime(movie.length)}
             </p>
           </div>
