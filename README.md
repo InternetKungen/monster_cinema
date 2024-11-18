@@ -16,9 +16,88 @@ Feel free to read up on the requirements set by our teacher here:
 https://fe23-kyh.lms.nodehill.se/article/projektarbete-filmvisarna-fe23
 
 ## EndPoints: 
+Table of Contents: API Endpoints Documentation
 
-## Installation
+Special Endpoints for Developers
 
-Follow these steps to get the project running on your local machine: 
-- npm i 
-- 
+Add Hall (POST /api/hall)
+
+Delete All Halls (DELETE /api/hall) ⚠
+
+Add Movie (POST /api/movie)
+
+Delete All Movies (DELETE /api/movie) ⚠
+
+Create Showtime (POST /api/showtime)
+
+Update Showtime (PUT /api/showtime/{showtimeId})
+
+Create Ticket Type (POST /api/ticket/)
+
+Update Ticket Type (PUT /api/ticket/{ticketTypeId})
+
+Delete Ticket Type (DELETE /api/ticket/{ticketTypeId})
+
+Endpoints
+
+Movie Endpoints
+
+Add Movie (POST /api/movie)
+
+Delete All Movies (DELETE /api/movie)
+
+Get All Movies (GET /api/movie)
+
+Get Movie by ID (GET /api/movie/{movieId})
+
+Showtime
+
+Create Showtime (POST /api/showtime)
+
+Update Showtime (PUT /api/showtime/{showtimeId})
+
+Get Showtime Filter Movie Date Range (GET /api/showtime?movieId={movieId}&startDate=2024-11-20&endDate=2024-11-27 )
+
+Get All Showtimes Of Date Range (GET /api/showtime/date-range?startDate=2024-11-20&endDate=2024-11-27)
+
+Get Showtime By ID (GET /api/showtime/{showtimeId})
+
+Get Seats of Showtime (GET /api/showtime/{showtimeId}}/seats)
+
+User Endpoints
+
+Register User (POST /api/auth/register) 
+
+Login User (POST /api/auth/login)
+
+Logout User (POST /api/auth/logout)
+
+Reset Password (POST /api/auth/reset-password)
+
+Cancel Booking (DELETE /api/user/remove-ticket/{ticketId})
+
+Get All Tickets for a User (GET /api/user/tickets)
+
+Get User Profile (GET /api/user/info)
+
+Create Booking (POST /api/user/bookings)
+
+Update User Profile (POST /api/user/update-profile)
+
+Hall Endpoints
+
+Add Hall (POST /api/hall)
+
+Delete All Halls (DELETE /api/hall)
+
+Get All Halls (GET /api/hall)
+
+Ticket Endpoints
+
+Get All Ticket Types (GET /api/ticket/)
+
+Create Ticket Type (POST /api/ticket/)
+
+Update Ticket Type (PUT /api/ticket/{ticketTypeId})
+
+Delete Ticket Type (DELETE /api/ticket/{ticketTypeId})
