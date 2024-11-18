@@ -16,7 +16,9 @@ const Footer: React.FC = () => {
           <div className="col-sm-3">
             <ul className="list-unstyled">
               <li>
-                <Link to="/about-us">Om oss</Link>
+                <Link to="/about-us">
+                  <h5>Om oss</h5>
+                </Link>
               </li>
               <li>
                 <Link to="/contact-us">Kontakta oss</Link>
