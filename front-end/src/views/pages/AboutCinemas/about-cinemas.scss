@@ -1,64 +1,97 @@
 .about-cinemas-container {
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
-	align-items: center;
-	height: 60vh;
-	max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  min-height: 80vh;
+  padding: 2rem;
+  box-sizing: border-box;
+  overflow-y: auto;
 }
 
-
 .about-cinemas-text {
-	margin-top: 1.8rem;
-	max-width: 60rem;
-	text-align: center;
-	font-size: 1.2rem;
-	color: #FCAF00;
+  margin-top: 1.8rem;
+  max-width: 60rem;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #fcaf00;
+  line-height: 1.6;
+
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+    padding: 0 1rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+    padding: 0 0.5rem;
+  }
 }
 
 .about-cinemas-title-two {
-	margin-top: 2rem;
-	font-size: 1.6rem;
-	@include text-stroke($color-primary-dark);
-	color: #FCAF00;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  font-size: 1.6rem;
+  color: #fcaf00;
+  text-align: center;
+
+  @media (max-width: 768px) {
+    font-size: 1.4rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.2rem;
+  }
 }
 
 .about-cinemas-cinemas {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	gap: 3rem;
-	margin-top: -5rem;
-	padding-bottom: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 3rem;
+  margin-top: -3rem;
+  padding-bottom: 2rem;
+  flex-wrap: nowrap;
+
+  @media (max-width: 768px) {
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 480px) {
+    gap: 0.5rem;
+  }
 }
 
 .about-cinemas-links {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 3.5rem;
-	width: 12rem;
-	background: linear-gradient(to bottom, #045685 80%, #000F26);
-	border: 0.125rem solid #000F26;
-	border-radius: 0.3125rem;
-	box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
-	transition: transform 0.2s ease, box-shadow 0.2s ease;
-	font-size: 1.2rem;
-	font-family: "Cinzel", serif;
-	font-weight: bold;
-	@include text-stroke($color-primary-dark);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3.5rem;
+  width: 12rem;
+  background: linear-gradient(to bottom, #045685 80%, #000f26);
+  border: 0.125rem solid #000f26;
+  border-radius: 0.3125rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-size: 1.2rem;
+  font-family: "Cinzel", serif;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  text-align: center;
 
-	&:hover {
-		transform: translateY(-0.3125rem);
-		box-shadow: 0 0.375rem 0.75rem rgba(0, 0, 0, 0.15);
-	}
+  &:hover {
+    transform: translateY(-0.3125rem);
+    box-shadow: 0 0.375rem 0.75rem rgba(0, 0, 0, 0.15);
+  }
 }
 
 a {
-	color: white;
-	text-decoration: none;
+  color: white;
+  text-decoration: none;
 }
 
 a:hover {
-	color: $color-secondary;
+  color: $color-secondary;
 }

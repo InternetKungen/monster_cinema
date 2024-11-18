@@ -16,7 +16,7 @@ export const userRegister = async (req, res) => {
     const { email, password, firstName, lastName } = req.body;
     const user = await User.findOne({ email });
     if (user) {
-      return res.status(400).json({ error: "User already exists" });
+      return res.status(400).json({ error: "Användaren finns redan" });
     }
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({
@@ -30,7 +30,7 @@ export const userRegister = async (req, res) => {
     const { password: _, ...userResponse } = newUser.toObject();
     res
       .status(201)
-      .json({ message: "User registered successfully", user: userResponse });
+      .json({ message: "Användaren har skapats", user: userResponse });
   } catch (error) {
     res.status(500).json({ error: "Server error" });
   }
@@ -41,15 +41,15 @@ export const userLogin = async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ error: "User does not exist" });
+      return res.status(400).json({ error: "Användaren finns inte" });
     }
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return res.status(400).json({ error: "Invalid password" });
+      return res.status(400).json({ error: "Ogiltigt lösenord" });
     }
     const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET);
     if (!token) {
-      return res.status(500).json({ error: "Failed to generate token" });
+      return res.status(500).json({ error: "Misslyckades att skapa token" });
     }
     res.cookie("token", token, {
       httpOnly: false, // Prevents JavaScript access
@@ -59,7 +59,7 @@ export const userLogin = async (req, res) => {
     });
     const { password: _, ...userWithoutPassword } = user.toObject();
     res.status(200).json({
-      message: "User logged in successfully",
+      message: "Användaren har loggats in",
       user: userWithoutPassword,
     });
   } catch (error) {
@@ -70,7 +70,7 @@ export const userLogin = async (req, res) => {
 export const userLogout = (req, res) => {
   try {
     res.clearCookie("token");
-    res.status(200).json({ message: "User logged out successfully" });
+    res.status(200).json({ message: "Användaren har loggats ut" });
   } catch (error) {
     res.status(500).json({ error: `Server Error ${error.message}` });
   }
@@ -81,7 +81,7 @@ export const resetPassword = async (req, res) => {
     const { email } = req.body;
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ error: "User does not exist" });
+      return res.status(400).json({ error: "Användaren finns inte" });
     }
     const newPassword = Math.random().toString(36).slice(-8);
     const hashedPassword = await bcrypt.hash(newPassword, 10);
@@ -90,7 +90,7 @@ export const resetPassword = async (req, res) => {
       from: process.env.EMAIL_USER,
       to: email,
       subject: "Ett nytt lösenord har skapats för ditt konto",
-      text: `Your new password is: ${newPassword}`,
+      text: `Ditt nya lösenord: ${newPassword}`,
     };
     await transporter.sendMail(mailOptions);
 

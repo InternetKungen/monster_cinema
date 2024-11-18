@@ -3,8 +3,11 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  height: 60vh;
-  max-width: 100%;
+  width: 100%;
+  padding: 2rem;
+  box-sizing: border-box;
+  overflow-y: auto;
+  min-height: 80vh;
 }
 
 .contact-text {
@@ -13,6 +16,16 @@
   text-align: center;
   font-size: 1.2rem;
   color: #fcaf00;
+
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+    padding: 0 1rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+    padding: 0 0.5rem;
+  }
 }
 
 .contact-text-a {
@@ -25,20 +38,22 @@
 }
 
 /* Form Styling */
-
 .form-container {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: -17rem;
-  margin-bottom: 0.2rem;
+  width: 100%;
+  margin-top: 0.3rem;
+  padding: 1rem;
 }
 
 .contact-form {
   display: flex;
   justify-content: center;
   flex-direction: column;
+  width: 100%;
+  max-width: 37.5rem;
 
   .contact-input-field,
   .contact-input-message {
@@ -46,43 +61,44 @@
     flex-direction: column;
     font-size: 1rem;
     color: black;
-    height: 8vh;
-    width: 30vw;
+    margin-bottom: 1rem;
+
     label {
-      margin-bottom: 0.1rem;
+      margin-bottom: 0.5rem;
       font-size: 1.2rem;
       color: #fcaf00;
     }
 
     input,
     textarea {
-      height: 5rem;
       width: 100%;
-      font-size: inherit;
-      padding: 0.5rem;
-      border: 0.1, 5rem solid #000f26;
+      padding: 0.8rem;
+      font-size: 1rem;
+      border: 0.1rem solid #000f26;
       border-radius: 0.3rem;
       box-sizing: border-box;
+      margin-bottom: 0.5rem;
     }
 
     textarea {
-      height: 10rem;
+      min-height: 8rem;
+      resize: vertical;
     }
   }
 
   .contact-send-button {
     background-color: #fcaf00;
-    margin-top: 0.9rem;
-    margin-bottom: 0.9rem;
     font-size: 1.25rem;
     font-weight: 500;
-    width: 14vw;
-    height: 2.5vw;
+    width: 100%;
+    max-width: 200px;
+    height: 2.5rem;
     align-self: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border: 0.1, 5rem solid #000f26;
+    border: 0.1rem solid #000f26;
     border-radius: 0.5rem;
+    margin-top: 1rem;
 
     &:hover {
       color: white;
@@ -93,14 +109,14 @@
 }
 
 .contact-form-info {
-  margin-top: 6vh;
+  margin-top: 1vh;
   padding: 2rem;
   font-size: 1.2rem;
-  font-weight: 500;
+  font-weight: 400;
   text-align: center;
   text-decoration: none;
   color: white;
-  background: linear-gradient(to bottom, #045685 80%, #000f26);
-  border: 0.1, 5rem solid #000f26;
+  background: linear-gradient(to bottom, #000f26, #045685 80%, #000f26);
+  border: 0.1rem solid #000f26;
   border-radius: 0.5rem;
 }

@@ -191,10 +191,16 @@
             flex: 3;
             @include text-stroke($color-primary-dark);
             margin-top: 0.625rem;
+            @media screen and (max-width: 576px) {
+              margin-left: 10px;
+            }
 
             h5 {
               font-size: 1.5rem;
               color: $color-text-white;
+              @media screen and (max-width: 576px) {
+                font-size: 1.2rem;
+              }
             }
 
             p {

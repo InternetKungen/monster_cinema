@@ -5,11 +5,12 @@ import LoginIcon from "../../assets/icons/person_35dp_FCAF00_FILL0_wght400_GRAD0
 import ProfileIcon from "../../assets/icons/clarify_35dp_FCAF00_FILL0_wght400_GRAD0_opsz40.png";
 import { UserContext } from "../../UserContext";
 import "./Header.scss";
-import Logo from "../../assets/img/logo-text-side.png";
-import LogoSmall from "../../assets/img/logo-no-text.png";
+import Logo from "../../assets/img/logo-text-side-200p.png";
+import LogoSmall from "../../assets/img/logo-no-text-128p.png";
 import LoginModal from "../../views/modals/LoginModal";
 import LogoutIcon from "../../assets/icons/logout_35dp_FCAF00_FILL0_wght400_GRAD0_opsz40.png";
 import SearchBar from "../../components/SearchBar/SearchBar";
+import Popup from "../../components/Popup/Popup";
 
 const Header: React.FC<{ onSelectDate: (daysAhead: number) => void }> = ({
   onSelectDate,
@@ -30,6 +31,8 @@ const Header: React.FC<{ onSelectDate: (daysAhead: number) => void }> = ({
   console.log(user);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 576);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [logoutPopup, setLogoutPopup] = useState<string | null>(null);
+  const [alertPopup, setAlertPopup] = useState<string | null>(null);
 
   useEffect(() => {
     const handleResize = () => setIsSmallScreen(window.innerWidth < 576);
@@ -49,7 +52,7 @@ const Header: React.FC<{ onSelectDate: (daysAhead: number) => void }> = ({
         if (data.message) {
           setUser(null);
           navigate("/");
-          alert(data.message);
+          setLogoutPopup(data.message);
         } else if (data.error) {
           console.log(data.error);
         }
@@ -136,8 +139,27 @@ const Header: React.FC<{ onSelectDate: (daysAhead: number) => void }> = ({
         setModalType={setModalType}
         type={modalType}
         handleClose={handleClose}
+        setAlertPopup={setAlertPopup}
       />
       <SearchBar isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+      {logoutPopup && (
+        <div className="popup-overlay">
+          <Popup
+            title="Utloggad"
+            info={logoutPopup}
+            onClose={() => setLogoutPopup(null)}
+          />
+        </div>
+      )}
+      {alertPopup && (
+        <div className="popup-overlay">
+          <Popup
+            title=" "
+            info={alertPopup}
+            onClose={() => setAlertPopup(null)}
+          />
+        </div>
+      )}
     </header>
   );
 };

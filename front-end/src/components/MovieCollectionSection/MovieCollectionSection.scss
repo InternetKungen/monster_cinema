@@ -1,3 +1,19 @@
+.movie-grid-container {
+  padding: 0.313rem;
+  background-color: transparent;
+  max-width: 100%;
+  border: 2px solid $color-secondary;
+  border-image: linear-gradient(
+      to bottom,
+      $color-secondary,
+      $color-select 40%,
+      transparent 80%
+    )
+    1;
+  @media screen and (max-width: 576px) {
+    padding: 0rem;
+  }
+}
 .movie-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -11,6 +27,7 @@
       auto-fill,
       minmax(170px, 1fr)
     ); // Visa två kolumner på mycket små skärmar
+    grid-gap: 0.188rem;
   }
 
   @media screen and (max-width: 768px) {
@@ -18,20 +35,18 @@
       auto-fill,
       minmax(165px, 1fr)
     ); // Visa två kolumner på många skärmar
+    grid-gap: 0rem;
   }
 
   @media screen and (max-width: 430px) {
     grid-template-columns: repeat(
       2,
       1fr
-    ); // Visa två kolumner på mycket små skärmar
+    ); // Visa två kolumner på mycket små skärmar'
+    grid-gap: 0rem;
   }
 }
 
-.titlebar-component {
-  width: 100%;
-  margin-top: -4rem;
-}
 // .btn-secondary {
 // 	background-color: $color-secondary !important;
 // 	border-color: $color-secondary !important;

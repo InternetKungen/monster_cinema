@@ -8,6 +8,7 @@ type Props = {
   show: boolean;
   handleClose: () => void;
   setModalType: (type: string) => void;
+  setAlertPopup: (message: string) => void;
 };
 
 const LoginModal: React.FC<Props> = ({
@@ -15,13 +16,12 @@ const LoginModal: React.FC<Props> = ({
   show,
   handleClose,
   setModalType,
+  setAlertPopup,
 }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [error, setError] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const { setUser } = useContext(UserContext);
   useEffect(() => {
@@ -29,7 +29,6 @@ const LoginModal: React.FC<Props> = ({
     setPassword("");
     setFirstName("");
     setLastName("");
-    setError("");
 
     if (show) {
       document.body.classList.add("modal-open");
@@ -62,11 +61,11 @@ const LoginModal: React.FC<Props> = ({
       .then((res) => res.json())
       .then((data) => {
         if (data.message) {
-          alert("User created successfully");
+          setAlertPopup("Användaren har skapats");
           setUser(data.user);
           handleClose();
         } else {
-          setError(data.error);
+          setAlertPopup(data.error);
         }
       });
   };
@@ -85,19 +84,17 @@ const LoginModal: React.FC<Props> = ({
       .then((res) => res.json())
       .then((data) => {
         if (data.message) {
-          alert("User logged in successfully");
+          setAlertPopup("Du har loggats in");
           setUser(data.user);
           handleClose();
         } else {
-          setError(data.error);
+          setAlertPopup(data.error);
         }
       });
   };
   const handleReset = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    setSuccessMessage("");
-    setError("");
     fetch("/api/auth/reset-password", {
       method: "POST",
       headers: {
@@ -110,11 +107,11 @@ const LoginModal: React.FC<Props> = ({
       .then((res) => res.json())
       .then((data) => {
         if (data.message) {
-          setSuccessMessage(data.message);
+          setAlertPopup(data.message);
           setLoading(false);
         } else {
           setTimeout(() => {
-            setError(data.error);
+            setAlertPopup(data.error);
             setLoading(false);
           }, 1000);
         }
@@ -124,25 +121,9 @@ const LoginModal: React.FC<Props> = ({
       });
   };
   return (
-    <div
-      className="login-modal-background position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
-      style={{ zIndex: 1000 }}
-    >
+    <div className="login-modal-background position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center">
       {type === "login" && (
-        <section
-          className="login-modal-content"
-          style={{
-            background:
-              "linear-gradient(to right, rgba(0,15,38,100), rgba(4,86,133,100), rgba(0,15,38,100))",
-            borderRadius: "10px",
-            padding: "20px",
-            width: "600px",
-            color: "#FCAF00",
-            maxWidth: "90%",
-            boxShadow: "0 2px 10px rgba(0, 0, 0, 0.8)",
-            position: "relative",
-          }}
-        >
+        <section className="login-modal-content">
           <span className="close-button" onClick={handleClose}>
             &times;
           </span>
@@ -158,9 +139,6 @@ const LoginModal: React.FC<Props> = ({
                 name="email"
                 required
               />
-              {error.includes("User") && (
-                <p className="text-danger mt-2 shake">{error}!</p>
-              )}
             </div>
             <div className="form-group">
               <label htmlFor="password">Password</label>
@@ -172,9 +150,6 @@ const LoginModal: React.FC<Props> = ({
                 name="password"
                 required
               />
-              {error.includes("password") && (
-                <p className="text-danger mt-2 shake">{error}!</p>
-              )}
             </div>
             <button type="submit" className="submit-button">
               Logga in
@@ -201,20 +176,7 @@ const LoginModal: React.FC<Props> = ({
         </section>
       )}
       {type === "register" && (
-        <div
-          className="login-modal-content"
-          style={{
-            background:
-              "linear-gradient(to right, rgba(0,15,38,100), rgba(4,86,133,100), rgba(0,15,38,100))",
-            borderRadius: "10px",
-            padding: "20px",
-            width: "600px",
-            color: "#FCAF00",
-            maxWidth: "90%",
-            boxShadow: "0 2px 10px rgba(0, 0, 0, 0.8)",
-            position: "relative",
-          }}
-        >
+        <div className="login-modal-content">
           <span className="close-button" onClick={handleClose}>
             &times;
           </span>
@@ -230,7 +192,6 @@ const LoginModal: React.FC<Props> = ({
                 name="email"
                 required
               />
-              {error && <p className="text-danger mt-2 shake">{error}!</p>}
             </div>
             <div className="form-group">
               <label htmlFor="password">Lösenord</label>
@@ -268,36 +229,11 @@ const LoginModal: React.FC<Props> = ({
             <button type="submit" className="submit-button">
               Skapa användare
             </button>
-            {/* <div className="my-3">
-            <p>
-              Har du redan ett konto? Klicka <span>här</span>
-            </p>
-          </div>
-          <button
-            onClick={() => setModalType("login")}
-            type="button"
-            className="submit-button"
-          >
-            Logga in
-          </button> */}
           </form>
         </div>
       )}
       {type === "reset" && (
-        <div
-          className="login-modal-content"
-          style={{
-            background:
-              "linear-gradient(to right, rgba(0,15,38,100), rgba(4,86,133,100), rgba(0,15,38,100))",
-            borderRadius: "10px",
-            padding: "20px",
-            width: "600px",
-            color: "#FCAF00",
-            maxWidth: "90%",
-            boxShadow: "0 2px 10px rgba(0, 0, 0, 0.8)",
-            position: "relative",
-          }}
-        >
+        <div className="login-modal-content">
           <span className="close-button" onClick={handleClose}>
             &times;
           </span>
@@ -316,38 +252,7 @@ const LoginModal: React.FC<Props> = ({
                 name="email"
                 required
               />
-              {error.includes("User") && (
-                <p className="text-danger mt-2 shake">{error}!</p>
-              )}
-              {successMessage && (
-                <p className="text-success mt-2 shake">{successMessage}!</p>
-              )}
             </div>
-            {/* <div className="form-group">
-              <label htmlFor="oldpassword">Gammalt lösenord</label>
-              <input
-                type="password"
-                id="oldpassword"
-                onChange={(e) => setOldPassword(e.target.value)}
-                value={oldPassword}
-                name="oldpassword"
-                required
-              />
-              {error.includes("password") && (
-                <p className="text-danger mt-2 shake">{error}!</p>
-              )}
-            </div>
-            <div className="form-group">
-              <label htmlFor="newpassword">Nytt lösenord</label>
-              <input
-                type="password"
-                id="newpassword"
-                onChange={(e) => setNewPassword(e.target.value)}
-                value={newPassword}
-                name="newpassword"
-                required
-              />
-            </div> */}
             <button type="submit" className="submit-button">
               {loading ? <LoadingSpinner size="sm" /> : "Skicka"}
             </button>

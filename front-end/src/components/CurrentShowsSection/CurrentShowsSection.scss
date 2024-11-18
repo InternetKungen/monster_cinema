@@ -1,15 +1,16 @@
 .current-shows-section {
-  padding: 1.25rem;
-  background-color: transparent;
+  // padding: 1.25rem;
+  // background-color: transparent;
   border-radius: 0.5rem;
   max-width: 100%;
+  margin-top: 0.5rem;
 
   .titlebar-text {
     text-align: center;
     font-size: 2rem;
     margin-bottom: 0px;
     @include text-stroke($color-primary-dark);
-    color: #fcaf00;
+    color: $color-secondary;
   }
 
   // Style för navigation buttons
@@ -27,13 +28,15 @@
 
   .navigation-buttons {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     margin: 1.25rem 0;
     align-items: center;
+    max-width: 360px;
+    width: 100%;
     h2 {
       font-family: "Cinzel", serif;
       font-weight: bold;
-      font-size: 1.5rem;
+      font-size: 1.75rem;
       color: $color-secondary;
       @include text-stroke($color-primary-dark);
     }
@@ -46,10 +49,30 @@
       width: 3.75rem;
       height: 3.75rem;
       padding: 0;
-      transition: transform 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s;
+      img {
+        height: 50px;
+        filter: drop-shadow(1px 1px 2px $color-primary-dark);
+      }
+      &:active {
+        transform: translateY(2px);
+        img {
+          filter: drop-shadow(0px 0px 0px $color-primary-dark);
+        }
+      }
 
       &:hover {
-        transform: scale(1.1);
+        transform: translateY(-2px);
+        img {
+          filter: drop-shadow(2px 2px 2px $color-primary-dark) brightness(1.1);
+        }
+        &:active {
+          transform: translateY(2px);
+          img {
+            filter: drop-shadow(0px 0px 0px $color-primary-dark) brightness(1.2)
+              hue-rotate(95deg);
+          }
+        }
       }
 
       &:disabled {
@@ -103,6 +126,7 @@
 
     @media screen and (max-width: 430px) {
       grid-template-columns: repeat(2, 1fr);
+      grid-gap: 0rem;
     }
     .movie-button-container {
       text-decoration: none;
@@ -132,7 +156,7 @@
         width: 100%;
 
         @media screen and (max-width: 430px) {
-          max-width: 45vw;
+          max-width: 49vw;
           height: 15.625rem;
           padding: 0.188rem;
           font-size: 0.563rem;

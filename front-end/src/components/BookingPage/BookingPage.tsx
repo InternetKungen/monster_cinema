@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "./BookingPage.scss";
 import dateIcon from "../../assets/icons/calendar_today_35dp_FCAF00_FILL0_wght400_GRAD0_opsz40.png";
@@ -6,6 +6,9 @@ import timeIcon from "../../assets/icons/schedule_35dp_FCAF00_FILL0_wght400_GRAD
 import hallIcon from "../../assets/icons/icon-cinema-fatter.png";
 import { Container, Row } from "react-bootstrap";
 import { io, Socket } from "socket.io-client";
+import Popup from "../Popup/Popup";
+import BookingModal from "../BookingModal/BookingModal";
+import { UserContext } from "../../UserContext";
 
 interface Seat {
   seat: {
@@ -64,6 +67,16 @@ interface BookingPageProps {
 
 //Static price for ordinary tickets
 const ORDINARY_PRICE = 140;
+
+const formatRuntime = (minutes: number) => {
+  const hours = Math.floor(minutes / 60);
+  const remainingMinutes = minutes % 60;
+  if (hours > 1) {
+    return `${hours} timmar ${remainingMinutes} minuter`;
+  } else {
+    return `${hours} timme ${remainingMinutes} minuter`;
+  }
+};
 
 const calculateEndTime = (startTime: string, length: number): string => {
   const [hours, minutes] = startTime.split(":").map(Number);
@@ -125,6 +138,8 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
   const [totalAmount, setTotalAmount] = useState<number>(0);
   const [ticketTypes, setTicketTypes] = useState<TicketType[]>([]);
   const [ticketCounts, setTicketCounts] = useState<Record<string, number>>({});
+  const [dynamicMarginBottom, setDynamicMarginBottom] = useState("18rem");
+  const { user } = useContext(UserContext);
   const socketRef = useRef<Socket | null>(null);
 
   useEffect(() => {
@@ -148,6 +163,32 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
       }
     };
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      setEmail(user.email);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    const calculateDynamicMarginBottom = () => {
+      const baseMargin = 11; // Bas-marginal i rem
+      const additionalMarginPerType = 2.3; // Extra marginal per ticketType
+      const totalTicketTypes = ticketTypes.length;
+      const calculatedMargin =
+        baseMargin + additionalMarginPerType * totalTicketTypes;
+      setDynamicMarginBottom(`${calculatedMargin}rem`);
+    };
+
+    calculateDynamicMarginBottom();
+  }, [ticketTypes]);
+
+  useEffect(() => {
+    document.documentElement.style.setProperty(
+      "--dynamic-margin-bottom",
+      dynamicMarginBottom
+    );
+  }, [dynamicMarginBottom]);
 
   useEffect(() => {
     document.body.classList.add("hide-footer");
@@ -232,7 +273,7 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
       // Add the seat only if the number of selected seats is less than the total ticket count
       setSelectedSeats((prev) => [...prev, seatId]);
     } else {
-      alert("You have selected the maximum number of seats allowed.");
+      setError("Du behöver biljetter till alla platser.");
     }
   };
 
@@ -260,7 +301,7 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
       const response = await fetch("/api/ticket");
       const data = await response.json();
       if (!response.ok) {
-        throw new Error(data.message || "Failed to fetch ticket types");
+        throw new Error(data.message || "Misslyckades att hitta biljetter");
       }
       setTicketTypes(data);
       // Initialize ticket counts
@@ -300,7 +341,13 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
 
   const handleBooking = async () => {
     if (!email || selectedSeats.length === 0 || !ageConfirmation) {
-      setError("Please select seats, enter your email, and confirm age");
+      setError(
+        !email
+          ? "Vänligen ange din e-postadress."
+          : selectedSeats.length === 0
+          ? "Vänligen välj platser."
+          : "Vänligen bekräfta att du är medveten om filmens åldersgräns."
+      );
       return;
     }
 
@@ -332,7 +379,7 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Failed to create booking");
+        throw new Error(data.error || "Misslyckades skapa bokning");
       }
 
       // Emittera book-seat händelser med socket
@@ -359,19 +406,15 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
 
   const closeModal = () => {
     setShowModal(false);
-    navigate(`/booking-confirmation/${bookingStatus?.bookingNumber}`);
+    navigate(`/profile`);
   };
 
   if (loading) {
     return <div className="container">Loading...</div>;
   }
 
-  if (error) {
-    return <div className="error-message">{error}</div>;
-  }
-
   return (
-    <Container className="g-0 p-0 p-md-2">
+    <Container className="g-0 p-md-2">
       <Row className="w-100 g-0">
         <div className="booking-information col-md-12 col-lg-8 g-0">
           {/* Section 1: Showtime Info */}
@@ -385,10 +428,21 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
               <div className="booking-information-header__top">
                 <h1>{movie?.title}</h1>
                 <p>
-                  Tal: {movie?.language}, Undertexter: {movie?.subtitles}
+                  <span className="label">Tal:</span>{" "}
+                  {capitalize(movie?.language || "")}
                 </p>
-                <p>Genre: {movie?.genre.join(", ")}</p>
-                <p>Speltid: {movie?.length} minuter</p>
+                <p>
+                  <span className="label">Undertexter:</span>{" "}
+                  {capitalize(String(movie?.subtitles))}
+                </p>
+                <p>
+                  <span className="label">Genre:</span>{" "}
+                  {movie?.genre.join(", ")}
+                </p>
+                <p>
+                  <span className="label">Speltid:</span>{" "}
+                  {formatRuntime(movie?.length || 0)}
+                </p>
               </div>
               <div className="booking-information-header__bottom">
                 <p>
@@ -485,15 +539,21 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
 
             {/* Section 4: Contact Information */}
             <div className="contact-info">
-              <h3>Biljettleverans</h3>
-              <p>För att boka biljetter, ange din e-postadress.</p>
-              <input
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="email-input"
-              />
+              {user ? (
+                <h3>Välkommen, {user.firstName || user.email}!</h3>
+              ) : (
+                <>
+                  <h3>Biljettleverans</h3>
+                  <p>För att boka biljetter, ange din e-postadress.</p>
+                  <input
+                    type="email"
+                    placeholder="Ange din e-postadress"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="email-input"
+                  />
+                </>
+              )}
             </div>
 
             {/* Section 5: Age Confirmation */}
@@ -520,36 +580,33 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
                 className="book-button"
                 onClick={handleBooking}
                 type="button"
+                disabled={
+                  !email || selectedSeats.length === 0 || !ageConfirmation
+                }
               >
-                <h1>Köp biljett!</h1>
+                <h1>
+                  {selectedSeats.length > 1
+                    ? "Boka biljetter!"
+                    : "Boka biljett!"}
+                </h1>
               </button>
             </div>
           </div>
         </div>
 
         {showModal && (
-          <div className="booking-modal">
-            <div className="booking-modal-content">
-              <h2>Bokningsbekräftelse</h2>
-              {bookingStatus?.success ? (
-                <>
-                  <p>Bokningen genomfördes</p>
-                  <p>Ditt bokningsnummer:</p>
-                  <h3>{bookingStatus.bookingNumber}</h3>
-
-                  <p>Information har skickats till angiven e-postadress</p>
-                  <button onClick={closeModal}>Stäng</button>
-                </>
-              ) : (
-                <>
-                  <p>{bookingStatus?.message}</p>
-                  <button onClick={closeModal} type="button">
-                    Stäng
-                  </button>
-                </>
-              )}
-            </div>
-          </div>
+          <BookingModal
+            showModal={showModal}
+            closeModal={closeModal}
+            bookingStatus={bookingStatus}
+            movie={movie}
+            showtime={showtime}
+            selectedSeats={selectedSeats}
+            seats={seats}
+            ticketCounts={ticketCounts}
+            totalAmount={totalAmount}
+            email={email}
+          />
         )}
 
         {/* Section 6: Total Amount - Aside */}
@@ -596,6 +653,15 @@ const BookingPage: React.FC<BookingPageProps> = ({ showtimeId }) => {
           </div>
         </div>
       </Row>
+      {error && (
+        <div className="popup-overlay">
+          <Popup
+            title="Information saknas"
+            info={error}
+            onClose={() => setError(null)}
+          />
+        </div>
+      )}
     </Container>
   );
 };
