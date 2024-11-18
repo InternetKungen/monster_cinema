@@ -15,6 +15,8 @@ Contributers in this repository are:
 Feel free to read up on the requirements set by our teacher here: 
 https://fe23-kyh.lms.nodehill.se/article/projektarbete-filmvisarna-fe23
 
+## EndPoints: 
+
 ## Installation
 
 Follow these steps to get the project running on your local machine: 
