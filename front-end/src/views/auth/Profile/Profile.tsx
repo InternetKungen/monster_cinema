@@ -50,7 +50,7 @@ const Profile: React.FC = () => {
 
   const fetchBookings = async () => {
     try {
-      const response = await fetch("/api/user/tickets", {
+      const response = await fetch("/api/user/bookings", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -98,7 +98,7 @@ const Profile: React.FC = () => {
 
     try {
       const response = await fetch(
-        `/api/user/remove-ticket/${selectedBooking.bookingNumber}`,
+        `/api/user/cancel-booking/${selectedBooking.bookingNumber}`,
         {
           method: "DELETE",
           headers: {
