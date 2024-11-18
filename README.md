@@ -1,6 +1,6 @@
-# Cinema Website
+# Front-end Project
 
-Welcome to the official repository for MosterBio, which is a group project for our school course in front-end. 
+Welcome to the official repository for MosterBio - a cinema website, which is a group project for our school course in front-end. 
 Contributers in this repository are: 
 - [internetKungen](https://github.com/InternetKungen)
 - [roudi22](https://github.com/Roudi22)
@@ -11,11 +11,11 @@ Contributers in this repository are:
 
 ## Requirments 
 Feel free to read up on the requirements set by our teacher here: 
-
+https://fe23-kyh.lms.nodehill.se/article/projektarbete-filmvisarna-fe23
 
 ## Installation
 
-Follow these steps to get the project running on your local machine.
-
-### Prerequisites
-
+Follow these steps to get the project running on your local machine: 
+-
+-
+-
