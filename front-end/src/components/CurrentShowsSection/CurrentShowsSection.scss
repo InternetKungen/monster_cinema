@@ -22,6 +22,7 @@
     background: linear-gradient(to left, #000f26, #045685, #000f26);
     border: 0.125rem solid #000f26;
     border-radius: 0.313rem;
+    @include texture-cracks(20%);
   }
 
   .navigation-buttons {

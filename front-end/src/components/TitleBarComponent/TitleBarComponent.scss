@@ -10,13 +10,16 @@ $color-primary-dark: #000f26;
     width: 100%;
     // max-width: 75rem;
     margin-top: 1.5rem;
-    background: linear-gradient(to left, #000f26, #045685, #000f26);
+    // background: linear-gradient(to left, #000f26, #045685, #000f26);
     border: 0.125rem solid #000f26;
     border-radius: 0.313rem;
     font-size: 1.75rem;
     font-family: "Cinzel", serif;
     font-weight: bold;
     color: $color-secondary;
+
+    @include texture-cracks(6%);
+
     @include text-stroke($color-primary-dark);
   }
 }
