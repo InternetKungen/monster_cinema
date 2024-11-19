@@ -1,8 +1,15 @@
 //Text-stroke
 @mixin text-stroke($color) {
-  text-shadow:
-    -1px -1px 0 $color,
-    1px -1px 0 $color,
-    -1px 1px 0 $color,
+  text-shadow: -1px -1px 0 $color, 1px -1px 0 $color, -1px 1px 0 $color,
     1px 1px 0 $color;
+}
+
+//Texture-cracks - change position% for different cracks
+@mixin texture-cracks($position) {
+  background: url("../../assets/img/cracked_line_distressed_cement_wall.jpg")
+      repeat,
+    linear-gradient(to left, #000f26, #045685, #000f26);
+  background-size: cover;
+  background-blend-mode: multiply;
+  background-position: 0% $position;
 }
