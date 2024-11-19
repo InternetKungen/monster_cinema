@@ -115,146 +115,217 @@
     }
   }
 
-  .movie-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    grid-gap: 0.313rem;
-    margin-top: 0.313rem;
-    margin-bottom: 0.313rem;
-    width: 100%;
-
-    @media screen and (max-width: 992px) {
-      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-    }
-
-    @media screen and (max-width: 768px) {
-      grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
-    }
-
-    @media screen and (max-width: 430px) {
-      grid-template-columns: repeat(2, 1fr);
-      grid-gap: 0rem;
-    }
-
-    .movie-button-container {
-      text-decoration: none;
-      display: flex;
-      flex-grow: 1;
-      align-items: center;
-      justify-content: center;
-      padding: 0;
-
-      // width: 40vw;
-      .movie-button {
-        flex-grow: 1;
-        padding: 0.625rem;
-        background: $bg-gradient-movie-button;
-        border: 0.125rem solid $color-primary-dark;
-        border-radius: 0.313rem;
-        cursor: pointer;
-        font-size: 0.75rem;
-        color: $color-white;
-        min-height: 21.875rem;
-        transition: transform 0.2s ease, background 0.4s ease-in-out;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        position: relative;
-        overflow: hidden;
-        width: 100%;
-        @media screen and (min-width: 992px) {
-          min-width: 200px;
+  .movie-grid-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .scroll-button {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s;
+      object-position: center center;
+      z-index: 3;
+      img {
+        filter: brightness(0.9) saturate(1.4);
+        height: 110px;
+      }
+      &:hover {
+        img {
+          filter: brightness(1.1);
         }
+        &:active {
+          img {
+            filter: hue-rotate(-5deg);
+          }
+        }
+      }
+    }
+    .scroll-button.left {
+      transform: translateX(70px);
+      &:hover {
+        transform: translateX(60px);
+        &:active {
+          transform: translateX(40px);
+        }
+      }
+    }
+    .scroll-button.right {
+      transform: translateX(-70px);
+      &:hover {
+        transform: translateX(-60px);
+        &:active {
+          transform: translateX(-40px);
+        }
+      }
+    }
+    @media screen and (max-width: 992px) {
+      .scroll-button.left,
+      .scroll-button.right {
+        display: none;
+      }
+    }
+    .movie-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      grid-gap: 0.313rem;
+      margin-top: 0.313rem;
+      margin-bottom: 0.313rem;
+      width: 100%;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
 
-        @media screen and (max-width: 430px) {
-          max-width: 49vw;
-          height: 15.625rem;
-          padding: 0.188rem;
-          font-size: 0.563rem;
+      -webkit-mask-image: linear-gradient(
+        to right,
+        transparent,
+        black 10%,
+        black 90%,
+        transparent
+      );
+      mask-image: linear-gradient(
+        to right,
+        transparent,
+        black 10%,
+        black 90%,
+        transparent
+      );
 
-          .movie-button__poster {
-            height: 11.25rem;
+      @media screen and (max-width: 992px) {
+        grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+        -webkit-mask-image: none;
+        mask-image: none;
+      }
+
+      @media screen and (max-width: 768px) {
+        grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+      }
+
+      @media screen and (max-width: 430px) {
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 0rem;
+      }
+
+      .movie-button-container {
+        text-decoration: none;
+        display: flex;
+        flex-grow: 1;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+
+        // width: 40vw;
+        .movie-button {
+          flex-grow: 1;
+          padding: 0.625rem;
+          background: $bg-gradient-movie-button;
+          border: 0.125rem solid $color-primary-dark;
+          border-radius: 0.313rem;
+          cursor: pointer;
+          font-size: 0.75rem;
+          color: $color-white;
+          min-height: 21.875rem;
+          transition: transform 0.2s ease, background 0.4s ease-in-out;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          position: relative;
+          overflow: hidden;
+          width: 100%;
+          @media screen and (min-width: 992px) {
+            min-width: 200px;
           }
 
+          @media screen and (max-width: 430px) {
+            max-width: 49vw;
+            height: 15.625rem;
+            padding: 0.188rem;
+            font-size: 0.563rem;
+
+            .movie-button__poster {
+              height: 11.25rem;
+            }
+
+            h2 {
+              font-size: 0.9rem;
+            }
+
+            p {
+              font-size: 0.6rem;
+            }
+
+            .genre {
+              font-size: 0.5rem;
+            }
+
+            .age-restriction {
+              font-size: 0.5rem;
+              padding-left: 0.2vw;
+              padding-right: 0.2vw;
+            }
+          }
           h2 {
-            font-size: 0.9rem;
+            @include text-stroke($color-primary-dark);
+            margin: 0;
+            margin-top: 0.2rem;
+            padding: 0;
+            font-size: 1.2rem;
+            align-self: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+            text-align: center;
+            // max-width: 100%;
           }
 
           p {
-            font-size: 0.6rem;
+            @include text-stroke($color-primary-dark);
+            margin: 0;
+            padding: 0;
+            font-size: 0.9rem;
+            text-align: center;
           }
 
           .genre {
-            font-size: 0.5rem;
+            font-size: 0.75rem;
+            align-self: center;
+          }
+
+          .year {
+            font-size: 0.8rem;
+            display: none;
           }
 
           .age-restriction {
-            font-size: 0.5rem;
-            padding-left: 0.2vw;
-            padding-right: 0.2vw;
+            display: none;
           }
-        }
-        h2 {
-          @include text-stroke($color-primary-dark);
-          margin: 0;
-          margin-top: 0.2rem;
-          padding: 0;
-          font-size: 1.2rem;
-          align-self: center;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          width: 100%;
-          text-align: center;
-          // max-width: 100%;
-        }
 
-        p {
-          @include text-stroke($color-primary-dark);
-          margin: 0;
-          padding: 0;
-          font-size: 0.9rem;
-          text-align: center;
-        }
-
-        .genre {
-          font-size: 0.75rem;
-          align-self: center;
-        }
-
-        .year {
-          font-size: 0.8rem;
-          display: none;
-        }
-
-        .age-restriction {
-          display: none;
-        }
-
-        .movie-button__poster {
-          display: inline-block;
-          position: relative;
-          border-radius: 0.313rem; // Samma som bilden för att matcha hörnen
-          background: linear-gradient(
-            to bottom,
-            $color-primary-dark,
-            $color-primary-light
-          );
-          padding: 0.063rem; // Justera efter behov för att skapa avstånd mellan bilden och gradienten
-          height: 16.625rem;
-          width: 100%;
-
-          img {
-            border-radius: 0.313rem;
+          .movie-button__poster {
+            display: inline-block;
+            position: relative;
+            border-radius: 0.313rem; // Samma som bilden för att matcha hörnen
+            background: linear-gradient(
+              to bottom,
+              $color-primary-dark,
+              $color-primary-light
+            );
+            padding: 0.063rem; // Justera efter behov för att skapa avstånd mellan bilden och gradienten
+            height: 16.625rem;
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-          }
-        }
 
-        &:hover {
-          transform: translateY(-5px);
-          background: $bg-gradient-movie-button-highlight;
+            img {
+              border-radius: 0.313rem;
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+          }
+
+          &:hover {
+            transform: translateY(-5px);
+            background: $bg-gradient-movie-button-highlight;
+          }
         }
       }
     }
