@@ -21,6 +21,34 @@
   margin-top: 0.313rem;
   margin-bottom: 0.313rem;
   width: 100%;
+  max-height: calc(200px * 2 + 0.313rem); // Initial height for two rows
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  opacity: 1;
+
+  &.expanded {
+    max-height: 3000px; // Large enough to accommodate all movies
+    opacity: 1;
+  }
+
+  .movie-item {
+    opacity: 1;
+    transform: scale(0.9);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    animation: movie-item-fade-in 0.5s ease-in-out forwards;
+
+    @keyframes movie-item-fade-in {
+      from {
+        translate: translateX(10px);
+        opacity: 0;
+        transform: scale(0.9) translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+  }
 
   @media screen and (max-width: 992px) {
     grid-template-columns: repeat(

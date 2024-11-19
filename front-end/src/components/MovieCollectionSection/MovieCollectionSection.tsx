@@ -130,7 +130,7 @@ const MovieCollectionSection: React.FC = () => {
         </div>
 
         <div className="movie-grid-container">
-          <div className="movie-grid col-12">
+          <div className={`movie-grid ${showMore ? "expanded" : ""}`}>
             {displayedMovies.map((movie) => (
               <div key={movie._id} className="movie-item">
                 <MovieComponent

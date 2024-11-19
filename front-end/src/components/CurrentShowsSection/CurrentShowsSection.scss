@@ -238,6 +238,19 @@
         align-items: center;
         justify-content: center;
         padding: 0;
+        animation: movie-item-fade-in 0.5s ease-in-out forwards;
+
+        @keyframes movie-item-fade-in {
+          from {
+            translate: translateX(10px);
+            opacity: 0;
+            transform: scale(0.9) translateY(10px);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+          }
+        }
 
         // width: 40vw;
         .movie-button {
