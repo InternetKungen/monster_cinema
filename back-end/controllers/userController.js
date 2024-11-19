@@ -70,9 +70,9 @@ export const removeTicket = async (req, res) => {
       await user.save();
     }
 
-    res.status(200).json({ message: "Ticket removed successfully" });
+    res.status(200).json({ message: "Booking removed successfully" });
   } catch (error) {
-    console.error("Error removing ticket:", error);
+    console.error("Error removing booking:", error);
     res.status(500).json({ error: "Server error" });
   }
 };
