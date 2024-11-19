@@ -3,6 +3,8 @@ import MovieComponent from "../MovieComponent/MovieComponent";
 import "./CurrentShowsSection.scss";
 import leftArrowImg from "../../assets/img/left-arrow-down.png";
 import rightArrowImg from "../../assets/img/right-arrow-down.png";
+import bigRightArrowImg from "../../assets/img/big-arrow-right.png";
+import bigLeftArrowImg from "../../assets/img/big-arrow-left.png";
 
 interface Movie {
   _id: string;
@@ -105,6 +107,18 @@ const CurrentShowsSection: React.FC = () => {
   if (loading) return <div className="loading">Laddar filmer....</div>;
   if (error) return <div className="error">Error: {error}</div>;
 
+  const handleScroll = (distance: number) => {
+    const scrollContainer = document.querySelector(
+      ".current-scroll"
+    ) as HTMLElement;
+    if (scrollContainer) {
+      scrollContainer.scrollBy({
+        left: distance,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
     <section className="container pb-0 g-0 px-md-3">
       <section className="current-shows-section col-12 g-0 p-0">
@@ -132,24 +146,38 @@ const CurrentShowsSection: React.FC = () => {
             </button>
           </section>
         </section>
-        <section className="movie-grid col-12 current-scroll">
-          {uniqueMovies.length > 0 ? (
-            uniqueMovies.map((movie) => (
-              <MovieComponent
-                key={movie._id}
-                _id={movie._id}
-                title={movie.title}
-                year={movie.year}
-                poster={movie.poster}
-                genre={movie.genre}
-                ageRestriction={movie.ageRestriction}
-              />
-            ))
-          ) : (
-            <p className="no-movies">
-              Idag visar vi inga filmer, prova en annan dag
-            </p>
-          )}
+        <section className="movie-grid-wrapper">
+          <button
+            className="scroll-button left"
+            onClick={() => handleScroll(-900)}
+          >
+            <img src={bigLeftArrowImg} alt="Scroll left" />
+          </button>
+          <section className="movie-grid col-12 current-scroll">
+            {uniqueMovies.length > 0 ? (
+              uniqueMovies.map((movie) => (
+                <MovieComponent
+                  key={movie._id}
+                  _id={movie._id}
+                  title={movie.title}
+                  year={movie.year}
+                  poster={movie.poster}
+                  genre={movie.genre}
+                  ageRestriction={movie.ageRestriction}
+                />
+              ))
+            ) : (
+              <p className="no-movies">
+                Idag visar vi inga filmer, prova en annan dag
+              </p>
+            )}
+          </section>
+          <button
+            className="scroll-button right"
+            onClick={() => handleScroll(900)}
+          >
+            <img src={bigRightArrowImg} alt="Scroll right" />
+          </button>
         </section>
       </section>
     </section>
