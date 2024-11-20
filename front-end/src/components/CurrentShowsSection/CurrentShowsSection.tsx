@@ -107,13 +107,16 @@ const CurrentShowsSection: React.FC = () => {
   if (loading) return <div className="loading">Laddar filmer....</div>;
   if (error) return <div className="error">Error: {error}</div>;
 
+  const cardWidth = 200; // Exempelbredd på varje MovieComponent-kort
   const handleScroll = (distance: number) => {
     const scrollContainer = document.querySelector(
       ".current-scroll"
     ) as HTMLElement;
+
     if (scrollContainer) {
+      const distanceToScroll = distance * cardWidth;
       scrollContainer.scrollBy({
-        left: distance,
+        left: distanceToScroll,
         behavior: "smooth",
       });
     }
@@ -129,6 +132,7 @@ const CurrentShowsSection: React.FC = () => {
               className="arrow-button previous"
               onClick={handlePreviousDay}
               disabled={isToday}
+              onContextMenu={(e) => e.preventDefault()}
             >
               {/* &#8592; Vänster pil */}
               <img src={leftArrowImg} alt="left arrow for navigation" />
@@ -140,20 +144,22 @@ const CurrentShowsSection: React.FC = () => {
               className="arrow-button next"
               onClick={handleNextDay}
               disabled={isEndOfWeek}
+              onContextMenu={(e) => e.preventDefault()}
             >
               <img src={rightArrowImg} alt="right arrow for navigation" />
               {/* &#8594; Höger pil */}
             </button>
           </section>
         </section>
-        <section className="movie-grid-wrapper">
+        <section className="current-movie-grid-wrapper">
           <button
             className="scroll-button left"
-            onClick={() => handleScroll(-900)}
+            onClick={() => handleScroll(-3)}
+            onContextMenu={(e) => e.preventDefault()}
           >
             <img src={bigLeftArrowImg} alt="Scroll left" />
           </button>
-          <section className="movie-grid col-12 current-scroll">
+          <section className="current-movie-grid col-12 current-scroll">
             {uniqueMovies.length > 0 ? (
               uniqueMovies.map((movie) => (
                 <MovieComponent
@@ -167,14 +173,15 @@ const CurrentShowsSection: React.FC = () => {
                 />
               ))
             ) : (
-              <p className="no-movies">
-                Idag visar vi inga filmer, prova en annan dag
-              </p>
+              <div className="no-movies">
+                <p>Idag visar vi inga filmer, prova en annan dag</p>
+              </div>
             )}
           </section>
           <button
             className="scroll-button right"
-            onClick={() => handleScroll(900)}
+            onClick={() => handleScroll(3)}
+            onContextMenu={(e) => e.preventDefault()}
           >
             <img src={bigRightArrowImg} alt="Scroll right" />
           </button>
