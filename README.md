@@ -12,7 +12,7 @@ Contributers in this repository are:
 ## Visit the website here: 
 
 ## Requirements 
-Feel free to read up on the requirements and user stories: 
+Feel free to read up on the requirements and user stories here: 
 https://fe23-kyh.lms.nodehill.se/article/projektarbete-filmvisarna-fe23
 
 ## API Endpoints: 
