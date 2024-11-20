@@ -174,7 +174,7 @@ const CurrentShowsSection: React.FC = () => {
               ))
             ) : (
               <div className="no-movies">
-                <p>Idag visar vi inga filmer, prova en annan dag</p>
+                <p>Inga visningar för denna dag, prova en annan dag</p>
               </div>
             )}
           </section>

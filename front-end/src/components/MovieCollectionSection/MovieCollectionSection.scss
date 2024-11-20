@@ -21,19 +21,18 @@
   margin-top: 0.313rem;
   margin-bottom: 0.313rem;
   width: 100%;
-  max-height: calc(179px * 2 + 0.313rem); // Initial height for two rows
+  max-height: calc(22.5rem * 1 + 0.213rem); // Initial height for two rows
   overflow: hidden;
   transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
   opacity: 1;
 
   &.expanded {
-    max-height: 5000px; // Large enough to accommodate all movies
+    max-height: calc(22.5rem * 10);
     opacity: 1;
   }
 
   .movie-item {
     opacity: 1;
-    // transform: scale(0.9);
     transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
     animation: movie-item-fade-in 0.5s ease-in-out forwards;
 
@@ -52,6 +51,7 @@
 
   @media screen and (max-width: 992px) {
     grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    max-height: calc(22.5rem * 4 + 0.413rem); // Initial height for two rows
     grid-gap: 0.188rem;
   }
 
@@ -63,6 +63,7 @@
   @media screen and (max-width: 430px) {
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 0rem;
+    max-height: calc(22.5rem * 3 + 0.413rem); // Initial height for two rows
   }
 }
 
