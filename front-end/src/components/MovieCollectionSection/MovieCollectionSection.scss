@@ -1,4 +1,4 @@
-.movie-grid-container {
+.movie-collection-grid-container {
   padding: 0.313rem;
   background-color: transparent;
   max-width: 100%;
@@ -14,60 +14,61 @@
     padding: 0rem;
   }
 }
-.movie-grid {
+.movie-collection-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   grid-gap: 0.313rem;
   margin-top: 0.313rem;
   margin-bottom: 0.313rem;
   width: 100%;
+  max-height: calc(22.5rem * 1 + 0.213rem); // Initial height for two rows
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  opacity: 1;
+
+  &.expanded {
+    max-height: calc(22.5rem * 10);
+    opacity: 1;
+  }
+
+  .movie-item {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    animation: movie-item-fade-in 0.5s ease-in-out forwards;
+
+    @keyframes movie-item-fade-in {
+      from {
+        translate: translateX(10px);
+        opacity: 0;
+        transform: scale(0.9) translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+  }
 
   @media screen and (max-width: 992px) {
-    grid-template-columns: repeat(
-      auto-fill,
-      minmax(170px, 1fr)
-    ); // Visa två kolumner på mycket små skärmar
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    max-height: calc(22.5rem * 4 + 0.413rem); // Initial height for two rows
     grid-gap: 0.188rem;
   }
 
   @media screen and (max-width: 768px) {
-    grid-template-columns: repeat(
-      auto-fill,
-      minmax(165px, 1fr)
-    ); // Visa två kolumner på många skärmar
+    grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
     grid-gap: 0rem;
   }
 
   @media screen and (max-width: 430px) {
-    grid-template-columns: repeat(
-      2,
-      1fr
-    ); // Visa två kolumner på mycket små skärmar'
+    grid-template-columns: repeat(2, 1fr);
     grid-gap: 0rem;
+    max-height: calc(22.5rem * 3 + 0.413rem); // Initial height for two rows
   }
 }
 
-// .btn-secondary {
-// 	background-color: $color-secondary !important;
-// 	border-color: $color-secondary !important;
-// 	color:$color-primary-dark !important;
-// 	font-family: "Cinzel", serif !important;
-//     font-weight: bold !important;
-//     font-size: 16px !important;
-
-// 	&:hover,
-// 	&:active,
-// 	&:focus {
-// 	background-color: $color-select !important;
-// 	border-color: $color-select !important;
-// 	color:$color-primary-dark !important;
-
-// 	}
-// }
 .sorting-button-container {
   display: flex;
-  // border-bottom: 1px solid $color-primary-dark;
-  // border-radius: 5px 5px 0 0;
   overflow: hidden;
   button {
     border: none;
@@ -75,12 +76,10 @@
   .filter-button {
     flex-grow: 1;
     background-color: $color-secondary;
-    // border-color: $color-secondary;
     color: $color-primary-dark;
     font-family: "Roboto", sans-serif;
     font-weight: 500;
     font-size: 1rem;
-    // font-style: normal;
     border-right: 0.063rem solid $color-primary-dark;
     border-left: 0.063rem solid $color-primary-dark;
     border-top: 0.063rem solid $color-primary-dark;
