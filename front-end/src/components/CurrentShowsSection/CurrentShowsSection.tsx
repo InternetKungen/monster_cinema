@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import MovieComponent from "../MovieComponent/MovieComponent";
 import "./CurrentShowsSection.scss";
 import leftArrowImg from "../../assets/img/left-arrow-down.png";
@@ -34,8 +34,15 @@ const CurrentShowsSection: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [isLeftScrollVisible, setIsLeftScrollVisible] = useState(false);
+  const [isRightScrollVisible, setIsRightScrollVisible] = useState(false);
+  const [isHoveringLeft, setIsHoveringLeft] = useState(false);
+  const [isActiveLeft, setIsActiveLeft] = useState(false);
+  const [isHoveringRight, setIsHoveringRight] = useState(false);
+  const [isActiveRight, setIsActiveRight] = useState(false);
 
-  // Ställ in idag som referens för datumnavigation
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
   const today = new Date();
   today.setHours(0, 0, 0, 0); // Set to midnight
 
@@ -69,13 +76,42 @@ const CurrentShowsSection: React.FC = () => {
     fetchWeeklyShowtimes();
   }, []);
 
+  const checkScrollPosition = () => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } =
+        scrollContainerRef.current;
+
+      // Check left scroll button visibility
+      setIsLeftScrollVisible(scrollLeft > 0);
+
+      // Check right scroll button visibility
+      // Use a small tolerance to account for potential rounding issues
+      setIsRightScrollVisible(scrollLeft + clientWidth < scrollWidth - 5);
+    }
+  };
+
+  useEffect(() => {
+    // Initial check
+    checkScrollPosition();
+
+    // Add scroll event listener
+    const currentRef = scrollContainerRef.current;
+    if (currentRef) {
+      currentRef.addEventListener("scroll", checkScrollPosition);
+
+      // Cleanup listener
+      return () =>
+        currentRef.removeEventListener("scroll", checkScrollPosition);
+    }
+  }, []);
+
   const formattedSelectedDate = selectedDate.toISOString().split("T")[0];
   const showtimes = allShowtimes[formattedSelectedDate] || []; // Hämta showtimes för det valda datumet
 
   // Kontrollera om det är idag eller en vecka framåt
   const isToday = selectedDate.toDateString() === new Date().toDateString();
-  const endOfWeek = new Date(today); // Kopia av today för slutdatum
-  endOfWeek.setDate(today.getDate() + 6);
+  const endOfWeek = new Date();
+  endOfWeek.setDate(new Date().getDate() + 6);
   const isEndOfWeek = selectedDate.toDateString() === endOfWeek.toDateString();
 
   // Filtrera unika filmer på ID
@@ -85,6 +121,24 @@ const CurrentShowsSection: React.FC = () => {
     ).values()
   );
 
+  useEffect(() => {
+    checkScrollPosition();
+
+    const currentRef = scrollContainerRef.current;
+    if (currentRef) {
+      currentRef.addEventListener("scroll", checkScrollPosition);
+
+      return () =>
+        currentRef.removeEventListener("scroll", checkScrollPosition);
+    }
+  }, [uniqueMovies]);
+
+  useEffect(() => {
+    // After loading showtimes, check scroll position
+    if (!loading && uniqueMovies.length > 0) {
+      checkScrollPosition();
+    }
+  }, [loading, uniqueMovies]);
   // Hanterar dagsnavigationen
   const handlePreviousDay = () => {
     setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate() - 1)));
@@ -107,15 +161,27 @@ const CurrentShowsSection: React.FC = () => {
   if (loading) return <div className="loading">Laddar filmer....</div>;
   if (error) return <div className="error">Error: {error}</div>;
 
-  const cardWidth = 200; // Exempelbredd på varje MovieComponent-kort
+  // const handleScroll = (distance: number) => {
+  //   if (scrollContainerRef.current) {
+  //     const cardWidth = 200; // Exempelbredd på varje MovieComponent-kort
+  //     const distanceToScroll = distance * cardWidth;
+  //     scrollContainerRef.current.scrollBy({
+  //       left: distanceToScroll,
+  //       behavior: "smooth",
+  //     });
+  //   }
+  // };
   const handleScroll = (distance: number) => {
-    const scrollContainer = document.querySelector(
-      ".current-scroll"
-    ) as HTMLElement;
+    console.log("Scroll called with distance:", distance);
+    console.log("Scroll container:", scrollContainerRef.current);
+    console.log("Movies count:", uniqueMovies.length);
 
-    if (scrollContainer) {
+    if (scrollContainerRef.current) {
+      const cardWidth = 200;
       const distanceToScroll = distance * cardWidth;
-      scrollContainer.scrollBy({
+      console.log("Scrolling by:", distanceToScroll);
+
+      scrollContainerRef.current.scrollBy({
         left: distanceToScroll,
         behavior: "smooth",
       });
@@ -152,14 +218,39 @@ const CurrentShowsSection: React.FC = () => {
           </section>
         </section>
         <section className="current-movie-grid-wrapper">
-          <button
-            className="scroll-button left"
-            onClick={() => handleScroll(-3)}
-            onContextMenu={(e) => e.preventDefault()}
+          {isLeftScrollVisible && (
+            <button
+              className={`scroll-button left ${
+                isLeftScrollVisible ? "visible-state" : ""
+              } ${isHoveringLeft ? "hover-state" : ""} ${
+                isActiveLeft ? "active-state" : ""
+              }`}
+              onContextMenu={(e) => e.preventDefault()}
+              onMouseEnter={() => setIsHoveringLeft(true)}
+              onMouseLeave={() => setIsHoveringLeft(false)}
+              onMouseDown={() => setIsActiveLeft(true)}
+              onMouseUp={() => setIsActiveLeft(false)}
+              onClick={() => handleScroll(-3)}
+            >
+              <img src={bigLeftArrowImg} alt="Scroll left" />
+            </button>
+          )}
+          {/* {isLeftScrollVisible && (
+            <button
+              className={`scroll-button left ${
+                isLeftScrollVisible ? "visible-state" : ""
+              }`}
+              onClick={() => handleScroll(-3)}
+              onContextMenu={(e) => e.preventDefault()}
+              type="button"
+            >
+              <img src={bigLeftArrowImg} alt="Scroll left" />
+            </button>
+          )} */}
+          <section
+            ref={scrollContainerRef}
+            className="current-movie-grid col-12 current-scroll"
           >
-            <img src={bigLeftArrowImg} alt="Scroll left" />
-          </button>
-          <section className="current-movie-grid col-12 current-scroll">
             {uniqueMovies.length > 0 ? (
               uniqueMovies.map((movie) => (
                 <MovieComponent
@@ -178,13 +269,34 @@ const CurrentShowsSection: React.FC = () => {
               </div>
             )}
           </section>
-          <button
-            className="scroll-button right"
-            onClick={() => handleScroll(3)}
-            onContextMenu={(e) => e.preventDefault()}
-          >
-            <img src={bigRightArrowImg} alt="Scroll right" />
-          </button>
+          {isRightScrollVisible && (
+            <button
+              className={`scroll-button right ${
+                isRightScrollVisible ? "visible-state" : ""
+              } ${isHoveringRight ? "hover-state" : ""} ${
+                isActiveRight ? "active-state" : ""
+              }`}
+              onContextMenu={(e) => e.preventDefault()}
+              onMouseEnter={() => setIsHoveringRight(true)}
+              onMouseLeave={() => setIsHoveringRight(false)}
+              onMouseDown={() => setIsActiveRight(true)}
+              onMouseUp={() => setIsActiveRight(false)}
+              onClick={() => handleScroll(3)}
+            >
+              <img src={bigRightArrowImg} alt="Scroll right" />
+            </button>
+          )}
+          {/* {isRightScrollVisible && (
+            <button
+              className={`scroll-button right ${
+                isRightScrollVisible ? "visible-state" : ""
+              }`}
+              onClick={() => handleScroll(3)}
+              onContextMenu={(e) => e.preventDefault()}
+            >
+              <img src={bigRightArrowImg} alt="Scroll right" />
+            </button>
+          )} */}
         </section>
       </section>
     </section>

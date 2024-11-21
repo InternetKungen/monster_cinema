@@ -129,13 +129,37 @@
     align-items: center;
     justify-content: center;
     min-height: calc($movie-button-min-height + 0.976rem);
+
     .scroll-button {
+      position: absolute;
+      top: calc(50% - 55px);
       background: transparent;
       border: none;
       cursor: pointer;
-      transition: transform 0.2s;
+      transition: transform 0.2s ease;
       object-position: center center;
       z-index: 3;
+      opacity: 1;
+
+      &.visible-state {
+        animation: scroll-button-fade-in 0.5s ease-in-out forwards;
+      }
+
+      @keyframes scroll-button-fade-in {
+        0% {
+          opacity: 0;
+          scale: 0.9;
+        }
+        50% {
+          opacity: 1;
+          scale: 1.2;
+        }
+        100% {
+          opacity: 1;
+          scale: 1;
+        }
+      }
+
       img {
         filter: brightness(0.9) saturate(1.4);
         height: 110px;
@@ -150,41 +174,45 @@
           }
         }
       }
-    }
-    .scroll-button.left {
-      transform: translateX(70px);
-      &:hover {
-        transform: translateX(60px);
-        &:active {
-          transform: translateX(40px);
+      &.left {
+        left: -40px;
+        &.hover-state {
+          transform: translateX(-10px);
+        }
+        &.active-state {
+          transform: translateX(-30px);
+        }
+      }
+      &.right {
+        right: -40px;
+        &.hover-state {
+          transform: translateX(10px);
+        }
+        &.active-state {
+          transform: translateX(30px);
         }
       }
     }
-    .scroll-button.right {
-      transform: translateX(-70px);
-      &:hover {
-        transform: translateX(-60px);
-        &:active {
-          transform: translateX(-40px);
-        }
-      }
-    }
+
     @media screen and (max-width: 1460px) {
-      .scroll-button.left {
-        transform: translateX(100px);
-        &:hover {
-          transform: translateX(90px);
-          &:active {
-            transform: translateX(70px);
+      .scroll-button {
+        &.left {
+          left: -30px;
+          &.hover-state {
+            transform: translateX(-5px);
+          }
+          &.active-state {
+            transform: translateX(-30px);
           }
         }
-      }
-      .scroll-button.right {
-        transform: translateX(-100px);
-        &:hover {
-          transform: translateX(-90px);
-          &:active {
-            transform: translateX(-70px);
+
+        &.right {
+          right: -30px;
+          &.hover-state {
+            transform: translateX(5px);
+          }
+          &.active-state {
+            transform: translateX(40px);
           }
         }
       }
@@ -195,6 +223,7 @@
         display: none;
       }
     }
+
     .current-movie-grid {
       display: flex;
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
