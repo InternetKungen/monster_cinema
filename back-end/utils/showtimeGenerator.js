@@ -5,7 +5,6 @@ import Seat from "../models/Seat.js";
 
 class ShowtimeGenerator {
   constructor() {
-    this.isActive = false;
     this.openingHours = {
       1: { start: "08:00", end: "21:00" }, // Måndag
       2: { start: "08:00", end: "21:00" }, // Tisdag
@@ -15,16 +14,6 @@ class ShowtimeGenerator {
       6: { start: "08:00", end: "23:59" }, // Lördag
       0: { start: "10:00", end: "23:59" }, // Söndag
     };
-  }
-
-  activate() {
-    this.isActive = true;
-    console.log("Showtime generator is active.");
-  }
-
-  deactivate() {
-    this.isActive = false;
-    console.log("Showtime generator is inactive.");
   }
 
   timeToMinutes(timeStr) {
@@ -56,8 +45,6 @@ class ShowtimeGenerator {
   }
 
   async generateShowtimesForDay(date) {
-    if (!this.isActive) return;
-
     try {
       const dayOfWeek = new Date(date).getDay();
       const { start, end } = this.openingHours[dayOfWeek];
@@ -165,9 +152,6 @@ export const showtimeGenerator = new ShowtimeGenerator();
 // Exempel på användning:
 // Import i din index.js eller där du vill använda den:
 // import { showtimeGenerator } from './showtimeGenerator.js';
-//
-// // Aktivera generatorn
-// showtimeGenerator.activate();
 //
 // // Generera showtimes för ett specifikt datum
 // await showtimeGenerator.generateShowtimesForDay('2024-11-22');

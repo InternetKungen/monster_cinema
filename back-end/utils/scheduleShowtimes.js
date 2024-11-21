@@ -1,10 +1,9 @@
-// scheduleShowtimes.js
+// utils/scheduleShowtimes.js
 
 import { showtimeGenerator } from "./showtimeGenerator.js";
 
-// Generera showtimes för nästa vecka
-export const generateShowtimesForNextWeek = async () => {
-  for (let i = 0; i < 7; i++) {
+const generateShowtimesForNextTwoWeeks = async () => {
+  for (let i = 0; i < 14; i++) {
     const date = new Date();
     date.setDate(date.getDate() + i);
     await showtimeGenerator.generateShowtimesForDay(
@@ -24,7 +23,7 @@ const scheduleDailyShowtimeGeneration = () => {
   const timeToMidnight = tomorrow - now;
 
   setTimeout(async () => {
-    await generateShowtimesForNextWeek();
+    await generateShowtimesForNextTwoWeeks();
     scheduleDailyShowtimeGeneration(); // Schemalägg nästa körning
   }, timeToMidnight);
 };
@@ -32,4 +31,5 @@ const scheduleDailyShowtimeGeneration = () => {
 // Initiera schemaläggning
 export const initializeShowtimeScheduler = () => {
   scheduleDailyShowtimeGeneration();
+  console.log("Showtime scheduler initialized");
 };
