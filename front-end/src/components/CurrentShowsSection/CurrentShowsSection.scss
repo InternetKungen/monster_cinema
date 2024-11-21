@@ -320,25 +320,16 @@
           h2 {
             position: absolute;
             bottom: 1rem;
-            @include text-stroke($color-highlight);
             margin: 0;
             padding: 0 0 0.5rem 0;
-            font-size: 1.9rem;
             align-self: center;
             white-space: normal;
             overflow: hidden;
             text-overflow: ellipsis;
             width: 100%;
             text-align: center;
-
-            font-family: "Creepster", system-ui;
-            font-weight: 400;
-            font-style: normal;
             color: $color-text-white;
             z-index: 2;
-
-            -webkit-text-stroke: $color-primary-dark 0.125rem;
-            -webkit-text-stroke-width: 0.065rem;
 
             display: -webkit-box; // För att stödja radbegränsning
             -webkit-box-orient: vertical; // Vertikal layout
@@ -346,9 +337,26 @@
             line-clamp: 2;
             line-height: 1.8rem;
 
+            /* Roboto font */
+            font-size: 1.2rem;
+            font-family: "Roboto", system-ui;
+            font-weight: 500;
+            @include text-stroke($color-primary-dark);
             @media screen and (max-width: 768px) {
-              font-size: 1.5rem;
+              font-size: 1.1rem;
             }
+
+            /* Creepster font */
+            // font-size: 1.9rem;
+            // font-family: "Creepster", system-ui;
+            // font-weight: 400;
+            // font-style: normal;
+            // -webkit-text-stroke: $color-primary-dark 0.125rem;
+            // -webkit-text-stroke-width: 0.065rem;
+            // @include text-stroke($color-highlight);
+            // @media screen and (max-width: 768px) {
+            //   font-size: 1.5rem;
+            // }
           }
 
           p {

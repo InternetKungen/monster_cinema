@@ -13,6 +13,7 @@ import { Server } from "socket.io";
 import http from "http";
 import path from "path";
 import { updateSeatStatus } from "./utils/seatUtils.js";
+import { initializeShowtimeScheduler } from "./utils/scheduleShowtimes.js";
 
 dotenv.config();
 
@@ -62,10 +63,13 @@ io.on("connection", (socket) => {
 });
 
 // Starta servern
-server.listen(process.env.PORT, () => {
+server.listen(process.env.PORT, async () => {
   try {
     connectDB();
     console.log("Server started at", process.env.PORT);
+
+    // Starta showtimeGenerator och initializeShowtimeScheduler
+    initializeShowtimeScheduler();
   } catch (error) {
     console.error("Server failed to start");
     process.exit(1);
