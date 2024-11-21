@@ -3,7 +3,7 @@
 import { showtimeGenerator } from "./showtimeGenerator.js";
 
 // Generera showtimes för nästa vecka
-const generateShowtimesForNextWeek = async () => {
+export const generateShowtimesForNextWeek = async () => {
   for (let i = 0; i < 7; i++) {
     const date = new Date();
     date.setDate(date.getDate() + i);

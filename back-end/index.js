@@ -71,7 +71,7 @@ server.listen(process.env.PORT, async () => {
 
     // ShowtimeGenerator - .activate / .deactivate
     showtimeGenerator.activate();
-
+    // await showtimeGenerator.generateShowtimesForDay("2024-11-29");
     // Initiera schemaläggning
     initializeShowtimeScheduler();
   } catch (error) {

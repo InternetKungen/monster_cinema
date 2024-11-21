@@ -44,10 +44,13 @@ class ShowtimeGenerator {
     const minutes = this.timeToMinutes(timeStr);
 
     if (minutes < this.timeToMinutes("15:00")) {
-      return movie.ageRestriction <= 15;
+      // 08:00 - 15:00: Endast filmer med ageRestriction <= 15
+      return movie.ageRestriction <= 11;
     } else if (minutes < this.timeToMinutes("18:00")) {
-      return true; // Alla filmer tillåtna
+      // 15:00 - 18:00: Alla filmer tillåtna
+      return true;
     } else {
+      // Efter 18:00: Endast filmer med ageRestriction >= 11
       return movie.ageRestriction >= 11;
     }
   }
