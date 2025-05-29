@@ -6,7 +6,7 @@
 
 //Texture-cracks - change position% for different cracks
 @mixin texture-cracks($position) {
-  background: url("../../assets/img/cracked_line_distressed_cement_wall.jpg")
+  background: url("../assets/img/cracked_line_distressed_cement_wall.jpg")
       repeat,
     linear-gradient(to left, #000f26, #045685, #000f26);
   background-size: cover;
