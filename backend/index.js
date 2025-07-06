@@ -30,8 +30,11 @@ app.use("/api/user", userRouter);
 app.use("/api/showtime", showtimeRouter);
 app.use("/api/ticket", ticketRouter);
 
-// Servera statiska filer från dist-mappen
-const distPath = path.resolve("..", "front-end", "dist");
+// Servera statiska filer från dist-mappen - old
+// const distPath = path.resolve("..", "frontend", "dist");
+
+// Docker verion
+const distPath = path.resolve("frontend", "dist");
 app.use(express.static(distPath));
 
 // Serve index.html på icke-API-vägar för att stödja SPA-routning
