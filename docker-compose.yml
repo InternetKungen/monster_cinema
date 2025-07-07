@@ -19,8 +19,8 @@ services:
     build:
       context: .
       dockerfile: ./backend/Dockerfile
-    # ports:
-    # - "${PORT}:${PORT}"
+    ports:
+      - "${PORT}:${PORT}"
     env_file:
       - ./backend/.env
     environment:
