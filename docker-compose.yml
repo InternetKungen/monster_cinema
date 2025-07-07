@@ -29,5 +29,5 @@ services:
       - monsterbio-net
     restart: unless-stopped
 
-  networks:
-    monsterbio-net:
+networks:
+  monsterbio-net:
